@@ -1,5 +1,9 @@
-package aventurasdemarcoyluis;
+package aventurasdemarcoyluis.enemies;
 
+
+import aventurasdemarcoyluis.AbstractEntity;
+import aventurasdemarcoyluis.players.AbstractPlayer;
+import aventurasdemarcoyluis.EntityType;
 
 public abstract class AbstractEnemy extends AbstractEntity {
 
@@ -14,7 +18,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
      * @param NAME name of the enemy to deploy (for example, "Mr. Claudio Goomba")
      *
      */
-    public AbstractEnemy(double ATK, double DEF, double FP, double HP, double MAXHP, int LVL, EntityType TYPE, String NAME){
+    public AbstractEnemy(double ATK, double DEF, int FP, double HP, double MAXHP, int LVL, EntityType TYPE, String NAME){
         super(ATK, DEF, FP, HP, MAXHP, LVL, TYPE, NAME);
     }
 

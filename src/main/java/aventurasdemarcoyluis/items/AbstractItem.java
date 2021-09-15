@@ -1,4 +1,7 @@
-package aventurasdemarcoyluis;
+package aventurasdemarcoyluis.items;
+
+import aventurasdemarcoyluis.items.ItemType;
+import aventurasdemarcoyluis.players.AbstractPlayer;
 
 public abstract class AbstractItem {
 

@@ -1,6 +1,10 @@
 import aventurasdemarcoyluis.*;
 
 
+import aventurasdemarcoyluis.enemies.Boo;
+import aventurasdemarcoyluis.enemies.Goomba;
+import aventurasdemarcoyluis.enemies.Spiny;
+import aventurasdemarcoyluis.players.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

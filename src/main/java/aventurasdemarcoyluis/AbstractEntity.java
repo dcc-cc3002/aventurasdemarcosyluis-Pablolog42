@@ -24,7 +24,7 @@ public abstract class AbstractEntity {
      * @param NAME name of the enemy to deploy (for example, "Mr. Claudio Goomba")
      *
      */
-    public AbstractEntity(double ATK, double DEF, double FP, double HP, double MAXHP, int LVL, EntityType TYPE, String NAME){
+    public AbstractEntity(double ATK, double DEF, int FP, double HP, double MAXHP, int LVL, EntityType TYPE, String NAME){
         this.atk=ATK;
         def=DEF;
         hp=HP;
@@ -32,6 +32,7 @@ public abstract class AbstractEntity {
         lvl=LVL;
         type=TYPE;
         name = NAME;
+        fp = FP;
         // By default, every enemy is not KO
         isKO = false;
     }

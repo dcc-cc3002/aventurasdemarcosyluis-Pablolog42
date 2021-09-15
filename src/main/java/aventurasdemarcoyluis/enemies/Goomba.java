@@ -1,4 +1,6 @@
-package aventurasdemarcoyluis;
+package aventurasdemarcoyluis.enemies;
+
+import aventurasdemarcoyluis.EntityType;
 
 public class Goomba extends AbstractEnemy {
 
@@ -14,7 +16,7 @@ public class Goomba extends AbstractEnemy {
      * @param LVL   level of the Unit
      * @param NAME  name of the enemy to deploy (for example, "Mr. Claudio Goomba")
      */
-    public Goomba(double ATK, double DEF, double FP, double HP, double MAXHP, int LVL, String NAME) {
+    public Goomba(double ATK, double DEF, int FP, double HP, double MAXHP, int LVL, String NAME) {
         super(ATK, DEF, FP, HP, MAXHP, LVL, EntityType.GOOMBA, NAME);
     }
 }
