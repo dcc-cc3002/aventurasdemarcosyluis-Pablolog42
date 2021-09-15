@@ -1,0 +1,2 @@
+1. **Como marcos y luis tienen distintos patrones de ataque, se prefiere generar dos subclases de _Players_, en vez de crear dos instancias distintas de esta clase.
+2. Todos los tipos de entidades estan en el "EntityType public enum"
