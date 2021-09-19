@@ -5,6 +5,7 @@ public abstract class AbstractEntity {
     private double atk;
     private double def;
     private int fp;
+    private int maxFP;
     private double hp;
     private double maxHP;
     private int lvl=1;
@@ -14,17 +15,19 @@ public abstract class AbstractEntity {
 
 
     /**
-     * Creates a new AbstractEnemy
+     * Creates a new AbstractEntity
      * @param ATK jumpAttack points
      * @param DEF defense points
      * @param FP FP
+     * @param MAXFP Maximum FP points for the unit
      * @param HP  heal points
+     * @param MAXHP Maximum HP points for the unit
      * @param LVL level of the Unit
      * @param TYPE type of the enemy (see enum "EnemyType")
      * @param NAME name of the enemy to deploy (for example, "Mr. Claudio Goomba")
      *
      */
-    public AbstractEntity(double ATK, double DEF, int FP, double HP, double MAXHP, int LVL, EntityType TYPE, String NAME){
+    public AbstractEntity(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE, String NAME){
         this.atk=ATK;
         def=DEF;
         hp=HP;
@@ -33,7 +36,8 @@ public abstract class AbstractEntity {
         type=TYPE;
         name = NAME;
         fp = FP;
-        // By default, every enemy is not KO
+        maxFP = MAXFP;
+        // By default, every entity is not KO
         isKO = false;
     }
 
@@ -69,7 +73,19 @@ public abstract class AbstractEntity {
         // This is because this method allows to change the "isKO" property (lets an incapacitated player play again if they heal)
         if(0<this.hp){this.setKO(false);}
 
-    };
+    }
+
+    public void restoreFP(int fpToRestore) {
+        int targetFP = this.fp + fpToRestore;
+        // FP can't be more than maxFP
+        if (this.maxFP < targetFP) {
+            this.setFp(maxFP);
+            return;
+        }
+        this.setFp(targetFP);
+    }
+
+
 
     public double computeDmg(double k, AbstractEntity attacker){
         return (k * attacker.atk * attacker.lvl) / this.getDef();
@@ -79,6 +95,7 @@ public abstract class AbstractEntity {
 
 
     // Setters and getters
+
 
 
     public double getAtk() {

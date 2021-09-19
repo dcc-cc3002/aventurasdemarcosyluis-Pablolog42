@@ -15,4 +15,8 @@ public abstract class AbstractItem {
 
     // Only players can use items
     public void useItem(AbstractPlayer player){}
+
+    public ItemType getType(){
+        return itemType;
+    }
 }

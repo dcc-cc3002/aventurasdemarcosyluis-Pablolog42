@@ -19,13 +19,13 @@ public class TestEnemy {
 
     @BeforeEach
     public void setUp() {
-        testGoomba= new Goomba(2,4,15,15,20,1,"Goomba 1");
+        testGoomba= new Goomba(2,4,15,100,15,20,1,"Goomba 1");
 
-        testBoo = new Boo(100,10,100,100, 100,1,"Boo1");
+        testBoo = new Boo(100,10,100,1000,100, 100,1,"Boo1");
 
-        testMarco = new Marco(10,10,10,10,10,2,"Marco Polo");
+        testMarco = new Marco(10,10,10,1000,10,10,2,"Marco Polo");
 
-        testSpiny = new Spiny(10,1,0,1,10,1,"Spiny Boy");
+        testSpiny = new Spiny(10,1,0,100,1,10,1,"Spiny Boy");
     }
 
     @Test
