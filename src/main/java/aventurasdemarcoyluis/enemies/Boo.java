@@ -8,7 +8,6 @@ public class Boo extends AbstractEnemy {
 
     /**
      * Creates a new Boo
-     *
      * @param ATK   jumpAttack points
      * @param DEF   defense points
      * @param FP    FP

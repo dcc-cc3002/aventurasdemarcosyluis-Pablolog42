@@ -25,6 +25,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, TYPE, NAME);
     }
 
+
     public void playerHammerAttacking(AbstractPlayer player) {
         this.receiveDamage(this.computeDmg(1.5, player));
     }

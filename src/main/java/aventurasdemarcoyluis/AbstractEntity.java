@@ -15,14 +15,14 @@ public abstract class AbstractEntity {
 
 
     /**
-     * Creates a new AbstractEntity
+     * Creates a new AbstractEnemy
      * @param ATK jumpAttack points
      * @param DEF defense points
-     * @param FP FP
-     * @param MAXFP Maximum FP points for the unit
-     * @param HP  heal points
-     * @param MAXHP Maximum HP points for the unit
-     * @param LVL level of the Unit
+     * @param FP  FP (mana? points)
+     * @param MAXFP Maximum FP of the unit
+     * @param HP  health points
+     * @param MAXHP Maximum HP of the unit
+     * @param LVL  level of the Unit
      * @param TYPE type of the enemy (see enum "EnemyType")
      * @param NAME name of the enemy to deploy (for example, "Mr. Claudio Goomba")
      *
@@ -41,6 +41,13 @@ public abstract class AbstractEntity {
         isKO = false;
     }
 
+    /**
+     * Infringes a certain amount of damage to an entity
+     * In case the damage inflicted renders the unit K.O. (targetHp <= 0),
+     * sets the isKO field to true. and the character's HP to 0.
+     *
+     * @param damage Damage to inflict to the entity
+     */
     public void receiveDamage(double damage) {
         double targetHp = this.hp - damage;
         if(this.isKO){
@@ -58,6 +65,13 @@ public abstract class AbstractEntity {
         this.hp = targetHp;
     }
 
+    /**
+     * Restores an amount of HP to an entity
+     * In case the entity is K.O., resurrects the entity (sets isKO = false)
+     * In case the targetHp exceeds the entity's maxHP, sets hp = maxHP
+     *
+     * @param hpToRestore The amount of HP to restore to the entity.
+     */
     public void restoreHP(double hpToRestore){
         double targetHP = this.hp + hpToRestore;
 
@@ -75,6 +89,12 @@ public abstract class AbstractEntity {
 
     }
 
+    /**
+     * Restores an amount of FP to an entity
+     * In case the targetFP exceeds the entity's maxHP, sets fp = maxFP
+     *
+     * @param fpToRestore The amount of HP to restore to the entity.
+     */
     public void restoreFP(int fpToRestore) {
         int targetFP = this.fp + fpToRestore;
         // FP can't be more than maxFP
@@ -85,8 +105,13 @@ public abstract class AbstractEntity {
         this.setFp(targetFP);
     }
 
-
-
+    /**
+     * Computes the amount of damage to be inflicted (according to the dmg formula)
+     * when receiving an attack from another AbstractEntity.
+     *
+     * @param k The Base damage multiplier for a given attack
+     * @param attacker The AbstractEntity currently attacking
+     */
     public double computeDmg(double k, AbstractEntity attacker){
         return (k * attacker.atk * attacker.lvl) / this.getDef();
     }
@@ -97,76 +122,51 @@ public abstract class AbstractEntity {
     // Setters and getters
 
 
-
-    public double getAtk() {
-        return atk;
-    }
-
-    public void setAtk(double atk) {
-        this.atk = atk;
-    }
-
+    /* Gets the defense of an entity*/
     public double getDef() {
         return def;
     }
-
-    public void setDef(double def) {
-        this.def = def;
-    }
-
+    /* Gets the current FP of an entity*/
     public int getFp() {
         return fp;
     }
-
-    public void setFp(int fp) {
-        this.fp = fp;
+    /* Gets the current HP of an entity*/
+    public double getMaxFP() {
+        return maxHP;
     }
-
+    /* Gets the current HP of an entity*/
     public double getHp() {
         return hp;
     }
-
-    public void setHp(double hp) {
-        this.hp = hp;
-    }
-
+    /* Gets the maximum HP of an entity*/
     public double getMaxHP() {
         return maxHP;
     }
-
-    public void setMaxHP(double maxHP) {
-        this.maxHP = maxHP;
+    /* Gets the type of an entity*/
+    public EntityType getType() {
+        return type;
     }
-
-    public int getLvl() {
-        return lvl;
+    /* Gets the Name of an entity*/
+    public String getName() {
+        return name;
     }
-
-    public void setLvl(int lvl) {
-        this.lvl = lvl;
-    }
-
+    /* Gets the KO status of an entity*/
     public boolean isKO() {
         return isKO;
     }
 
+
+    /* Sets the current FP of an entity*/
+    public void setFp(int fp) {
+        this.fp = fp;
+    }
+    /* Sets the current HP of an entity*/
+    public void setHp(double hp) {
+        this.hp = hp;
+    }
+    /* Sets the KO status of an entity*/
     public void setKO(boolean KO) {
         isKO = KO;
     }
 
-    public EntityType getType() {
-        return type;
-    }
-
-    public void setType(EntityType type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
