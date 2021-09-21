@@ -83,8 +83,21 @@ public abstract class AbstractPlayer extends AbstractEntity {
      * @param enemy The enemy to send the attack message to
      */
     public void jumpAttack(AbstractEnemy enemy){
+        int cost = 1;
+        int targetFP = this.getFp()-cost;
+
+        if (this.isKO()){
+            System.out.println(this.getName() + " is K.O. and can't attack");
+            return;
+        }
+
+        if (targetFP<0){
+            System.out.println("Not enough FP!");
+            return;
+        }
         enemy.playerJumpAttacking(this);
     }
+
 
     // Receive Attacks
 
