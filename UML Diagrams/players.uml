@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>aventurasdemarcoyluis.players</OriginalElement>
+  <nodes>
+    <node x="420.0" y="403.0">aventurasdemarcoyluis.players.Marco</node>
+    <node x="146.25" y="0.0">aventurasdemarcoyluis.players.AbstractPlayer</node>
+    <node x="0.0" y="403.0">aventurasdemarcoyluis.players.Luis</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="aventurasdemarcoyluis.players.Luis" target="aventurasdemarcoyluis.players.AbstractPlayer" relationship="GENERALIZATION">
+      <point x="0.0" y="-72.0" />
+      <point x="200.0" y="378.0" />
+      <point x="413.75" y="378.0" />
+      <point x="0.0" y="176.5" />
+    </edge>
+    <edge source="aventurasdemarcoyluis.players.Marco" target="aventurasdemarcoyluis.players.AbstractPlayer" relationship="GENERALIZATION">
+      <point x="0.0" y="-72.0" />
+      <point x="627.5" y="378.0" />
+      <point x="413.75" y="378.0" />
+      <point x="0.0" y="176.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="417.5" y="273.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
