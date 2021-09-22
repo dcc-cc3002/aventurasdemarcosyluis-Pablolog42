@@ -7,6 +7,7 @@ public class Star extends AbstractItem {
         super(ItemType.STAR, "Star");
     }
 
+    // TODO COMENTAR ESTO
     @Override
     public void useItem(AbstractPlayer player) {
         player.setInvincible(true);

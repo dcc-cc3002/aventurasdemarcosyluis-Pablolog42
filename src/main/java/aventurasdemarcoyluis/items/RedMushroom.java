@@ -7,6 +7,7 @@ public class RedMushroom extends AbstractItem {
         super(ItemType.REDMUSHROOM, "Red Mushroom");
     }
 
+    // TODO COMENTAR ESTO
     @Override
     public void useItem(AbstractPlayer player) {
         player.restoreHP(0.1 * player.getMaxHP());

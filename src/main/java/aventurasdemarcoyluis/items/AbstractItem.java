@@ -13,9 +13,11 @@ public abstract class AbstractItem {
         itemType=ITEMTYPE;
     }
 
+    // TODO COMENTAR ESTO
     // Only players can use items
     public void useItem(AbstractPlayer player){}
 
+    // TODO COMENTAR ESTO
     public ItemType getType(){
         return itemType;
     }

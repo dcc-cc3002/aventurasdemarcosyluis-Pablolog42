@@ -22,6 +22,7 @@ public class Boo extends AbstractEnemy {
     }
 
     // Boo dodges hammer attack
+    // TODO COMENTAR ESTO
     @Override
     public void playerHammerAttacking(AbstractPlayer player) {
         System.out.println(this.getName() + " has dodged " + player.getName() + "'s attack!");;

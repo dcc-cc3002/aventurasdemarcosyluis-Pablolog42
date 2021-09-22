@@ -7,6 +7,7 @@ public class HoneySyrup extends AbstractItem {
         super(ItemType.HONEYSYRUP, "Honey Syrup");
     }
 
+    // TODO COMENTAR ESTO
     @Override
     public void useItem(AbstractPlayer player){
         player.restoreFP(3);

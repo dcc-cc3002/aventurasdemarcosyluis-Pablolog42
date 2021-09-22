@@ -30,6 +30,7 @@ public class Luis extends AbstractPlayer {
 
 
     // Attackers
+    // TODO COMENTAR ESTO
     public void goombaAttacking(Goomba goomba){
         this.enemyAttacking(goomba);
     }

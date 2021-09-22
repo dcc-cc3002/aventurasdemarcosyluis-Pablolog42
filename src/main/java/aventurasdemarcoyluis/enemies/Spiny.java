@@ -23,6 +23,7 @@ public class Spiny extends AbstractEnemy{
     }
 
     // when jump-attacking spinny, the player does 0 dmg and looses 5% of their MAX HP.
+    // TODO COMENTAR ESTO
     @Override
     public void playerJumpAttacking(AbstractPlayer player) {
         player.receiveDamage(player.getMaxHP()*0.05);
