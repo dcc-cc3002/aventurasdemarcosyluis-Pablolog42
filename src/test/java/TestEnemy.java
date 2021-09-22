@@ -40,5 +40,24 @@ public class TestEnemy {
         assertEquals(98, testBoo.getHp(), 0.001);
     }
 
+    @Test
+    public void hammerAttackingTest(){
+        testBoo.playerHammerAttacking(testMarco); // Boo should dodge hammer Attack
+        assertEquals(100, testBoo.getHp(), 0.001);
+
+        testGoomba.playerHammerAttacking(testMarco); // This attack should always deal dmg, as the fail logic is programed onto the first double dispatch call.
+        boolean expectedFirstAttack = testGoomba.getHp() == 7.5; // hammerAttack can fail
+        testGoomba.playerHammerAttacking(testMarco);
+        boolean expectedSecondAttack = testGoomba.getHp() == 0 && testGoomba.isKO(); // after 15 dmg points, testGoomba should be dead :(
+        assertTrue(expectedFirstAttack && expectedSecondAttack);
+    }
+
+    @Test
+    public void jumpAttackSpinyTest(){
+        testSpiny.playerJumpAttacking(testMarco); // Should do no dmg to spiny, and self-inflict 5% of the players maxHP
+        assertEquals(1, testSpiny.getHp(), 0.001); // Spiny's HP should not change
+        assertEquals(9.5,testMarco.getHp(),0.001); // Marco's HP should decrease by 0.5
+    }
+
 
 }

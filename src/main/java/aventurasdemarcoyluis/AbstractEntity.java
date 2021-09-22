@@ -132,7 +132,7 @@ public abstract class AbstractEntity {
     }
     /* Gets the current HP of an entity*/
     public double getMaxFP() {
-        return maxHP;
+        return maxFP;
     }
     /* Gets the current HP of an entity*/
     public double getHp() {

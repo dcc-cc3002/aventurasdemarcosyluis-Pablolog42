@@ -9,6 +9,8 @@ import aventurasdemarcoyluis.players.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestItem {
@@ -52,6 +54,18 @@ public class TestItem {
     public void testRedMushroom(){
         testMarco.useItem(ItemType.REDMUSHROOM);
         assertEquals(6,testMarco.getHp()); // restores 10% of maxHP (in this case 1HP)
+    }
+    @Test
+    public void testNoItem(){
+        testMarco.useItem(ItemType.REDMUSHROOM);
+        // This should print to screen that Marco has no "Red mushroom" item left, as he jus used the only one he had left.
+        testMarco.useItem(ItemType.REDMUSHROOM);
+
+        testMarco.useItem(ItemType.STAR);
+        testMarco.useItem(ItemType.HONEYSYRUP);
+
+        // Marco should have no items left in their inventory!
+        assertEquals(new ArrayList<>(),testMarco.getArmamento());
     }
 
 }

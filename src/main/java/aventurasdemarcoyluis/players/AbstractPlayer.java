@@ -36,6 +36,29 @@ public abstract class AbstractPlayer extends AbstractEntity {
     }
 
 
+    /**
+     * Checks if an attack is a legal move.
+     * Checks if the player attacking is KO
+     * checks if the player attacking has enough FP
+     * @param fpCost The FP cost of the attack to perform
+     * @return A boolean indicating if the attack is valid or not.
+     */
+    public boolean validateAttack(int fpCost) {
+
+        int targetFP = this.getFp() - fpCost;
+
+        if (this.isKO()) {
+            System.out.println(this.getName() + " is K.O. and can't attack");
+            return false;
+        }
+
+        if (targetFP < 0) {
+            System.out.println("Not enough FP!");
+            return false;
+        }
+        return true;
+    }
+
     // Do Attack
 
     /**
@@ -48,18 +71,11 @@ public abstract class AbstractPlayer extends AbstractEntity {
      * @param enemy The enemy to send the attack message to
      */
     public void hammerAttack(AbstractEnemy enemy){
-        int cost = 2;
-        int targetFP = this.getFp()-cost;
+        int fpCost = 2;
+        int targetFP = this.getFp()-fpCost;
 
-        if (this.isKO()){
-            System.out.println(this.getName() + " is K.O. and can't attack");
-            return;
-        }
-
-        if (targetFP<0){
-            System.out.println("Not enough FP!");
-            return;
-        }
+        // In case the attack is not a legal move, exit the method
+        if(!validateAttack(fpCost)){ return; }
 
         // 25% of failing: 0,1,2,3 possible outcomes. 0 is a fail.
         Random rand = new Random();
@@ -83,18 +99,14 @@ public abstract class AbstractPlayer extends AbstractEntity {
      * @param enemy The enemy to send the attack message to
      */
     public void jumpAttack(AbstractEnemy enemy){
-        int cost = 1;
-        int targetFP = this.getFp()-cost;
+        int fpCost = 1;
+        int targetFP = this.getFp()-fpCost;
 
-        if (this.isKO()){
-            System.out.println(this.getName() + " is K.O. and can't attack");
-            return;
-        }
+        // In case the attack is not a legal move, exit the method
+        if(!validateAttack(fpCost)){ return; }
 
-        if (targetFP<0){
-            System.out.println("Not enough FP!");
-            return;
-        }
+        this.setFp(targetFP);
+
         enemy.playerJumpAttacking(this);
     }
 
@@ -155,7 +167,10 @@ public abstract class AbstractPlayer extends AbstractEntity {
     public boolean isInvincible() {
         return isInvincible;
     }
-
+    /* Gets the players' Armament.*/
+    public List<AbstractItem> getArmamento() {
+        return armamento;
+    }
 }
 
 
