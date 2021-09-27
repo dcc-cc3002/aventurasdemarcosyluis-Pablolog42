@@ -3,6 +3,9 @@ package aventurasdemarcoyluis.enemies;
 import aventurasdemarcoyluis.EntityType;
 import aventurasdemarcoyluis.players.AbstractPlayer;
 
+/*
+    Spiny enemy Class
+ */
 public class Spiny extends AbstractEnemy{
 
 
@@ -23,7 +26,13 @@ public class Spiny extends AbstractEnemy{
     }
 
     // when jump-attacking spinny, the player does 0 dmg and looses 5% of their MAX HP.
-    // TODO COMENTAR ESTO
+    /**
+     *  Receives the double dispatch call sent from an AbstractPlayer.
+     *  In this case (Spiny being Jump-attacked), Spiny will always dodge the attacker take any dmg from the player,
+     *  and will instead infringe 5% of the players' maxHP as backlash damage.
+     *
+     * @param player The player sending the Jump-attack Message
+     **/
     @Override
     public void playerJumpAttacking(AbstractPlayer player) {
         player.receiveDamage(player.getMaxHP()*0.05);

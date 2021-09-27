@@ -5,6 +5,11 @@ import aventurasdemarcoyluis.AbstractEntity;
 import aventurasdemarcoyluis.players.AbstractPlayer;
 import aventurasdemarcoyluis.EntityType;
 
+
+/*
+    Abstract representation of an Enemy.
+    An enemy is a specific kind of Entity.
+ */
 public abstract class AbstractEnemy extends AbstractEntity {
 
 
@@ -25,17 +30,37 @@ public abstract class AbstractEnemy extends AbstractEntity {
         super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, TYPE, NAME);
     }
 
-    // TODO COMENTAR ESTO
+    /**
+     *  Receives the double dispatch call sent from an AbstractPlayer.
+     *  After that, infringes DMG according to the Hammer-Attack constant (k=1.5)
+     *
+     * @param player The player sending the attack Message
+     *
+     **/
     public void playerHammerAttacking(AbstractPlayer player) {
         this.receiveDamage(this.computeDmg(1.5, player));
     }
-    // TODO COMENTAR ESTO
+
+    /**
+     *  Receives the double dispatch call sent from an AbstractPlayer.
+     *  After that, infringes DMG according to the Jump-Attack constant (k=1)
+     *
+     * @param player The player sending the attack Message
+     *
+     **/
     public void playerJumpAttacking(AbstractPlayer player) {
         this.receiveDamage(this.computeDmg(1,player));
     }
 
 
-
+    /**
+     *  Sends the double dispatch attack message to a player.
+     * @param player The player being attacked.
+     *
+     **/
+    public void attackPlayer(AbstractPlayer player){
+        player.enemyAttacking(this);
+    }
 
 
 

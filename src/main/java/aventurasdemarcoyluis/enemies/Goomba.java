@@ -2,6 +2,9 @@ package aventurasdemarcoyluis.enemies;
 
 import aventurasdemarcoyluis.EntityType;
 
+/*
+    Goomba enemy Class
+ */
 public class Goomba extends AbstractEnemy {
 
 

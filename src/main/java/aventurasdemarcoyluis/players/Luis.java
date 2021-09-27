@@ -5,6 +5,9 @@ import aventurasdemarcoyluis.enemies.Boo;
 import aventurasdemarcoyluis.enemies.Goomba;
 import aventurasdemarcoyluis.enemies.Spiny;
 
+/*
+    Luis player Class
+ */
 public class Luis extends AbstractPlayer {
     /**
      * Creates a new AbstractEntity
@@ -30,15 +33,30 @@ public class Luis extends AbstractPlayer {
 
 
     // Attackers
-    // TODO COMENTAR ESTO
+
+    /**
+     * Receives the double dispatch attack message from a Goomba enemy.
+     *
+     * @param goomba The Goomba sending the attack msg.
+     **/
     public void goombaAttacking(Goomba goomba){
         this.enemyAttacking(goomba);
     }
 
+    /**
+     * Receives the double dispatch attack message from a Spiny enemy.
+     *
+     * @param spiny The Spiny sending the attack msg.
+     **/
     public void spinyAttacking(Spiny spiny){
         this.enemyAttacking(spiny);
     }
 
+    /**
+     * Receives the double dispatch attack message from a Boo enemy.
+     *
+     * @param boo The boo sending the attack msg.
+     **/
     public void booAttacking(Boo boo){
         this.enemyAttacking(boo);
     }

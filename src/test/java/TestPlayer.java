@@ -41,7 +41,7 @@ public class TestPlayer {
 
     @Test
     public void enemyAttackingTest(){
-        testMarco.goombaAttacking(testGoomba); // A normal attack with k=0.75 should do 0.15 dmg to marco
+        testGoomba.attackPlayer(testMarco);// A normal attack with k=0.75 should do 0.15 dmg to marco
         assertEquals(9.85,testMarco.getHp());
     }
     @Test
@@ -71,5 +71,7 @@ public class TestPlayer {
 
         testMarco.spinyAttacking(testSpiny);
         assertEquals(999.25,testMarco.getHp());
+
+
     }
 }

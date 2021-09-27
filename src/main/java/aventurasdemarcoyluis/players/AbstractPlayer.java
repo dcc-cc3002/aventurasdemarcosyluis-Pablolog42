@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/*
+    Abstract representation of a Player.
+    A player is a specific kind of Entity.
+ */
 public abstract class AbstractPlayer extends AbstractEntity {
 
     // Empty array

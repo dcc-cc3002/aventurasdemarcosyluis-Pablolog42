@@ -3,6 +3,9 @@ package aventurasdemarcoyluis.enemies;
 import aventurasdemarcoyluis.EntityType;
 import aventurasdemarcoyluis.players.AbstractPlayer;
 
+/*
+    Boo enemy Class
+ */
 public class Boo extends AbstractEnemy {
 
 
@@ -22,7 +25,13 @@ public class Boo extends AbstractEnemy {
     }
 
     // Boo dodges hammer attack
-    // TODO COMENTAR ESTO
+    /**
+     *  Receives the double dispatch call sent from an AbstractPlayer.
+     *  In this case (Boo being Hammer-attacked), Boo will always dodge the attack, not infringing any damage to them.
+     *
+     * @param player The player sending the Hammer-attack Message
+     *
+     **/
     @Override
     public void playerHammerAttacking(AbstractPlayer player) {
         System.out.println(this.getName() + " has dodged " + player.getName() + "'s attack!");;

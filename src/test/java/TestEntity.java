@@ -27,6 +27,7 @@ public class TestEntity {
         assertEquals(0, testBoo.getHp(), 0.001); // Marco should kill Scary, as they only have 1 HP left. (Scary should have 0 HP instead of -19)
         assertTrue(testBoo.isKO()); // Thus, Scary should be dead :(
 
+
         testBoo.restoreHP(3000); // Inyectamos epinefrina a Scary para que reviva. Tratamos de curar 3000 HP.
         assertFalse(testBoo.isKO()); // Veamos si revivió
         assertEquals(10, testBoo.getHp()); // Scary es chikito, y por tanto sólo deberia de recibir 10 HP como máx (su maxHP) de los 3000.
@@ -37,5 +38,11 @@ public class TestEntity {
         testGoomba.receiveDamage(10);
         assertEquals(5, testGoomba.getHp());
         assertEquals(EntityType.GOOMBA,testGoomba.getType());
+    }
+
+    @Test
+    public void fPSystem(){
+        testMarco.restoreFP(1000);
+        assertEquals(100,testMarco.getFp());
     }
 }

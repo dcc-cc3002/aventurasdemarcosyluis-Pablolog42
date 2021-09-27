@@ -4,6 +4,9 @@ package aventurasdemarcoyluis.players;
 import aventurasdemarcoyluis.EntityType;
 import aventurasdemarcoyluis.enemies.*;
 
+/*
+    Marco player Class
+ */
 public class Marco extends AbstractPlayer {
     /**
      * Creates a new AbstractEntity
@@ -27,15 +30,31 @@ public class Marco extends AbstractPlayer {
 
 
     // Attackers
-    // TODO COMENTAR ESTO
+    /**
+     * Receives the double dispatch attack message from a Goomba enemy.
+     *
+     * @param goomba The Goomba sending the attack msg.
+     **/
     public void goombaAttacking(Goomba goomba){
         this.enemyAttacking(goomba);
     }
 
+    /**
+     * Receives the double dispatch attack message from a Spiny enemy.
+     *
+     * @param spiny The Spiny sending the attack msg.
+     **/
     public void spinyAttacking(Spiny spiny){
         this.enemyAttacking(spiny);
     }
 
+    /**
+     * Receives the double dispatch attack message from a Boo enemy.
+     *
+     * As boo doesn't attack Marcos, the double dispatch call is ignored, and a console message is printed instead.
+     *
+     * @param boo The boo sending the attack msg.
+     **/
     public void booAttacking(Boo boo){
         System.out.println(boo.getName() + " can't attack Marcos!");
     }

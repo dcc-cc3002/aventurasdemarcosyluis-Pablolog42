@@ -1,5 +1,9 @@
 package aventurasdemarcoyluis;
 
+/*
+    Abstract representation of an entity in the game.
+    An entity can be either a player, or an enemy.
+ */
 public abstract class AbstractEntity {
 
     private double atk;
@@ -77,15 +81,22 @@ public abstract class AbstractEntity {
 
         if(this.maxHP<targetHP){
             this.setHp(maxHP);
-            if(0<this.hp){this.setKO(false);}
+            if(0<this.hp){
+                System.out.println(this.getName() + " has revived!");
+                this.setKO(false);
+            }
             return;
         }
-
         this.setHp(targetHP);
 
         // Implementation Note: the only way to increase the hp of a character should be using this method.
         // This is because this method allows to change the "isKO" property (lets an incapacitated player play again if they heal)
-        if(0<this.hp){this.setKO(false);}
+        if(0<this.hp){
+            System.out.println(this.getName() + " has revived!");
+            this.setKO(false);
+        }
+
+
 
     }
 
