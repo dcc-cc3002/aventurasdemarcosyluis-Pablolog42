@@ -2,3 +2,8 @@
 2. Todos los tipos de entidades están en el "EntityType public enum"
 3. Los enemigos igual tienen FP. esto es en caso de querer agregar algún enemigo especial que utilice FP como "maná"
 4. Los UML diagrams están separados por paquete. InteliJ no me deja crear uno solo general :(
+
+
+##**Tarea 2**
+
+1. Se incluyen Cambios a las rutinas de ataque.
