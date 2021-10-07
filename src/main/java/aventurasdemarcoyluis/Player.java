@@ -27,6 +27,14 @@ public class Player {
         playerVault = new ItemVault();
     }
 
+    // By default the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
+    public Player(String name){
+        this.playerLuis = new Luis(10,10,10,100,10,100,1);
+        this.playerMarco = new Marco(10,10,10,100,10,100,1);
+        this.playerName = name;
+        playerVault = new ItemVault();
+    }
+
     // Items
 
     /**
@@ -50,10 +58,7 @@ public class Player {
             System.out.println(this.playerName + " doesn't have a/an " + itemType.toString() + " in their inventory!");
             return;
         }
-
         AbstractItem instancedItem = playerVault.retrieveItem(itemType);
-
-
         character.useItem(instancedItem);
 
     }
@@ -66,9 +71,9 @@ public class Player {
         return playerVault;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
+//    public String getPlayerName() {
+//        return playerName;
+//    }
 
     public Marco getMarco() {
         return playerMarco;

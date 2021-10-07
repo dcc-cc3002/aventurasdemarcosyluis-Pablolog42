@@ -30,7 +30,6 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
      * @param TYPE  type of the enemy (see enum "EnemyType")
-     * @param NAME  name of the enemy to deploy (for example, "Mr. Claudio Goomba")
      */
     public AbstractMainCharacter(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE) {
         super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, TYPE);
@@ -123,8 +122,6 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
     public void enemyAttacking(AbstractEnemy enemy) {
         this.receiveDamage(this.computeDmg(0.75, enemy));
     }
-
-
 
 
     // Items

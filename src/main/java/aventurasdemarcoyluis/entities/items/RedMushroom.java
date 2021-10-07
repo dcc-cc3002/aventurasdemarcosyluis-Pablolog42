@@ -7,7 +7,7 @@ import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 /*
     RedMushroom item Class
  */
-public class RedMushroom extends AbstractItem {
+public class RedMushroom extends AbstractItem implements InterItem {
     public RedMushroom() {
         super(ItemType.REDMUSHROOM);
     }

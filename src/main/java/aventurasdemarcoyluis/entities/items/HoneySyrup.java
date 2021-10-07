@@ -6,7 +6,7 @@ import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 /*
     HoneySyrup item Class
  */
-public class HoneySyrup extends AbstractItem {
+public class HoneySyrup extends AbstractItem implements InterItem {
     public HoneySyrup() {
         super(ItemType.HONEYSYRUP);
     }

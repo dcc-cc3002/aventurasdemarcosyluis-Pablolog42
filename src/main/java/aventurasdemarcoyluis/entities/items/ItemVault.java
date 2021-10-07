@@ -43,4 +43,27 @@ public class ItemVault {
         }
         return null;
     }
+
+
+    // Overriding equals() to compare two Complex objects
+    // Code Referenced from https://www.geeksforgeeks.org/overriding-equals-method-in-java/
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof ItemVault)) {
+            return false;
+        }
+
+        // Compare the data members and return accordingly
+        return (((ItemVault) o).getItemAmount(ItemType.REDMUSHROOM) == this.mushroomAmount) && (((ItemVault) o).getItemAmount(ItemType.HONEYSYRUP) == this.honeyAmount);
+    }
 }
+
+
