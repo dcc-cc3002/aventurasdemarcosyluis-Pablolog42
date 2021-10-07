@@ -4,7 +4,7 @@
 
 El siguiente programa consiste en la implementación del juego RPG de "Las flipantes Aventuras de Marcos y Luis". 
 
-El juego código distintos personajes, enemigos e ítems, y las posibles interacciones entre sí. El código fuente del juego se encuentra en `/src/test/java/PlayExample.Java` 
+El juego código distintos personajes, enemigos e ítems, y las posibles interacciones entre sí. El código fuente del juego se encuentra en `/src/test/java/aventurasdemarcoyluis.examples.PlayExample.Java` 
 
 Las interacciones entre personajes, enemigos e ítems están descritas en el enunciado de la _Tarea_, que se encuentra en: https://www.u-cursos.cl/ingenieria/2021/2/CC3002/1/tareas/r/2021091617049EBCB4003D150FF0__Enunciado_Tarea_01.pdf
 
