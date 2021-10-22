@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.entities.enemies;
 
 import aventurasdemarcoyluis.entities.EntityType;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.entities.maincharacters.Luis;
 
 /*
     Boo enemy Class
@@ -21,6 +22,16 @@ public class Boo extends AbstractEnemy {
      */
     public Boo(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL) {
         super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, EntityType.BOO);
+    }
+
+    /**
+     *  Sends the double dispatch attack message to a player.
+     * @param player The player being attacked.
+     * Note: In this case, Boo can only attack "Luis" Main Character.
+     *
+     **/
+    public void attack(Luis player){
+        player.enemyAttacking(this);
     }
 
     // Boo dodges hammer attack

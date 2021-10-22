@@ -17,7 +17,7 @@ public class PlayExample {
         testMarco.jumpAttack(testBoo); // Let's Jump-attack Spooky Scary Skeleton to kill him
         testMarco.enemyAttacking(testBoo); // Boo tries to counter-attack, but they're dead :( .
 
-        testGoomba.attackPlayer(testMarco); // Gumball wants revenge on marcos. So, he kills him.
+        testGoomba.attack(testMarco); // Gumball wants revenge on marcos. So, he kills him.
 
         testMarco.restoreHP(3000); // Inyectamos epinefrina a Marco para que reviva. Tratamos de curar 3000 HP.
         testGoomba.playerJumpAttacking(testMarco); // After marco revives, he murders Gumball.

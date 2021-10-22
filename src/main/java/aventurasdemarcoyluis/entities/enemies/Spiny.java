@@ -24,6 +24,17 @@ public class Spiny extends AbstractEnemy{
         super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, EntityType.SPINY);
     }
 
+
+    /**
+     *  Sends the double dispatch attack message to a player.
+     * @param player The player being attacked.
+     *
+     **/
+    public void attack(AbstractMainCharacter player){
+        player.enemyAttacking(this);
+    }
+
+
     // when jump-attacking spinny, the player does 0 dmg and looses 5% of their MAX HP.
     /**
      *  Receives the double dispatch call sent from an AbstractMainCharacter.
@@ -36,5 +47,7 @@ public class Spiny extends AbstractEnemy{
     public void playerJumpAttacking(AbstractMainCharacter player) {
         player.receiveDamage(player.getMaxHP()*0.05);
     }
+
+
 
 }

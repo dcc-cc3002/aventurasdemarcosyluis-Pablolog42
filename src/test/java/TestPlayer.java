@@ -41,7 +41,7 @@ public class TestPlayer {
 
     @Test
     public void enemyAttackingTest(){
-        testGoomba.attackPlayer(testMarco);// A normal attack with k=0.75 should do 0.15 dmg to marco
+        testGoomba.attack(testMarco);// A normal attack with k=0.75 should do 0.15 dmg to marco
         assertEquals(9.85,testMarco.getHp());
     }
     @Test
@@ -49,6 +49,9 @@ public class TestPlayer {
         assertEquals(1,testLuis.getMaxFP());
         testLuis.goombaAttacking(testGoomba);
         assertEquals(998.5,testLuis.getHp());
+
+        // this should fail at compiling, because Luis can't attack Boo.
+        //testLuis.jumpAttack(testBoo);
 
         testLuis.setHp(1000);
         testLuis.booAttacking(testBoo);
@@ -65,8 +68,10 @@ public class TestPlayer {
         assertEquals(999.85,testMarco.getHp());
 
         testMarco.setHp(1000);
-        testMarco.booAttacking(testBoo);
-        // Boo can't attack Marco
+
+        // Boo can't attack Marco, thus this should fail at compiling
+        // testBoo.attack(testMarco);
+
         assertEquals(1000,testMarco.getHp());
 
         testMarco.spinyAttacking(testSpiny);

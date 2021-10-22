@@ -1,14 +1,17 @@
 package aventurasdemarcoyluis.entities.maincharacters;
 
 import aventurasdemarcoyluis.entities.EntityType;
+import aventurasdemarcoyluis.entities.enemies.AbstractEnemy;
 import aventurasdemarcoyluis.entities.enemies.Boo;
 import aventurasdemarcoyluis.entities.enemies.Goomba;
 import aventurasdemarcoyluis.entities.enemies.Spiny;
 
+import java.util.Random;
+
 /*
     Luis player Class
  */
-public class Luis extends AbstractMainCharacter {
+public class Luis extends AbstractMainCharacter{
     /**
      * Creates a new AbstractEntity
      *
@@ -26,6 +29,43 @@ public class Luis extends AbstractMainCharacter {
 
 
     // Attacks
+
+    // Note: Luis Can't attack Boo. Thus, attack methods have to be segregated by character.
+    // Action methods do the attack, and are segregated by "attack" methods.
+    // This is so something like "luis.hammerAttack(boo)" won't compile.
+
+    /**
+     * Jump-Attacks a Goomba.
+     * @param enemy The Goomba to send the attack message to
+     */
+    public void jumpAttack(Goomba enemy){
+        this.jumpAttackAction(enemy);
+    }
+
+    /**
+     * Jump-Attacks a Spiny.
+     * @param enemy The Spiny to send the attack message to
+     */
+    public void jumpAttack(Spiny enemy){
+        this.jumpAttackAction(enemy);
+    }
+
+    /**
+     * Hammer-Attacks a Goomba.
+     * @param enemy The Goomba to send the attack message to
+     */
+    public void hammerAttack(Goomba enemy){
+        this.hammerAttackAction(enemy);
+    }
+
+    /**
+     * Hammer-Attacks a Spiny.
+     * @param enemy The Spiny to send the attack message to
+     */
+    public void hammerAttack(Spiny enemy){
+        this.hammerAttackAction(enemy);
+    }
+
 
 
 

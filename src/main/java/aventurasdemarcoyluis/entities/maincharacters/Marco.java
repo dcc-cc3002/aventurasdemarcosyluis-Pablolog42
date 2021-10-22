@@ -4,6 +4,8 @@ package aventurasdemarcoyluis.entities.maincharacters;
 import aventurasdemarcoyluis.entities.EntityType;
 import aventurasdemarcoyluis.entities.enemies.*;
 
+import java.util.Random;
+
 /*
     Marco player Class
  */
@@ -26,6 +28,25 @@ public class Marco extends AbstractMainCharacter {
 
     // Attacks
 
+    /**
+     * Jump-Attacks a Goomba.
+     * Sends DD message to jumpAttack() method.
+     *
+     * @param enemy The enemy to send the attack message to
+     */
+    public void jumpAttack(AbstractEnemy enemy){
+        this.jumpAttackAction(enemy);
+    }
+
+    /**
+     * Hammer-Attacks an enemy.
+     * Sends DD message to hammerAttack() method.
+     *
+     * @param enemy The enemy to send the attack message to
+     */
+    public void hammerAttack(AbstractEnemy enemy){
+        this.hammerAttackAction(enemy);
+    }
 
 
     // Attackers
@@ -47,16 +68,6 @@ public class Marco extends AbstractMainCharacter {
         this.enemyAttacking(spiny);
     }
 
-    /**
-     * Receives the double dispatch attack message from a Boo enemy.
-     *
-     * As boo doesn't attack Marcos, the double dispatch call is ignored, and a console message is printed instead.
-     *
-     * @param boo The boo sending the attack msg.
-     **/
-    public void booAttacking(Boo boo){
-        System.out.println(boo.getName() + " can't attack Marcos!");
-    }
 
 
 }

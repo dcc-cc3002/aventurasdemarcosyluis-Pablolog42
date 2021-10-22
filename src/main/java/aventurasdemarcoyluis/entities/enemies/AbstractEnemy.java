@@ -52,14 +52,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
     }
 
 
-    /**
-     *  Sends the double dispatch attack message to a player.
-     * @param player The player being attacked.
-     *
-     **/
-    public void attackPlayer(AbstractMainCharacter player){
-        player.enemyAttacking(this);
-    }
+
 
 
 

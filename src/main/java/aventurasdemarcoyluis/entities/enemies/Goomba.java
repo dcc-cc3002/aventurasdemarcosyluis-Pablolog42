@@ -1,11 +1,22 @@
 package aventurasdemarcoyluis.entities.enemies;
 
 import aventurasdemarcoyluis.entities.EntityType;
+import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 
 /*
     Goomba enemy Class
  */
 public class Goomba extends AbstractEnemy {
+
+
+    /**
+     *  Sends the double dispatch attack message to a player.
+     * @param player The player being attacked.
+     *
+     **/
+    public void attack(AbstractMainCharacter player){
+        player.enemyAttacking(this);
+    }
 
 
     /**

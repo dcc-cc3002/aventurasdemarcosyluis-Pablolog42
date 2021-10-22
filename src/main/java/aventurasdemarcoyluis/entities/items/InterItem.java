@@ -5,5 +5,5 @@ import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 
 public interface InterItem {
 
-    public void useItem(AbstractMainCharacter character);
+    void useItem(AbstractMainCharacter character);
 }
