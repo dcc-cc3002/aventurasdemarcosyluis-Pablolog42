@@ -35,6 +35,17 @@ public class Player {
         playerVault = new ItemVault();
     }
 
+    // K.O.
+    /**
+     * Verifies if a player is K.O.
+     * note: a player is K.O. when both Marco and Luis are K.O.
+     * @return A Boolean indicating the KO state of the player.
+     */
+    public Boolean isPlayerKO(){
+        return (this.getLuis().isKO() && this.getMarco().isKO());
+    }
+
+
     // Items
 
     /**
@@ -46,6 +57,18 @@ public class Player {
     }
 
     /**
+     * Adds an item to a Players' armament.
+     * @param itemType the type of the item to add to the players' inventory.
+     * @param amount The amount of items to add.
+     */
+    public void addAnItem(ItemType itemType, int amount){
+        playerVault.modifyItemAmount(amount,itemType);
+    }
+
+
+
+
+    /**
      * Sends the message to use an item from a Players' armament.
      * Checks if the player has an item of a certain kind in their armament.
      * in case they do, consumes the item (removes it from the Players' inventory) and uses it.
@@ -53,14 +76,18 @@ public class Player {
      *
      */
     public void useItem(ItemType itemType, AbstractMainCharacter character){
-
+        // Case no item to use
         if(playerVault.getItemAmount(itemType)<1){
             System.out.println(this.playerName + " doesn't have a/an " + itemType.toString() + " in their inventory!");
             return;
         }
+        // Case the character to use the item is KO
+        if(character.isKO()){
+            System.out.println(character.getName() + " can't use an item, as they are K.O!");
+            return;
+        }
         AbstractItem instancedItem = playerVault.retrieveItem(itemType);
         character.useItem(instancedItem);
-
     }
 
 
@@ -70,10 +97,6 @@ public class Player {
     public ItemVault getPlayerVault() {
         return playerVault;
     }
-
-//    public String getPlayerName() {
-//        return playerName;
-//    }
 
     public Marco getMarco() {
         return playerMarco;

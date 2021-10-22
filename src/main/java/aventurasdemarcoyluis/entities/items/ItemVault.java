@@ -55,7 +55,7 @@ public class ItemVault {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of ItemVault or not
           "null instanceof [type]" also returns false */
         if (!(o instanceof ItemVault)) {
             return false;

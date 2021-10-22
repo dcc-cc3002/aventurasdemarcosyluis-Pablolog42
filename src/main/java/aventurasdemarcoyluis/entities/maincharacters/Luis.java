@@ -69,8 +69,6 @@ public class Luis extends AbstractMainCharacter{
 
 
 
-
-
     // Attackers
 
     /**

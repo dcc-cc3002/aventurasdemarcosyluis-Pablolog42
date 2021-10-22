@@ -77,10 +77,6 @@ public abstract class AbstractEntity {
 
         if(this.maxHP<targetHP){
             this.setHp(maxHP);
-            if(0<this.hp){
-                System.out.println(this.getName() + " has revived!");
-                this.setKO(false);
-            }
             return;
         }
         this.setHp(targetHP);

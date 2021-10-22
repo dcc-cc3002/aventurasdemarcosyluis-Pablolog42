@@ -136,6 +136,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
     // Items
 
     // Sends DD message to item to be used.
+    // note: at this point, the player always has the item to be used.
     public void useItem(AbstractItem item){
         item.useItem(this);
     }

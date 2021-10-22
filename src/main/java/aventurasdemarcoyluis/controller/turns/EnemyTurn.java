@@ -20,6 +20,12 @@ public class EnemyTurn extends Battle {
         this.player.getMarco().setKO(true);
         this.player.getLuis().setKO(true);
 
+        // In case the player is K.O., the enemy has won.
+        if(this.player.isPlayerKO()){
+            this.enemyVictorySequence();
+            return;
+        }
+
         AbstractMainCharacter attackedCharacter = selectCharacter();
         // System.out.println(attackedCharacter);
 
@@ -30,9 +36,6 @@ public class EnemyTurn extends Battle {
     }
 
     public AbstractMainCharacter selectCharacter() {
-
-
-
         // Selects which player's character to attack
         double rand = Math.random();
         AbstractMainCharacter attackedCharacter = rand < 0.5 ? this.player.getLuis() : this.player.getMarco();
