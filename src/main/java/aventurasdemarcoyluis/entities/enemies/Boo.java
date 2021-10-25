@@ -31,6 +31,7 @@ public class Boo extends AbstractEnemy {
      * Note: In this case, Boo can only attack "Luis" Main Character.
      *
      **/
+    @Override
     public void attack(InterMainCharacter player){
         player.enemyAttacking(this);
     }

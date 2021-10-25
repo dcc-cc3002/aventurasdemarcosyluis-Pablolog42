@@ -1,20 +1,22 @@
 package aventurasdemarcoyluis.entities;
 
+import org.jetbrains.annotations.NotNull;
+
 /*
     Abstract representation of an entity in the game.
     An entity can be either a player, or an enemy.
  */
 public abstract class AbstractEntity implements InterEntity {
 
-    private double atk;
-    private double def;
+    private final double atk;
+    private final double def;
     private int fp;
     private int maxFP;
     private double hp;
     private double maxHP;
-    private int lvl=1;
+    private int lvl;
     private boolean isKO;
-    private EntityType type;
+    private final EntityType type;
 
 
     /**
@@ -48,6 +50,7 @@ public abstract class AbstractEntity implements InterEntity {
      *
      * @param damage Damage to inflict to the entity
      */
+    @Override
     public void receiveDamage(double damage) {
         double targetHp = this.hp - damage;
         if(this.isKO){
@@ -72,6 +75,7 @@ public abstract class AbstractEntity implements InterEntity {
      *
      * @param hpToRestore The amount of HP to restore to the entity.
      */
+    @Override
     public void restoreHP(double hpToRestore){
         double targetHP = this.hp + hpToRestore;
 
@@ -98,6 +102,7 @@ public abstract class AbstractEntity implements InterEntity {
      *
      * @param fpToRestore The amount of HP to restore to the entity.
      */
+    @Override
     public void restoreFP(int fpToRestore) {
         int targetFP = this.fp + fpToRestore;
         // FP can't be more than maxFP
@@ -115,7 +120,7 @@ public abstract class AbstractEntity implements InterEntity {
      * @param k The Base damage multiplier for a given attack
      * @param attacker The AbstractEntity currently attacking
      */
-    public double computeDmg(double k, InterEntity attacker){
+    public double computeDmg(double k, @NotNull InterEntity attacker){
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
     }
 
@@ -124,10 +129,12 @@ public abstract class AbstractEntity implements InterEntity {
     // Setters and getters
 
     /** Gets the attack of an entity **/
+    @Override
     public double getAtk() {
         return atk;
     }
     /** Gets the level of an entity **/
+    @Override
     public int getLvl() {
         return lvl;
     }
@@ -148,6 +155,7 @@ public abstract class AbstractEntity implements InterEntity {
         return hp;
     }
     /** Gets the maximum HP of an entity **/
+    @Override
     public double getMaxHP() {
         return maxHP;
     }
@@ -156,6 +164,7 @@ public abstract class AbstractEntity implements InterEntity {
         return type;
     }
     /** Gets the Name of an entity **/
+    @Override
     public String getName() {
         return this.type.toString();
     }

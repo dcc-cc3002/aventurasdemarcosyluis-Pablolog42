@@ -1,17 +1,11 @@
 package aventurasdemarcoyluis.entities.maincharacters;
 
 import aventurasdemarcoyluis.entities.AbstractEntity;
-import aventurasdemarcoyluis.entities.InterEntity;
-import aventurasdemarcoyluis.entities.enemies.Goomba;
 import aventurasdemarcoyluis.entities.enemies.InterEnemy;
-import aventurasdemarcoyluis.entities.items.AbstractItem;
 import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.enemies.AbstractEnemy;
 import aventurasdemarcoyluis.entities.items.InterItem;
-import aventurasdemarcoyluis.entities.items.ItemType;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /*
@@ -129,6 +123,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy that is sending the attack message
      */
+    @Override
     public void enemyAttacking(InterEnemy enemy) {
         this.receiveDamage(this.computeDmg(0.75, enemy));
     }
@@ -138,7 +133,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
     // Sends DD message to item to be used.
     // note: at this point, the player always has the item to be used.
-    public void useItem(InterItem item){
+    public void useItem(@NotNull InterItem item){
         item.useItem(this);
     }
 }

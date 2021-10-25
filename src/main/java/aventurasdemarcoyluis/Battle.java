@@ -26,6 +26,7 @@ public class Battle {
 
 
             enemyTurn.main();
+            this.battleFinished = true;
 
         }
 

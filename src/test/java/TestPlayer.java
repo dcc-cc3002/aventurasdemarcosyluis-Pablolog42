@@ -47,18 +47,18 @@ public class TestPlayer {
     @Test
     public void luisTest(){
         assertEquals(1,testLuis.getMaxFP());
-        testLuis.goombaAttacking(testGoomba);
+        testLuis.enemyAttacking(testGoomba);
         assertEquals(998.5,testLuis.getHp());
 
         // this should fail at compiling, because Luis can't attack Boo.
         //testLuis.jumpAttack(testBoo);
 
         testLuis.setHp(1000);
-        testLuis.booAttacking(testBoo);
+        testLuis.enemyAttacking(testBoo);
         assertEquals(925,testLuis.getHp());
 
         testLuis.setHp(1000);
-        testLuis.spinyAttacking(testSpiny);
+        testLuis.enemyAttacking(testSpiny);
         assertEquals(992.5,testLuis.getHp());
     }
     @Test

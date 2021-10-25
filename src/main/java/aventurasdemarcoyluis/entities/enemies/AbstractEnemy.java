@@ -2,7 +2,6 @@ package aventurasdemarcoyluis.entities.enemies;
 
 
 import aventurasdemarcoyluis.entities.AbstractEntity;
-import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.entities.EntityType;
 import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
 

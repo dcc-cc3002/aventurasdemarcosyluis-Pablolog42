@@ -34,7 +34,7 @@ public class Marco extends AbstractMainCharacter {
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttack(AbstractEnemy enemy){
+    public void jumpAttack(InterEnemy enemy){
         this.jumpAttackAction(enemy);
     }
 
@@ -44,12 +44,17 @@ public class Marco extends AbstractMainCharacter {
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttack(AbstractEnemy enemy){
+    public void hammerAttack(InterEnemy enemy){
         this.hammerAttackAction(enemy);
     }
 
 
     // Attackers
+
+    // Note: Marco can't be attacked by Boo. Thus, attack methods have to be segregated by character.
+    // Action methods do the attack, and are segregated by "attack" methods.
+    // This is so something like "boo.enemyAttack(Marco)" won't compile.
+
     /**
      * Receives the double dispatch attack message from a Goomba enemy.
      *

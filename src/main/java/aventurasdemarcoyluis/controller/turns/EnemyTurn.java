@@ -12,13 +12,7 @@ public class EnemyTurn extends Battle {
         this.player = player;
     }
 
-
-
     public void main() {
-
-        // Testing. With this on, selectcharacter() should never return Marco
-        this.player.getMarco().setKO(true);
-        this.player.getLuis().setKO(true);
 
         // In case the player is K.O., the enemy has won.
         if(this.player.isPlayerKO()){
@@ -27,7 +21,7 @@ public class EnemyTurn extends Battle {
         }
 
         AbstractMainCharacter attackedCharacter = selectCharacter();
-        // System.out.println(attackedCharacter);
+        System.out.println(attackedCharacter);
 
 
 

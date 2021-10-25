@@ -1,5 +1,5 @@
 package aventurasdemarcoyluis.entities.items;
-
+// TODO: Documentar este enum
 public enum ItemType {
     REDMUSHROOM {
         @Override

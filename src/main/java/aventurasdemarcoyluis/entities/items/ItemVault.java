@@ -1,5 +1,8 @@
 package aventurasdemarcoyluis.entities.items;
 
+import org.jetbrains.annotations.NotNull;
+
+// TODO: DOCUMENTARY ITEMVAULT
 public class ItemVault {
     private int honeyAmount;
     private int mushroomAmount;
@@ -9,14 +12,14 @@ public class ItemVault {
         this.mushroomAmount = 0;
     }
 
-    public void modifyItemAmount(int amountToAddOrRemove, ItemType itemType) {
+    public void modifyItemAmount(int amountToAddOrRemove, @NotNull ItemType itemType) {
         switch (itemType) {
             case HONEYSYRUP -> this.honeyAmount = Math.max(amountToAddOrRemove + this.honeyAmount, 0);
             case REDMUSHROOM -> this.mushroomAmount = Math.max(amountToAddOrRemove + this.mushroomAmount, 0);
         }
     }
 
-    public int getItemAmount(ItemType itemType) {
+    public int getItemAmount(@NotNull ItemType itemType) {
         switch (itemType) {
             case HONEYSYRUP -> {
                 return this.honeyAmount;
