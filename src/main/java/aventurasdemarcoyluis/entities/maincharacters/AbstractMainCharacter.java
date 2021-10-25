@@ -1,10 +1,13 @@
 package aventurasdemarcoyluis.entities.maincharacters;
 
 import aventurasdemarcoyluis.entities.AbstractEntity;
+import aventurasdemarcoyluis.entities.InterEntity;
 import aventurasdemarcoyluis.entities.enemies.Goomba;
+import aventurasdemarcoyluis.entities.enemies.InterEnemy;
 import aventurasdemarcoyluis.entities.items.AbstractItem;
 import aventurasdemarcoyluis.entities.EntityType;
 import aventurasdemarcoyluis.entities.enemies.AbstractEnemy;
+import aventurasdemarcoyluis.entities.items.InterItem;
 import aventurasdemarcoyluis.entities.items.ItemType;
 
 import java.util.ArrayList;
@@ -15,10 +18,8 @@ import java.util.Random;
     Abstract representation of a Player.
     A player is a specific kind of Entity.
  */
-public abstract class AbstractMainCharacter extends AbstractEntity {
+public abstract class AbstractMainCharacter extends AbstractEntity implements InterMainCharacter {
 
-
-    protected boolean isInvincible = false;
 
     /**
      * Creates a new AbstractEntity
@@ -49,7 +50,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttackAction(AbstractEnemy enemy){
+    public void jumpAttackAction(InterEnemy enemy){
         int fpCost = 1;
         int targetFP = this.getFp()-fpCost;
         // In case the attack is not a legal move, exit the method
@@ -72,7 +73,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttackAction(AbstractEnemy enemy){
+    public void hammerAttackAction(InterEnemy enemy){
         int fpCost = 2;
         int targetFP = this.getFp()-fpCost;
 
@@ -128,7 +129,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
      *
      * @param enemy The enemy that is sending the attack message
      */
-    public void enemyAttacking(AbstractEnemy enemy) {
+    public void enemyAttacking(InterEnemy enemy) {
         this.receiveDamage(this.computeDmg(0.75, enemy));
     }
 
@@ -137,7 +138,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity {
 
     // Sends DD message to item to be used.
     // note: at this point, the player always has the item to be used.
-    public void useItem(AbstractItem item){
+    public void useItem(InterItem item){
         item.useItem(this);
     }
 }

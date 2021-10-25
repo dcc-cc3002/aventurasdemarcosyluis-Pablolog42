@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.entities.enemies;
 
 import aventurasdemarcoyluis.entities.EntityType;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
 
 /*
     Spiny enemy Class
@@ -30,7 +31,7 @@ public class Spiny extends AbstractEnemy{
      * @param player The player being attacked.
      *
      **/
-    public void attack(AbstractMainCharacter player){
+    public void attack(InterMainCharacter player){
         player.enemyAttacking(this);
     }
 
@@ -44,7 +45,7 @@ public class Spiny extends AbstractEnemy{
      * @param player The player sending the Jump-attack Message
      **/
     @Override
-    public void playerJumpAttacking(AbstractMainCharacter player) {
+    public void playerJumpAttacking(InterMainCharacter player) {
         player.receiveDamage(player.getMaxHP()*0.05);
     }
 

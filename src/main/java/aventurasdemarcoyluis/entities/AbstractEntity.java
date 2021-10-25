@@ -4,7 +4,7 @@ package aventurasdemarcoyluis.entities;
     Abstract representation of an entity in the game.
     An entity can be either a player, or an enemy.
  */
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements InterEntity {
 
     private double atk;
     private double def;
@@ -115,59 +115,65 @@ public abstract class AbstractEntity {
      * @param k The Base damage multiplier for a given attack
      * @param attacker The AbstractEntity currently attacking
      */
-    public double computeDmg(double k, AbstractEntity attacker){
-        return (k * attacker.atk * attacker.lvl) / this.getDef();
+    public double computeDmg(double k, InterEntity attacker){
+        return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
     }
-
 
 
 
     // Setters and getters
 
-
-    /* Gets the defense of an entity*/
+    /** Gets the attack of an entity **/
+    public double getAtk() {
+        return atk;
+    }
+    /** Gets the level of an entity **/
+    public int getLvl() {
+        return lvl;
+    }
+    /** Gets the defense of an entity **/
     public double getDef() {
         return def;
     }
-    /* Gets the current FP of an entity*/
+    /** Gets the current FP of an entity **/
     public int getFp() {
         return fp;
     }
-    /* Gets the current HP of an entity*/
+    /** Gets the current HP of an entity **/
     public double getMaxFP() {
         return maxFP;
     }
-    /* Gets the current HP of an entity*/
+    /** Gets the current HP of an entity **/
     public double getHp() {
         return hp;
     }
-    /* Gets the maximum HP of an entity*/
+    /** Gets the maximum HP of an entity **/
     public double getMaxHP() {
         return maxHP;
     }
-    /* Gets the type of an entity*/
+    /** Gets the type of entity **/
     public EntityType getType() {
         return type;
     }
-    /* Gets the Name of an entity*/
+    /** Gets the Name of an entity **/
     public String getName() {
         return this.type.toString();
     }
-    /* Gets the KO status of an entity*/
+    /** Gets the KO status of an entity **/
     public boolean isKO() {
         return isKO;
     }
 
 
-    /* Sets the current FP of an entity*/
+    /** Sets the current FP of an entity **/
     public void setFp(int fp) {
         this.fp = fp;
     }
-    /* Sets the current HP of an entity*/
+    /** Sets the current HP of an entity **/
     public void setHp(double hp) {
         this.hp = hp;
     }
-    /* Sets the KO status of an entity*/
+    /** Sets the KO status of an entity **/
     public void setKO(boolean KO) {
         isKO = KO;
     }

@@ -1,8 +1,6 @@
 package aventurasdemarcoyluis.entities.items;
 
-import aventurasdemarcoyluis.Player;
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
 
 /*
     RedMushroom item Class
@@ -19,7 +17,7 @@ public class RedMushroom extends AbstractItem implements InterItem {
      * @param character the character who gets the item (either Luis or Marco)
      **/
     @Override
-    public void useItem(AbstractMainCharacter character) {
+    public void useItem(InterMainCharacter character) {
         character.restoreHP(0.1 * character.getMaxHP());
     }
 }

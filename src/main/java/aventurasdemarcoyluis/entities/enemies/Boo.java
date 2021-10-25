@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.entities.enemies;
 
 import aventurasdemarcoyluis.entities.EntityType;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.entities.maincharacters.Luis;
 
 /*
@@ -30,7 +31,7 @@ public class Boo extends AbstractEnemy {
      * Note: In this case, Boo can only attack "Luis" Main Character.
      *
      **/
-    public void attack(Luis player){
+    public void attack(InterMainCharacter player){
         player.enemyAttacking(this);
     }
 
@@ -43,8 +44,8 @@ public class Boo extends AbstractEnemy {
      *
      **/
     @Override
-    public void playerHammerAttacking(AbstractMainCharacter player) {
-        System.out.println(this.getName() + " has dodged " + player.getName() + "'s attack!");;
+    public void playerHammerAttacking(InterMainCharacter player) {
+        System.out.println(this.getName() + " has dodged " + player.getName() + "'s attack!");
     }
 
 

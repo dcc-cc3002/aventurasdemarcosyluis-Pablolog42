@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.entities.items;
 
 import aventurasdemarcoyluis.Player;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
 
 /*
     HoneySyrup item Class
@@ -18,7 +19,7 @@ public class HoneySyrup extends AbstractItem implements InterItem {
      * @param character The player to use the item.
      **/
     @Override
-    public void useItem(AbstractMainCharacter character) {
+    public void useItem(InterMainCharacter character) {
         character.restoreFP(3);
     }
 }

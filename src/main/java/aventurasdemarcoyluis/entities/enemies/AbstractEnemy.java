@@ -4,13 +4,14 @@ package aventurasdemarcoyluis.entities.enemies;
 import aventurasdemarcoyluis.entities.AbstractEntity;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.entities.EntityType;
+import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
 
 
 /*
     Abstract representation of an Enemy.
     An enemy is a specific kind of Entity.
  */
-public abstract class AbstractEnemy extends AbstractEntity {
+public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy {
 
 
     /**
@@ -36,7 +37,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
      * @param player The player sending the attack Message
      *
      **/
-    public void playerHammerAttacking(AbstractMainCharacter player) {
+    public void playerHammerAttacking(InterMainCharacter player) {
         this.receiveDamage(this.computeDmg(1.5, player));
     }
 
@@ -47,7 +48,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
      * @param player The player sending the attack Message
      *
      **/
-    public void playerJumpAttacking(AbstractMainCharacter player) {
+    public void playerJumpAttacking(InterMainCharacter player) {
         this.receiveDamage(this.computeDmg(1,player));
     }
 
