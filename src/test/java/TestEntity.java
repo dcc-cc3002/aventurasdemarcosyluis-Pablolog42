@@ -14,9 +14,9 @@ public class TestEntity {
 
     @BeforeEach
     public void setUp() {
-        testGoomba= new Goomba(2,4,15,100,15,20,1);
+        testGoomba= new Goomba(2,4,15,100,15);
         testMarco = new Marco(10,10,10,100,10,10,2);
-        testBoo = new Boo(10,1,0,100,1,10,1);
+        testBoo = new Boo(10,1,0,100,1);
     }
 
     @Test

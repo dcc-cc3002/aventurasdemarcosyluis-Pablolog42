@@ -6,4 +6,5 @@ import aventurasdemarcoyluis.entities.enemies.InterEnemy;
 //TODO: Comentar la interface
 public interface InterMainCharacter extends InterEntity {
     void enemyAttacking(InterEnemy enemy);
+    void restoreFP(int fpToRestore);
     }

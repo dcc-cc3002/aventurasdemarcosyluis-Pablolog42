@@ -1,13 +1,12 @@
-package aventurasdemarcoyluis;
+package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.controller.EnemyList;
 import aventurasdemarcoyluis.entities.items.AbstractItem;
 import aventurasdemarcoyluis.entities.items.ItemType;
-import aventurasdemarcoyluis.entities.items.ItemVault;
+import aventurasdemarcoyluis.controller.ItemVault;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.entities.maincharacters.Luis;
 import aventurasdemarcoyluis.entities.maincharacters.Marco;
-
-import java.util.List;
 
 /*
  * Representation of a real-life player.
@@ -17,6 +16,7 @@ public class Player {
 
     private String playerName;
     private ItemVault playerVault;
+    private EnemyList enemyList;
     private Marco playerMarco;
     private Luis playerLuis;
 
@@ -24,10 +24,11 @@ public class Player {
         this.playerLuis = luis;
         this.playerMarco = marco;
         this.playerName = name;
+        enemyList = new EnemyList();
         playerVault = new ItemVault();
     }
 
-    // By default the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
+    // By default, the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
     public Player(String name){
         this.playerLuis = new Luis(10,10,10,100,10,100,1);
         this.playerMarco = new Marco(10,10,10,100,10,100,1);

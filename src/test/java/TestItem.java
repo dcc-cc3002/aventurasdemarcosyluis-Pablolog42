@@ -1,9 +1,8 @@
-import aventurasdemarcoyluis.Player;
+import aventurasdemarcoyluis.controller.Player;
 import aventurasdemarcoyluis.entities.enemies.Goomba;
 import aventurasdemarcoyluis.entities.enemies.Spiny;
 import aventurasdemarcoyluis.entities.items.HoneySyrup;
-import aventurasdemarcoyluis.entities.items.ItemType;
-import aventurasdemarcoyluis.entities.items.ItemVault;
+import aventurasdemarcoyluis.controller.ItemVault;
 import aventurasdemarcoyluis.entities.items.RedMushroom;
 import aventurasdemarcoyluis.entities.maincharacters.Luis;
 import aventurasdemarcoyluis.entities.maincharacters.Marco;
@@ -28,10 +27,10 @@ public class TestItem {
 
     @BeforeEach
     public void setUp() {
-        testGoomba= new Goomba(2,4,15,100,15,20,1);
+        testGoomba= new Goomba(2,4,15,100,15);
         testMarco = new Marco(10,10,10,100,5,10,2);
         testLuis = new Luis(10,10,10,100,5,10,2);
-        testSpiny = new Spiny(10,1,0,100,1,10,1);
+        testSpiny = new Spiny(10,1,0,100,1);
 
         // By default, the values for Marco and Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
         jugador1 = new Player("Juan Radrigán",testMarco,testLuis);

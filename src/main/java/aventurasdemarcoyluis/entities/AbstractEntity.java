@@ -10,8 +10,6 @@ public abstract class AbstractEntity implements InterEntity {
 
     private final double atk;
     private final double def;
-    private int fp;
-    private int maxFP;
     private double hp;
     private double maxHP;
     private int lvl;
@@ -23,22 +21,18 @@ public abstract class AbstractEntity implements InterEntity {
      * Creates a new AbstractEnemy
      * @param ATK jumpAttack points
      * @param DEF defense points
-     * @param FP  FP (mana? points)
-     * @param MAXFP Maximum FP of the unit
      * @param HP  health points
      * @param MAXHP Maximum HP of the unit
      * @param LVL  level of the Unit
      * @param TYPE type of the enemy (see enum "EnemyType")
      */
-    public AbstractEntity(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE){
+    public AbstractEntity(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE){
         this.atk=ATK;
         def=DEF;
         hp=HP;
         maxHP=MAXHP;
         lvl=LVL;
         type=TYPE;
-        fp = FP;
-        maxFP = MAXFP;
         // By default, every entity is not KO
         isKO = false;
     }
@@ -92,26 +86,9 @@ public abstract class AbstractEntity implements InterEntity {
             this.setKO(false);
         }
 
-
-
     }
 
-    /**
-     * Restores an amount of FP to an entity
-     * In case the targetFP exceeds the entity's maxHP, sets fp = maxFP
-     *
-     * @param fpToRestore The amount of HP to restore to the entity.
-     */
-    @Override
-    public void restoreFP(int fpToRestore) {
-        int targetFP = this.fp + fpToRestore;
-        // FP can't be more than maxFP
-        if (this.maxFP < targetFP) {
-            this.setFp(maxFP);
-            return;
-        }
-        this.setFp(targetFP);
-    }
+
 
     /**
      * Computes the amount of damage to be inflicted (according to the dmg formula)
@@ -120,6 +97,7 @@ public abstract class AbstractEntity implements InterEntity {
      * @param k The Base damage multiplier for a given attack
      * @param attacker The AbstractEntity currently attacking
      */
+    @Override
     public double computeDmg(double k, @NotNull InterEntity attacker){
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
     }
@@ -142,14 +120,6 @@ public abstract class AbstractEntity implements InterEntity {
     public double getDef() {
         return def;
     }
-    /** Gets the current FP of an entity **/
-    public int getFp() {
-        return fp;
-    }
-    /** Gets the current HP of an entity **/
-    public double getMaxFP() {
-        return maxFP;
-    }
     /** Gets the current HP of an entity **/
     public double getHp() {
         return hp;
@@ -171,12 +141,6 @@ public abstract class AbstractEntity implements InterEntity {
     /** Gets the KO status of an entity **/
     public boolean isKO() {
         return isKO;
-    }
-
-
-    /** Sets the current FP of an entity **/
-    public void setFp(int fp) {
-        this.fp = fp;
     }
     /** Sets the current HP of an entity **/
     public void setHp(double hp) {

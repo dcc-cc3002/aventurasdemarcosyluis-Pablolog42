@@ -1,6 +1,6 @@
 package aventurasdemarcoyluis.controller.turns;
 
-import aventurasdemarcoyluis.Player;
+import aventurasdemarcoyluis.controller.Player;
 
 public class ItemTurn {
 

@@ -15,6 +15,9 @@ import java.util.Random;
 public abstract class AbstractMainCharacter extends AbstractEntity implements InterMainCharacter {
 
 
+    private int fp;
+    private int maxFP;
+
     /**
      * Creates a new AbstractEntity
      *
@@ -28,7 +31,26 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      * @param TYPE  type of the enemy (see enum "EnemyType")
      */
     public AbstractMainCharacter(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE) {
-        super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, TYPE);
+        super(ATK, DEF, HP, MAXHP, LVL, TYPE);
+        this.fp = FP;
+        this.maxFP = MAXFP;
+    }
+
+    /**
+     * Restores an amount of FP to an entity
+     * In case the targetFP exceeds the entity's maxHP, sets fp = maxFP
+     *
+     * @param fpToRestore The amount of HP to restore to the entity.
+     */
+    @Override
+    public void restoreFP(int fpToRestore) {
+        int targetFP = this.fp + fpToRestore;
+        // FP can't be more than maxFP
+        if (this.maxFP < targetFP) {
+            this.setFp(maxFP);
+            return;
+        }
+        this.setFp(targetFP);
     }
 
 
@@ -88,9 +110,6 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     }
 
 
-
-
-
     /**
      * Checks if an attack is a legal move.
      * Checks if the player attacking is KO
@@ -135,6 +154,22 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     // note: at this point, the player always has the item to be used.
     public void useItem(@NotNull InterItem item){
         item.useItem(this);
+    }
+
+
+    // Setters and getters
+
+    /** Gets the current FP of an entity **/
+    public int getFp() {
+        return fp;
+    }
+    /** Gets the current HP of an entity **/
+    public double getMaxFP() {
+        return maxFP;
+    }
+    /** Sets the current FP of an entity **/
+    public void setFp(int fp) {
+        this.fp = fp;
     }
 }
 

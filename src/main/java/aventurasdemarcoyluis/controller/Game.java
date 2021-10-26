@@ -1,10 +1,5 @@
 package aventurasdemarcoyluis.controller;
 
-import aventurasdemarcoyluis.Battle;
-import aventurasdemarcoyluis.Player;
-import aventurasdemarcoyluis.controller.turns.EnemyTurn;
-import aventurasdemarcoyluis.entities.items.ItemType;
-
 public class Game {
 
     private static int battleNumber = 0;

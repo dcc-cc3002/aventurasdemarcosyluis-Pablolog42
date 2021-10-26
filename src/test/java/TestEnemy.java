@@ -17,13 +17,13 @@ public class TestEnemy {
 
     @BeforeEach
     public void setUp() {
-        testGoomba= new Goomba(2,4,15,100,15,20,1);
+        testGoomba= new Goomba(2,4,15,100,1);
 
-        testBoo = new Boo(100,10,100,1000,100, 100,1);
+        testBoo = new Boo(100,10,100,1000,1);
 
         testMarco = new Marco(10,10,10,1000,10,10,2);
 
-        testSpiny = new Spiny(10,1,0,100,1,10,1);
+        testSpiny = new Spiny(10,1,0,100,1);
     }
 
     @Test

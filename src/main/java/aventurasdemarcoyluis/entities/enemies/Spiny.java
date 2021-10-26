@@ -9,22 +9,18 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Spiny extends AbstractEnemy{
 
-
     /**
      * Creates a new Spiny
      *
      * @param ATK   jumpAttack points
      * @param DEF   defense points
-     * @param FP    FP
-     * @param MAXFP Maximum FP points for the unit
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
      */
-    public Spiny(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL) {
-        super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, EntityType.SPINY);
+    public Spiny(double ATK, double DEF, double HP, double MAXHP, int LVL) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.SPINY);
     }
-
 
     /**
      *  Sends the double dispatch attack message to a player.

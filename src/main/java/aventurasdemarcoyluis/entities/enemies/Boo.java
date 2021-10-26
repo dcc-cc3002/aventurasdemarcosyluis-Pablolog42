@@ -15,14 +15,12 @@ public class Boo extends AbstractEnemy {
      * Creates a new Boo
      * @param ATK   jumpAttack points
      * @param DEF   defense points
-     * @param FP    FP
-     * @param MAXFP Maximum FP points for the unit
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
      */
-    public Boo(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL) {
-        super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, EntityType.BOO);
+    public Boo(double ATK, double DEF, double HP, double MAXHP, int LVL) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.BOO);
     }
 
     /**
