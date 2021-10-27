@@ -27,31 +27,35 @@ public class Battle {
 
     public void main() {
 
-        boolean currentTurnFinished = false;
+        boolean currentPlayFinished = false;
 
         while(!this.battleFinished) {
-
-            currentTurnFinished = false;
 
             // Se genera la lista de enemigos aleatorios correspondiente segun el numero de batalla en el que se
             // encuentre el jugador. Esta lista de enemigos es la misma a lo largo de un turno entero, y cambia
             // solo al iniciarse una nueva batalla
             setRandomEnemyList();
 
-            while (!currentTurnFinished) {
+            while (!currentPlayFinished) {
 
                 Scanner entrada = new Scanner(System.in);
 
-                System.out.println("----- Inicio de Turno -----");
+                System.out.println("----- Inicio del Turno -----");
+                System.out.println();
                 System.out.println("Es su turno. Indique a continuación que desea realizar. (Ingrese un número)");
                 System.out.println("1. Atacar    2. Usar Item    3. Pasar");
 
                 String selection = entrada.nextLine();
 
+                boolean magic = false;
+
                 switch (selection) {
                     case "1" -> {
                         AttackTurn attackTurn = new AttackTurn(player);
                         attackTurn.main(this.player);
+
+                        // debugging
+                        magic = true;
                     }
                     case "2" -> {
                         ItemTurn itemTurn = new ItemTurn(player);
@@ -72,10 +76,12 @@ public class Battle {
 
                 //TODO: en este punto, hay que chequear si el jugador, o todos los enemigos estan ko para ver si se termina la batalla
 
+                //debugging
+                if(magic) {currentPlayFinished = true; this.battleFinished = true;}
 
-                // en caso de no estar KO, ha terminado el turno
-                System.out.println(" --------- Fin del turno ---------");
-                currentTurnFinished = true;
+                // en caso de no estar KO, ha terminado el juego
+                System.out.println(" --------- Fin del Turno ---------");
+                //currentTurnFinished = true;
 
             }
             //this.battleFinished = true;
@@ -83,6 +89,7 @@ public class Battle {
             if (this.player.getBattleNumber() >= 5 || this.battleFinished) {
                 this.battleFinished = true;
                 this.battleWinner = "Player";
+                System.out.println();
                 System.out.println(" || --------- Fin de la batalla numero " + (this.player.getBattleNumber()+1) + " ----------- ||");
                 System.out.println(" || Ganador de batalla: " + this.player.getPlayerName() + " ||");
             }
