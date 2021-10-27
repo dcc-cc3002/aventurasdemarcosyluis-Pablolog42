@@ -12,12 +12,21 @@ public class EnemyTurn extends Battle {
         this.player = player;
     }
 
-    public void main() {
-
+    @Override
+    public void main(Player player) {
 
 
         AbstractMainCharacter attackedCharacter = selectCharacter();
-        System.out.println(attackedCharacter);
+
+        // Seleccionar n tipos random, acorde al numero de batalla que se está jugando
+        int turnNo = this.player.getBattleNumber();
+        switch (turnNo){
+            case 0, 1 -> System.out.println("deberian de haber 3 enemigos aleatorios");
+            case 2, 3 -> System.out.println("deberian de haber 5 enemigos aleatorios");
+            case 4 -> System.out.println("deberian de haber 6 enemigos aleatorios");
+        }
+
+
 
 
 

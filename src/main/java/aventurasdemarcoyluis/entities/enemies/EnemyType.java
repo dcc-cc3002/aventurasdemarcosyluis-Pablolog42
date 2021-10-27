@@ -1,7 +1,7 @@
-package aventurasdemarcoyluis.entities;
+package aventurasdemarcoyluis.entities.enemies;
 
-public enum EntityType {
-    // TODO: Documentar enum
+public enum EnemyType {
+    //TODO: Documentar enum
     GOOMBA{
         @Override
         public String toString() {
@@ -11,21 +11,11 @@ public enum EntityType {
         @Override
         public String toString() {
             return "Boo";
-    }
+        }
     },SPINY{
         @Override
         public String toString() {
             return "Spiny";
-        }
-    },MARCO{
-        @Override
-        public String toString() {
-            return "Marco";
-        }
-    },LUIS{
-        @Override
-        public String toString() {
-            return "Luis";
         }
     }
 }

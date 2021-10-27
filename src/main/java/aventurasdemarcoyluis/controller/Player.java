@@ -19,6 +19,7 @@ public class Player {
     private EnemyList enemyList;
     private Marco playerMarco;
     private Luis playerLuis;
+    private int battleNumber;
 
     public Player(String name, Marco marco, Luis luis){
         this.playerLuis = luis;
@@ -26,6 +27,7 @@ public class Player {
         this.playerName = name;
         enemyList = new EnemyList();
         playerVault = new ItemVault();
+        battleNumber = 0;
     }
 
     // By default, the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
@@ -91,6 +93,10 @@ public class Player {
         character.useItem(instancedItem);
     }
 
+    public void increaseBattleNumber() {
+        this.battleNumber = this.battleNumber + 1;
+    }
+
 
     // Getters and setters //
 
@@ -105,5 +111,9 @@ public class Player {
 
     public Luis getLuis() {
         return playerLuis;
+    }
+
+    public int getBattleNumber() {
+        return battleNumber;
     }
 }

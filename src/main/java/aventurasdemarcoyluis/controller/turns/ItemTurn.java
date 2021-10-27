@@ -10,4 +10,6 @@ public class ItemTurn {
         this.player = player;
     }
 
+    public void main(Player player) {
+    }
 }

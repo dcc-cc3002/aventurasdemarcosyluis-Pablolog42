@@ -9,4 +9,7 @@ public class PassingTurn {
     public PassingTurn(Player player) {
         this.player = player;
     }
+
+    public void main(Player player) {
+    }
 }
