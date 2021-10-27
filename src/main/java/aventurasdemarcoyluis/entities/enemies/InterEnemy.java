@@ -11,4 +11,5 @@ public interface InterEnemy extends InterEntity {
     void playerHammerAttacking(InterMainCharacter character);
 
     void playerJumpAttacking(InterMainCharacter character);
+
 }

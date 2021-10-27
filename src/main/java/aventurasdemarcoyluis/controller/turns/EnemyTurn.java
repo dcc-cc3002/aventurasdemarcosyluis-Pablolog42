@@ -1,10 +1,9 @@
 package aventurasdemarcoyluis.controller.turns;
 
-import aventurasdemarcoyluis.controller.Battle;
 import aventurasdemarcoyluis.controller.Player;
 import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 
-public class EnemyTurn extends Battle {
+public class EnemyTurn {
 
     private Player player;
 
@@ -12,19 +11,13 @@ public class EnemyTurn extends Battle {
         this.player = player;
     }
 
-    @Override
-    public void main(Player player) {
-
+    public void main() {
 
         AbstractMainCharacter attackedCharacter = selectCharacter();
 
-        // Seleccionar n tipos random, acorde al numero de batalla que se está jugando
-        int turnNo = this.player.getBattleNumber();
-        switch (turnNo){
-            case 0, 1 -> System.out.println("deberian de haber 3 enemigos aleatorios");
-            case 2, 3 -> System.out.println("deberian de haber 5 enemigos aleatorios");
-            case 4 -> System.out.println("deberian de haber 6 enemigos aleatorios");
-        }
+
+
+        System.out.println(this.player.getEnemyList());
 
 
 

@@ -58,4 +58,9 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
         this.receiveDamage(this.computeDmg(1,player));
     }
 
+    @Override
+    public String toString(){
+        return this.getType().toString() + " with stats: " + "ATK: " + this.getAtk() + " DEF: " + this.getDef() + " HP: " + this.getHp() + " MAXHP: " + this.getMaxHP() + " LVL: " + this.getLvl();
+    }
+
 }

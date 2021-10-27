@@ -1,5 +1,7 @@
 package aventurasdemarcoyluis.entities.enemies;
 
+import java.util.Random;
+
 public enum EnemyType {
     //TODO: Documentar enum
     GOOMBA{
@@ -17,5 +19,11 @@ public enum EnemyType {
         public String toString() {
             return "Spiny";
         }
+    };
+
+    // TODO Comentar este método
+    public static EnemyType getRandomEnemyType(){
+        return EnemyType.values()[new Random().nextInt(EnemyType.values().length)];
     }
 }
+

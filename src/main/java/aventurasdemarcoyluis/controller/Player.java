@@ -25,9 +25,9 @@ public class Player {
         this.playerLuis = luis;
         this.playerMarco = marco;
         this.playerName = name;
-        enemyList = new EnemyList();
-        playerVault = new ItemVault();
-        battleNumber = 0;
+        this.enemyList = new EnemyList();
+        this.playerVault = new ItemVault();
+        this.battleNumber = 0;
     }
 
     // By default, the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
@@ -35,7 +35,8 @@ public class Player {
         this.playerLuis = new Luis(10,10,10,100,10,100,1);
         this.playerMarco = new Marco(10,10,10,100,10,100,1);
         this.playerName = name;
-        playerVault = new ItemVault();
+        this.playerVault = new ItemVault();
+        this.enemyList = new EnemyList();
     }
 
     // K.O.
@@ -105,6 +106,10 @@ public class Player {
         return playerVault;
     }
 
+    public EnemyList getEnemyList() {
+        return this.enemyList;
+    }
+
     public Marco getMarco() {
         return playerMarco;
     }
@@ -115,5 +120,9 @@ public class Player {
 
     public int getBattleNumber() {
         return battleNumber;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }

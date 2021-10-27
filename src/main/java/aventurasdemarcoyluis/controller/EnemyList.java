@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.entities.enemies.EnemyType;
 import aventurasdemarcoyluis.entities.enemies.InterEnemy;
 
 import java.util.ArrayList;
@@ -7,10 +8,18 @@ import java.util.Random;
 
 public class EnemyList {
 
+    private GameController controller;
     ArrayList<InterEnemy> list;
 
     public EnemyList(){
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
+        this.controller = new GameController();
+    }
+
+    public void addRandomEnemies(int enemiesToAdd){
+        for(int i=0; i<enemiesToAdd; i++){
+            list.add(controller.createRandomStatsEnemy(EnemyType.getRandomEnemyType()));
+        }
     }
 
     public void addEnemy(InterEnemy enemy){
@@ -26,9 +35,16 @@ public class EnemyList {
 
 
     public void clearList(){
+        this.list.clear();
+    }
+
+    @Override
+    public String toString(){
+        String out = "";
         for(InterEnemy enemy : this.list){
-            list.remove(enemy);
+            out = out.concat("\n" + enemy.toString());
         }
+        return out;
     }
 
 
