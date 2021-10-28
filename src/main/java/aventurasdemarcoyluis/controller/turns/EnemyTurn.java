@@ -17,13 +17,6 @@ public class EnemyTurn {
 
 
 
-        System.out.println(this.player.getEnemyList());
-
-
-
-
-
-
 
     }
 

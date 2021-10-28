@@ -171,6 +171,13 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     public void setFp(int fp) {
         this.fp = fp;
     }
+
+
+
+    @Override
+    public String toString(){
+        return this.getType().toString() + " with stats:   " + "| ATK: " + this.getAtk() + " | DEF: " + this.getDef() + " | HP: " + this.getHp() + " | MAXHP: " + this.getMaxHP() + " | FP: " + this.getFp() + " | MAXFP: " + this.getMaxFP() + " | LVL: " + this.getLvl() + " |";
+    }
 }
 
 

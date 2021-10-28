@@ -18,6 +18,7 @@ public class Battle {
     private String battleWinner;
 
 
+
     public Battle(Player player){
         this.controller = new GameController();
         this.player = player;
@@ -28,6 +29,7 @@ public class Battle {
     public void main() {
 
         boolean currentPlayFinished = false;
+        Scanner entrada = new Scanner(System.in);
 
         while(!this.battleFinished) {
 
@@ -37,11 +39,23 @@ public class Battle {
             setRandomEnemyList();
 
             while (!currentPlayFinished) {
-
-                Scanner entrada = new Scanner(System.in);
-
-                System.out.println("----- Inicio del Turno -----");
                 System.out.println();
+
+                System.out.println("*********************************************");
+                System.out.println(this.player.getPlayerName()+ "'s main characters are: ");
+                System.out.println(this.player.getMarco() + "\n" + this.player.getLuis());
+
+                System.out.println("*********************************************");
+                System.out.println("Your team encounters a series of enemies to battle!");
+                System.out.println("Wild enemies:");
+                System.out.println(this.player.getEnemyList());
+                System.out.println("*********************************************");
+
+
+
+
+                System.out.println();
+                System.out.println("--------- Turn Begins ---------");
                 System.out.println("Es su turno. Indique a continuación que desea realizar. (Ingrese un número)");
                 System.out.println("1. Atacar    2. Usar Item    3. Pasar");
 
@@ -80,7 +94,7 @@ public class Battle {
                 if(magic) {currentPlayFinished = true; this.battleFinished = true;}
 
                 // en caso de no estar KO, ha terminado el juego
-                System.out.println(" --------- Fin del Turno ---------");
+                System.out.println("--------- End of Turn ---------");
                 //currentTurnFinished = true;
 
             }
@@ -90,7 +104,7 @@ public class Battle {
                 this.battleFinished = true;
                 this.battleWinner = "Player";
                 System.out.println();
-                System.out.println(" || --------- Fin de la batalla numero " + (this.player.getBattleNumber()+1) + " ----------- ||");
+                System.out.println(" || Fin de la batalla numero " + (this.player.getBattleNumber()+1) + " ||");
                 System.out.println(" || Ganador de batalla: " + this.player.getPlayerName() + " ||");
             }
         }

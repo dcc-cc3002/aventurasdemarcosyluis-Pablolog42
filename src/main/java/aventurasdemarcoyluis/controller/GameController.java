@@ -6,6 +6,8 @@ import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.entities.maincharacters.Luis;
 import aventurasdemarcoyluis.entities.maincharacters.Marco;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -15,6 +17,44 @@ public class GameController {
 
     }
 
+    public void main() {
+
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Escriba Su nombre a continuación:");
+        String playerName = entrada.nextLine();
+
+
+        Player mainPlayer = new Player(playerName);
+
+        // https://pbs.twimg.com/media/EvHKoVAWYAQpUvJ.jpg
+        Battle batalla1 = new Battle(mainPlayer);
+        Battle batalla2 = new Battle(mainPlayer);
+        Battle batalla3 = new Battle(mainPlayer);
+        Battle batalla4 = new Battle(mainPlayer);
+        Battle batalla5 = new Battle(mainPlayer);
+
+
+        batalla1.main();
+        mainPlayer.increaseBattleNumber();
+        batalla2.main();
+        mainPlayer.increaseBattleNumber();
+        batalla3.main();
+        mainPlayer.increaseBattleNumber();
+        batalla4.main();
+        mainPlayer.increaseBattleNumber();
+        batalla5.main();
+
+        if(batalla1.returnWinner().equals("Player")){
+            playerVictorySequence();
+        }
+
+    }
+
+    public static void playerVictorySequence() {
+        System.out.println("The Player has won. Congratulations!");
+    }
+
+    public static void enemyVictorySequence() { System.out.println("All players characters have been defeated. Evil will now reign."); }
 
 
 
@@ -42,7 +82,7 @@ public class GameController {
 
         // Generates an array with 4 random stat values
         int[] stats = new int[4];
-        for (int i = 0; i <= 3; i++) { stats[i] = ThreadLocalRandom.current().nextInt(0, 20 + 1); }
+        for (int i = 0; i <= 3; i++) { stats[i] = ThreadLocalRandom.current().nextInt(1, 15 + 1); }
 
         switch (type){
             // Note: MAXHP has to be grater than hp, and hp has to be grater than 1
