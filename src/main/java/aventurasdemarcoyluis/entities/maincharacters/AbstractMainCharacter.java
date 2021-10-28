@@ -176,7 +176,18 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
     @Override
     public String toString(){
-        return this.getType().toString() + " with stats:   " + "| ATK: " + this.getAtk() + " | DEF: " + this.getDef() + " | HP: " + this.getHp() + " | MAXHP: " + this.getMaxHP() + " | FP: " + this.getFp() + " | MAXFP: " + this.getMaxFP() + " | LVL: " + this.getLvl() + " |";
+        String notKo = this.getType().toString() + " with stats:   " +
+                "| ATK: " + this.getAtk() +
+                " | DEF: " + this.getDef() +
+                " | HP: " + this.getHp() +
+                " | MAXHP: " + this.getMaxHP() +
+                " | FP: " + this.getFp() +
+                " | MAXFP: " + this.getMaxFP() +
+                " | LVL: " + this.getLvl() + " |";
+
+        String ko = "%%% K.O. %%% " + notKo;
+
+        return this.isKO()? ko:notKo;
     }
 }
 

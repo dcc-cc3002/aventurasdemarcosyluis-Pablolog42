@@ -2,7 +2,7 @@ package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.Player;
 
-public class ItemTurn {
+public class ItemTurn implements InterTurn{
 
     private Player player;
 
@@ -10,6 +10,9 @@ public class ItemTurn {
         this.player = player;
     }
 
-    public void main(Player player) {
+
+    @Override
+    public void main() {
+
     }
 }

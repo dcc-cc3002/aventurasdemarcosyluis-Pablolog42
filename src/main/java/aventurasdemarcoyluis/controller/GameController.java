@@ -20,7 +20,7 @@ public class GameController {
     public void main() {
 
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Escriba Su nombre a continuación:");
+        System.out.print("Please, enter your name: ");
         String playerName = entrada.nextLine();
 
 

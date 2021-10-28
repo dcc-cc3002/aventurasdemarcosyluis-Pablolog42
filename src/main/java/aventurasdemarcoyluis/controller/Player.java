@@ -29,6 +29,7 @@ public class Player {
         this.playerVault = new ItemVault();
         this.battleNumber = 0;
     }
+    
 
     // By default, the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
     public Player(String name){
@@ -38,6 +39,8 @@ public class Player {
         this.playerVault = new ItemVault();
         this.enemyList = new EnemyList();
     }
+
+
 
     // K.O.
     /**

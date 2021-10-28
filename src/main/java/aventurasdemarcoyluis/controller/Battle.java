@@ -4,10 +4,7 @@ import aventurasdemarcoyluis.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.controller.turns.EnemyTurn;
 import aventurasdemarcoyluis.controller.turns.ItemTurn;
 import aventurasdemarcoyluis.controller.turns.PassingTurn;
-import aventurasdemarcoyluis.entities.enemies.Boo;
-import aventurasdemarcoyluis.entities.enemies.InterEnemy;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Battle {
@@ -56,8 +53,8 @@ public class Battle {
 
                 System.out.println();
                 System.out.println("--------- Turn Begins ---------");
-                System.out.println("Es su turno. Indique a continuación que desea realizar. (Ingrese un número)");
-                System.out.println("1. Atacar    2. Usar Item    3. Pasar");
+                System.out.println("It's your turn. Please choose what do you want to do: (Pick a number from below)");
+                System.out.println("1. Attack    2. Use Item    3. Pass");
 
                 String selection = entrada.nextLine();
 
@@ -66,18 +63,18 @@ public class Battle {
                 switch (selection) {
                     case "1" -> {
                         AttackTurn attackTurn = new AttackTurn(player);
-                        attackTurn.main(this.player);
+                        attackTurn.main();
 
                         // debugging
                         magic = true;
                     }
                     case "2" -> {
                         ItemTurn itemTurn = new ItemTurn(player);
-                        itemTurn.main(this.player);
+                        itemTurn.main();
                     }
                     case "3" -> {
                         PassingTurn passingTurn = new PassingTurn(player);
-                        passingTurn.main(this.player);
+                        passingTurn.main();
                     }
                     //TODO: sacar esto, es solo para debuging.
                     case "stop" -> this.battleFinished = true;
