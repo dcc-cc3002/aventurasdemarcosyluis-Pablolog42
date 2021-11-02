@@ -1,6 +1,4 @@
-package aventurasdemarcoyluis.entities;
-
-import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
+package aventurasdemarcoyluis.model;
 
 //TODO: Comentar la interface
 public interface InterEntity {

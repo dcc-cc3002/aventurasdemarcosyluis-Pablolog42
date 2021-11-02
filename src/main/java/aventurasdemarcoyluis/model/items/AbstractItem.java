@@ -1,4 +1,4 @@
-package aventurasdemarcoyluis.entities.items;
+package aventurasdemarcoyluis.model.items;
 
 /*
     Abstract representation of an item in the game.

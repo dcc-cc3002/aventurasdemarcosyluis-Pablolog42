@@ -1,6 +1,6 @@
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.enemies.*;
-import aventurasdemarcoyluis.entities.maincharacters.Marco;
+import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.enemies.*;
+import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

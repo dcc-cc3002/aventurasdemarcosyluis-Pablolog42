@@ -1,10 +1,10 @@
 package aventurasdemarcoyluis.controller;
 
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.enemies.*;
-import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
-import aventurasdemarcoyluis.entities.maincharacters.Luis;
-import aventurasdemarcoyluis.entities.maincharacters.Marco;
+import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.enemies.*;
+import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.model.maincharacters.Luis;
+import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
@@ -28,6 +28,10 @@ public class GameController {
 
         // https://pbs.twimg.com/media/EvHKoVAWYAQpUvJ.jpg
         Battle batalla1 = new Battle(mainPlayer);
+
+
+
+
         Battle batalla2 = new Battle(mainPlayer);
         Battle batalla3 = new Battle(mainPlayer);
         Battle batalla4 = new Battle(mainPlayer);

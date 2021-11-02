@@ -1,4 +1,4 @@
-package aventurasdemarcoyluis.entities;
+package aventurasdemarcoyluis.model;
 
 public enum EntityType {
     // TODO: Documentar enum

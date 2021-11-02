@@ -1,9 +1,9 @@
-package aventurasdemarcoyluis.entities.maincharacters;
+package aventurasdemarcoyluis.model.maincharacters;
 
-import aventurasdemarcoyluis.entities.AbstractEntity;
-import aventurasdemarcoyluis.entities.enemies.InterEnemy;
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.items.InterItem;
+import aventurasdemarcoyluis.model.AbstractEntity;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
+import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.items.InterItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;

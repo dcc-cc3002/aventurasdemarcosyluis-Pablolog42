@@ -1,7 +1,7 @@
 package aventurasdemarcoyluis.controller;
 
-import aventurasdemarcoyluis.entities.enemies.EnemyType;
-import aventurasdemarcoyluis.entities.enemies.InterEnemy;
+import aventurasdemarcoyluis.model.enemies.EnemyType;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 
 import java.util.ArrayList;
 import java.util.Random;

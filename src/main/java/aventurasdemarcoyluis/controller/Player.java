@@ -1,12 +1,10 @@
 package aventurasdemarcoyluis.controller;
 
-import aventurasdemarcoyluis.controller.EnemyList;
-import aventurasdemarcoyluis.entities.items.AbstractItem;
-import aventurasdemarcoyluis.entities.items.ItemType;
-import aventurasdemarcoyluis.controller.ItemVault;
-import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
-import aventurasdemarcoyluis.entities.maincharacters.Luis;
-import aventurasdemarcoyluis.entities.maincharacters.Marco;
+import aventurasdemarcoyluis.model.items.AbstractItem;
+import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.model.maincharacters.Luis;
+import aventurasdemarcoyluis.model.maincharacters.Marco;
 
 /*
  * Representation of a real-life player.

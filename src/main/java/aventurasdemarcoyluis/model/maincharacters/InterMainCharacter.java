@@ -1,7 +1,7 @@
-package aventurasdemarcoyluis.entities.maincharacters;
+package aventurasdemarcoyluis.model.maincharacters;
 
-import aventurasdemarcoyluis.entities.InterEntity;
-import aventurasdemarcoyluis.entities.enemies.InterEnemy;
+import aventurasdemarcoyluis.model.InterEntity;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 
 //TODO: Comentar la interface
 public interface InterMainCharacter extends InterEntity {

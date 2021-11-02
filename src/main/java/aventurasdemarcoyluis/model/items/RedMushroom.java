@@ -1,6 +1,6 @@
-package aventurasdemarcoyluis.entities.items;
+package aventurasdemarcoyluis.model.items;
 
-import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
 /*

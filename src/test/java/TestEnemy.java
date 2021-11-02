@@ -1,8 +1,8 @@
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.enemies.Boo;
-import aventurasdemarcoyluis.entities.enemies.Goomba;
-import aventurasdemarcoyluis.entities.enemies.Spiny;
-import aventurasdemarcoyluis.entities.maincharacters.Marco;
+import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.enemies.Boo;
+import aventurasdemarcoyluis.model.enemies.Goomba;
+import aventurasdemarcoyluis.model.enemies.Spiny;
+import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,7 +1,7 @@
-package aventurasdemarcoyluis.entities.enemies;
+package aventurasdemarcoyluis.model.enemies;
 
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.maincharacters.InterMainCharacter;
+import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
 /*

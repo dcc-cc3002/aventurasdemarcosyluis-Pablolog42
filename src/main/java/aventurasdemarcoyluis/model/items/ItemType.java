@@ -1,4 +1,4 @@
-package aventurasdemarcoyluis.entities.items;
+package aventurasdemarcoyluis.model.items;
 // TODO: Documentar este enum
 public enum ItemType {
     REDMUSHROOM {

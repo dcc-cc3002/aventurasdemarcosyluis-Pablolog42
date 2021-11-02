@@ -1,8 +1,8 @@
 package aventurasdemarcoyluis.examples;
 
-import aventurasdemarcoyluis.entities.enemies.Boo;
-import aventurasdemarcoyluis.entities.enemies.Goomba;
-import aventurasdemarcoyluis.entities.maincharacters.Marco;
+import aventurasdemarcoyluis.model.enemies.Boo;
+import aventurasdemarcoyluis.model.enemies.Goomba;
+import aventurasdemarcoyluis.model.maincharacters.Marco;
 
 public class PlayExample {
 

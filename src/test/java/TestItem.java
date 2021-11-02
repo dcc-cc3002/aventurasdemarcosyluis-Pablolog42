@@ -1,15 +1,15 @@
 import aventurasdemarcoyluis.controller.Player;
-import aventurasdemarcoyluis.entities.enemies.Goomba;
-import aventurasdemarcoyluis.entities.enemies.Spiny;
-import aventurasdemarcoyluis.entities.items.HoneySyrup;
+import aventurasdemarcoyluis.model.enemies.Goomba;
+import aventurasdemarcoyluis.model.enemies.Spiny;
+import aventurasdemarcoyluis.model.items.HoneySyrup;
 import aventurasdemarcoyluis.controller.ItemVault;
-import aventurasdemarcoyluis.entities.items.RedMushroom;
-import aventurasdemarcoyluis.entities.maincharacters.Luis;
-import aventurasdemarcoyluis.entities.maincharacters.Marco;
+import aventurasdemarcoyluis.model.items.RedMushroom;
+import aventurasdemarcoyluis.model.maincharacters.Luis;
+import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static aventurasdemarcoyluis.entities.items.ItemType.*;
+import static aventurasdemarcoyluis.model.items.ItemType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestItem {

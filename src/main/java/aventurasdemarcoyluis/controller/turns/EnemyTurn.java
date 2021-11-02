@@ -1,8 +1,8 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.Player;
-import aventurasdemarcoyluis.entities.enemies.InterEnemy;
-import aventurasdemarcoyluis.entities.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
+import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
 
 public class EnemyTurn implements InterTurn {
 

@@ -1,9 +1,9 @@
 package aventurasdemarcoyluis.controller;
 
-import aventurasdemarcoyluis.entities.items.AbstractItem;
-import aventurasdemarcoyluis.entities.items.HoneySyrup;
-import aventurasdemarcoyluis.entities.items.ItemType;
-import aventurasdemarcoyluis.entities.items.RedMushroom;
+import aventurasdemarcoyluis.model.items.AbstractItem;
+import aventurasdemarcoyluis.model.items.HoneySyrup;
+import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.model.items.RedMushroom;
 import org.jetbrains.annotations.NotNull;
 
 // TODO: DOCUMENTARY ITEMVAULT

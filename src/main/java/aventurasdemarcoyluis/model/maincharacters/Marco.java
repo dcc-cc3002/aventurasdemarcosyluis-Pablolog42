@@ -1,10 +1,8 @@
-package aventurasdemarcoyluis.entities.maincharacters;
+package aventurasdemarcoyluis.model.maincharacters;
 
 
-import aventurasdemarcoyluis.entities.EntityType;
-import aventurasdemarcoyluis.entities.enemies.*;
-
-import java.util.Random;
+import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.enemies.*;
 
 /*
     Marco player Class

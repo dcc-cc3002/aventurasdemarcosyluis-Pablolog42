@@ -1,4 +1,4 @@
-package aventurasdemarcoyluis.entities.enemies;
+package aventurasdemarcoyluis.model.enemies;
 
 import java.util.Random;
 

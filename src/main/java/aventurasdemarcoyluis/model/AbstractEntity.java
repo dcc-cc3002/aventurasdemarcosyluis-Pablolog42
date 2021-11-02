@@ -1,4 +1,4 @@
-package aventurasdemarcoyluis.entities;
+package aventurasdemarcoyluis.model;
 
 import org.jetbrains.annotations.NotNull;
 
