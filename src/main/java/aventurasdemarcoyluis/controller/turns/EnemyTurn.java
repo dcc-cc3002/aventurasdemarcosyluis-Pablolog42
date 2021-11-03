@@ -29,7 +29,7 @@ public class EnemyTurn implements InterTurn {
 
 
 
-    // TODO: Esto es lo más feo que he visto en mucho tiempo. Hay que cambiarlo.
+    // TODO: Esto es lo más feo que he visto en mucho tiempo. Hay que cambiarlo y pedir perdón por nuestros pecados.
     public AbstractMainCharacter selectCharacter() {
         // Selects which player's character to attack
         double rand = Math.random();

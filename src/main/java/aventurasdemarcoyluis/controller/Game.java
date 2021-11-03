@@ -1,12 +1,13 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.view.TextUI;
+
 public class Game {
 
     public static void main(String[] args) {
-        GameController game = new GameController();
+        TextUI textUI = new TextUI();
 
-        game.main();
-
+        textUI.main();
     }
 
 }

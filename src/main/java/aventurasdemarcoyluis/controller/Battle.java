@@ -16,6 +16,7 @@ public class Battle {
 
 
 
+
     public Battle(Player player){
         this.controller = new GameController();
         this.player = player;

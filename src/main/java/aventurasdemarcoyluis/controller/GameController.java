@@ -13,52 +13,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameController {
 
+    private String currentBattleWinner;
+    private Battle currentBattle;
+    private Player mainPlayer;
+    private Boolean winner;
+
     public GameController(){
-
+        this.currentBattleWinner = null;
+        this.currentBattle = null;
+        this.winner = null;
     }
 
-    public void main() {
-
-        Scanner entrada = new Scanner(System.in);
-        System.out.print("Please, enter your name: ");
-        String playerName = entrada.nextLine();
-
-
-        Player mainPlayer = new Player(playerName);
-
-        // https://pbs.twimg.com/media/EvHKoVAWYAQpUvJ.jpg
-        Battle batalla1 = new Battle(mainPlayer);
-
-
-
-
-        Battle batalla2 = new Battle(mainPlayer);
-        Battle batalla3 = new Battle(mainPlayer);
-        Battle batalla4 = new Battle(mainPlayer);
-        Battle batalla5 = new Battle(mainPlayer);
-
-
-        batalla1.main();
-        mainPlayer.increaseBattleNumber();
-        batalla2.main();
-        mainPlayer.increaseBattleNumber();
-        batalla3.main();
-        mainPlayer.increaseBattleNumber();
-        batalla4.main();
-        mainPlayer.increaseBattleNumber();
-        batalla5.main();
-
-        if(batalla1.returnWinner().equals("Player")){
-            playerVictorySequence();
-        }
-
-    }
-
-    public static void playerVictorySequence() {
-        System.out.println("The Player has won. Congratulations!");
-    }
-
-    public static void enemyVictorySequence() { System.out.println("All players characters have been defeated. Evil will now reign."); }
 
 
 
@@ -97,13 +62,33 @@ public class GameController {
         return null;
     }
 
+    public void checkForWinner(){
+        //TODO:
+        if(this.mainPlayer.getBattleNumber() >= 5){
+
+        }
+    }
+
+    public void runBattle(){
+        currentBattle = new Battle(this.mainPlayer);
+        currentBattle.main();
+        mainPlayer.increaseBattleNumber();
+        this.checkForWinner();
+    }
 
 
+    public void setPlayer(String playerName) {
+        this.mainPlayer = new Player(playerName);
+    }
 
 
+    // Getters and setters
 
+    public String getCurrentBattleWinner() {
+        return currentBattleWinner;
+    }
 
-
-
-
+    public Battle getCurrentBattle() {
+        return currentBattle;
+    }
 }
