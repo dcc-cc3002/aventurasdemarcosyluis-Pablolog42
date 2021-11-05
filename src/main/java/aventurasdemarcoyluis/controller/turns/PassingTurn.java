@@ -5,9 +5,11 @@ import aventurasdemarcoyluis.controller.Player;
 public class PassingTurn implements InterTurn{
 
     private Player player;
+    private TurnType type;
 
     public PassingTurn(Player player) {
         this.player = player;
+        this.type = TurnType.PASSING;
     }
 
     /**
@@ -21,5 +23,10 @@ public class PassingTurn implements InterTurn{
         System.out.println(this.player.getPlayerName() + " has passed this turn. It's now the enemy's turn.");
         System.out.println();
 
+    }
+
+    @Override
+    public TurnType getType() {
+        return type;
     }
 }

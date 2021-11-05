@@ -9,9 +9,11 @@ import java.util.Scanner;
 public class ItemTurn implements InterTurn{
 
     private Player player;
+    private TurnType type;
 
     public ItemTurn(Player player) {
         this.player = player;
+        this.type = TurnType.ITEM;
     }
 
     Scanner entrada = new Scanner(System.in);
@@ -72,5 +74,10 @@ public class ItemTurn implements InterTurn{
         // After all checks, the item is used.
         player.useItem(selectedItem, selectedCharacter);
 
+    }
+
+    @Override
+    public TurnType getType() {
+        return type;
     }
 }

@@ -8,9 +8,11 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 public class EnemyTurn implements InterTurn {
 
     private Player player;
+    private TurnType type;
 
     public EnemyTurn(Player player) {
         this.player = player;
+        this.type = TurnType.ENEMY;
     }
 
 
@@ -44,6 +46,12 @@ public class EnemyTurn implements InterTurn {
         }
 
         return attackedCharacter;
+    }
+
+
+    @Override
+    public TurnType getType() {
+        return type;
     }
 
 

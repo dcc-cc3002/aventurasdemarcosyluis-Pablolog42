@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.controller.turns.InterTurn;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.*;
 import aventurasdemarcoyluis.model.items.ItemType;
@@ -17,12 +18,17 @@ public class GameController {
     private String currentBattleWinner;
     private Battle currentBattle;
     private Player mainPlayer;
+
+    private InterTurn currentTurn;
+
     private boolean winner;
     private boolean gameFinished;
 
     public GameController(){
         this.currentBattleWinner = null;
         this.currentBattle = null;
+        this.currentTurn =null;
+
         this.winner = false;
         this.gameFinished = false;
     }
@@ -103,5 +109,13 @@ public class GameController {
 
     public Battle getCurrentBattle() {
         return currentBattle;
+    }
+
+    public InterTurn getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void setCurrentTurn(InterTurn currentTurn) {
+        this.currentTurn = currentTurn;
     }
 }

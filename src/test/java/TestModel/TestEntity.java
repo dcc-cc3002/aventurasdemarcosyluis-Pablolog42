@@ -1,3 +1,5 @@
+package TestModel;
+
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.*;
 import aventurasdemarcoyluis.model.maincharacters.Marco;

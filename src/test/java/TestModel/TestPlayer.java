@@ -1,3 +1,5 @@
+package TestModel;
+
 import aventurasdemarcoyluis.model.enemies.Boo;
 import aventurasdemarcoyluis.model.enemies.Goomba;
 import aventurasdemarcoyluis.model.enemies.Spiny;

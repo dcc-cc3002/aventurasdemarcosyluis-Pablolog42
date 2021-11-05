@@ -7,6 +7,7 @@ public interface InterTurn {
      *  Implement's the logic chain of events according to the turn type.
      **/
     void main();
+    TurnType getType();
 
 
 

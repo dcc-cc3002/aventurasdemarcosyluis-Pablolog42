@@ -1,17 +1,17 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.Player;
-import aventurasdemarcoyluis.model.items.ItemType;
-import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
 import java.util.Scanner;
 
 public class AttackTurn implements InterTurn{
 
     private Player player;
+    private TurnType type;
 
     public AttackTurn(Player player) {
         this.player = player;
+        this.type = TurnType.ATTACK;
     }
 
     Scanner entrada = new Scanner(System.in);
@@ -28,7 +28,8 @@ public class AttackTurn implements InterTurn{
 
     }
 
-
-
-
+    @Override
+    public TurnType getType() {
+        return type;
+    }
 }

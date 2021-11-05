@@ -29,6 +29,7 @@ public class Battle {
         // Se agregan los items Correspondientes al inventario del jugador.
         this.addInitialItems();
 
+
         boolean currentPlayFinished = false;
         Scanner entrada = new Scanner(System.in);
 
@@ -40,6 +41,8 @@ public class Battle {
             this.setRandomEnemyList();
 
             while (!currentPlayFinished) {
+
+
 
                 if(this.checkKoRoutine()){
                     this.battleFinished = true;
@@ -128,6 +131,7 @@ public class Battle {
         }
 
     }
+
 
     private boolean checkKoRoutine() {
 

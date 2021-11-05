@@ -1,7 +1,6 @@
 package aventurasdemarcoyluis.view;
 
 import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.Player;
 
 import java.util.Scanner;
 

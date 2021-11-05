@@ -1,3 +1,5 @@
+package TestModel;
+
 import aventurasdemarcoyluis.controller.Player;
 import aventurasdemarcoyluis.model.enemies.Goomba;
 import aventurasdemarcoyluis.model.enemies.Spiny;
