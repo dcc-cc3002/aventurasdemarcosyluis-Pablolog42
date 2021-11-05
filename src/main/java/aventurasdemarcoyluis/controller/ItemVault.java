@@ -72,6 +72,18 @@ public class ItemVault {
         // Compare the data members and return accordingly
         return (((ItemVault) o).getItemAmount(ItemType.REDMUSHROOM) == this.mushroomAmount) && (((ItemVault) o).getItemAmount(ItemType.HONEYSYRUP) == this.honeyAmount);
     }
+
+    @Override
+    public String toString(){
+        return "++++++++++ Player  Vault ++++++++++\n" +
+                "Honey Syrup amount: " + this.honeyAmount + "\n" +
+                "Red Mushroom amount: " + this.mushroomAmount + "\n" +
+                "++++++++++++++++++++++++++++++++++";
+    }
+
+    public boolean isEmpty() {
+        return (this.mushroomAmount == 0)&&(this.honeyAmount==0);
+    }
 }
 
 

@@ -12,4 +12,6 @@ public interface InterEnemy extends InterEntity {
 
     void playerJumpAttacking(InterMainCharacter character);
 
+
+
 }

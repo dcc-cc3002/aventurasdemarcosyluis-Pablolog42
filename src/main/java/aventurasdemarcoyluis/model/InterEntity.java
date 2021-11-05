@@ -8,6 +8,11 @@ public interface InterEntity {
     int getLvl();
     double getMaxHP();
     String getName();
+    String toString();
 
     double computeDmg(double k, InterEntity player);
+
+    boolean isKO();
+
+    EntityType getType();
 }

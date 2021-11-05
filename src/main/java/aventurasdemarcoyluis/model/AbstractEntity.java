@@ -79,12 +79,13 @@ public abstract class AbstractEntity implements InterEntity {
         }
         this.setHp(targetHP);
 
-        // Implementation Note: the only way to increase the hp of a character should be using this method.
-        // This is because this method allows to change the "isKO" property (lets an incapacitated player play again if they heal)
-        if(0<this.hp){
-            System.out.println(this.getName() + " has revived!");
-            this.setKO(false);
-        }
+//        DEPRECATED
+//        // Implementation Note: the only way to increase the hp of a character should be using this method.
+//        // This is because this method allows to change the "isKO" property (lets an incapacitated player play again if they heal)
+//        if(0<this.hp){
+//            System.out.println(this.getName() + " has revived!");
+//            this.setKO(false);
+//        }
 
     }
 
@@ -140,7 +141,7 @@ public abstract class AbstractEntity implements InterEntity {
     }
     /** Gets the KO status of an entity **/
     public boolean isKO() {
-        return isKO;
+        return this.isKO;
     }
     /** Sets the current HP of an entity **/
     public void setHp(double hp) {

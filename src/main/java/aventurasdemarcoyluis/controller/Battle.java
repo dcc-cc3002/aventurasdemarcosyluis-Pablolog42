@@ -4,6 +4,7 @@ import aventurasdemarcoyluis.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.controller.turns.EnemyTurn;
 import aventurasdemarcoyluis.controller.turns.ItemTurn;
 import aventurasdemarcoyluis.controller.turns.PassingTurn;
+import aventurasdemarcoyluis.model.items.ItemType;
 
 import java.util.Scanner;
 
@@ -25,6 +26,8 @@ public class Battle {
 
 
     public void main() {
+        // Se agregan los items Correspondientes al inventario del jugador.
+        this.addInitialItems();
 
         boolean currentPlayFinished = false;
         Scanner entrada = new Scanner(System.in);
@@ -34,9 +37,16 @@ public class Battle {
             // Se genera la lista de enemigos aleatorios correspondiente segun el numero de batalla en el que se
             // encuentre el jugador. Esta lista de enemigos es la misma a lo largo de un turno entero, y cambia
             // solo al iniciarse una nueva batalla
-            setRandomEnemyList();
+            this.setRandomEnemyList();
 
             while (!currentPlayFinished) {
+
+                if(this.checkKoRoutine()){
+                    this.battleFinished = true;
+                    this.controller.setGameFinished(true);
+                    return;
+                }
+
                 System.out.println();
 
                 System.out.println("*********************************************");
@@ -59,17 +69,20 @@ public class Battle {
 
                 String selection = entrada.nextLine();
 
-                boolean magic = false;
 
                 switch (selection) {
                     case "1" -> {
                         AttackTurn attackTurn = new AttackTurn(player);
                         attackTurn.main();
 
-                        // debugging
-                        magic = true;
                     }
                     case "2" -> {
+                        // In case the player wants to use an item, but has none left.
+                        if (player.getPlayerVault().isEmpty()){
+                            System.out.println("You can't use an item, as you have none left!");
+                            continue;
+                        }
+
                         ItemTurn itemTurn = new ItemTurn(player);
                         itemTurn.main();
                     }
@@ -77,9 +90,13 @@ public class Battle {
                         PassingTurn passingTurn = new PassingTurn(player);
                         passingTurn.main();
                     }
-                    //TODO: sacar esto, es solo para debuging.
-                    case "stop" -> this.battleFinished = true;
+                    default -> {
+                        System.out.println("Please, select a valid option");
+                        continue;
+                    }
                 }
+
+
 
 
                 // En caso de que el jugador no esté KO luego
@@ -88,15 +105,18 @@ public class Battle {
 
                 //TODO: en este punto, hay que chequear si el jugador, o todos los enemigos estan ko para ver si se termina la batalla
 
-                //debugging
-                if(magic) {currentPlayFinished = true; this.battleFinished = true;}
+                if(this.checkKoRoutine()){
+                    this.battleFinished = true;
+                    this.controller.setGameFinished(true);
+                    return;
+                }
+
 
                 // en caso de no estar KO, ha terminado el juego
                 System.out.println("--------- End of Turn ---------");
-                //currentTurnFinished = true;
 
             }
-            //this.battleFinished = true;
+            this.battleFinished = true;
             // Al finalizar la batalla, se agrega 1 al contador de batallas.
             if (this.player.getBattleNumber() >= 5 || this.battleFinished) {
                 this.battleFinished = true;
@@ -109,6 +129,15 @@ public class Battle {
 
     }
 
+    private boolean checkKoRoutine() {
+
+        if(this.player.isPlayerKO()){
+            System.out.println("All of " + this.player.getPlayerName() + "'s characters are KO. \nThe Game is now over!");
+            System.out.println("The enemy has won :(");
+            return true;
+        }
+        return false;
+    }
 
 
     public void setRandomEnemyList(){
@@ -132,6 +161,27 @@ public class Battle {
             }
         }
     }
+
+
+
+    public void addInitialItems(){
+        int battleNumber = this.player.getBattleNumber();
+        switch (battleNumber){
+            case 0 -> {
+                // En la primera batalla, se agregan 3 items de c/u al inventario del jugador.
+                this.player.addAnItem(ItemType.HONEYSYRUP,3);
+                this.player.addAnItem(ItemType.REDMUSHROOM,3);
+            }
+            case 1, 2, 3, 4, 5 -> {
+                // en las batallas posteriores, se agrega 1 item de c/u
+                this.player.addAnItem(ItemType.HONEYSYRUP);
+                this.player.addAnItem(ItemType.REDMUSHROOM);
+            }
+
+        }
+    }
+
+
 
     public String returnWinner(){
         return battleWinner;

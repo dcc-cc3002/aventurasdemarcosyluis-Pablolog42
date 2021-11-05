@@ -42,7 +42,7 @@ public class EnemyList {
     public String toString(){
         String out = "";
         for(InterEnemy enemy : this.list){
-            out = out.concat("\n" + enemy.toString());
+            out = out.concat(enemy.toString()+ "\n");
         }
         return out;
     }

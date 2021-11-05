@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.controller;
 import aventurasdemarcoyluis.model.items.AbstractItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 
@@ -80,10 +81,10 @@ public class Player {
      * @param itemType the type of Item to use.
      *
      */
-    public void useItem(ItemType itemType, AbstractMainCharacter character){
+    public void useItem(ItemType itemType, InterMainCharacter character){
         // Case no item to use
         if(playerVault.getItemAmount(itemType)<1){
-            System.out.println(this.playerName + " doesn't have a/an " + itemType.toString() + " in their inventory!");
+            System.out.println(this.playerName + " doesn't have a/an " + itemType + " in their inventory!");
             return;
         }
         // Case the character to use the item is KO

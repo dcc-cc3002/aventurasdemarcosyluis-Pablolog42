@@ -152,6 +152,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
     // Sends DD message to item to be used.
     // note: at this point, the player always has the item to be used.
+    @Override
     public void useItem(@NotNull InterItem item){
         item.useItem(this);
     }
@@ -171,6 +172,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     public void setFp(int fp) {
         this.fp = fp;
     }
+
 
 
 

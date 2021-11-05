@@ -1,6 +1,10 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
+
+import java.util.Scanner;
 
 public class AttackTurn implements InterTurn{
 
@@ -10,6 +14,7 @@ public class AttackTurn implements InterTurn{
         this.player = player;
     }
 
+    Scanner entrada = new Scanner(System.in);
 
     /**
      * Main method of the current turn.
@@ -18,5 +23,12 @@ public class AttackTurn implements InterTurn{
     @Override
     public void main() {
 
+        System.out.println("####### You are now attacking! #######");
+
+
     }
+
+
+
+
 }

@@ -16,15 +16,17 @@ public class TextUI implements InterUI {
     @Override
     public void main() {
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Please, enter your name: ");
+        System.out.print("Please, enter your name: ");
         String playerName = entrada.nextLine();
 
         controller.setPlayer(playerName);
 
-        for(int i=0; i <= 5; i++ ) {
+        for(int i=0; i < 5; i++ ) {
             // https://pbs.twimg.com/media/EvHKoVAWYAQpUvJ.jpg
-            controller.runBattle();
+            if(!controller.isGameFinished()) controller.runBattle();
         }
+
+
 
     }
 
