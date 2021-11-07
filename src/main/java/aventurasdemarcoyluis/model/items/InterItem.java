@@ -6,4 +6,6 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 public interface InterItem {
 
     void useItem(InterMainCharacter character);
+
+    ItemType getType();
 }

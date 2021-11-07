@@ -1,5 +1,9 @@
 package aventurasdemarcoyluis.controller.turns;
 
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
+
+import java.util.ArrayList;
+
 public interface InterTurn {
 
     /**
@@ -7,8 +11,7 @@ public interface InterTurn {
      *  Implement's the logic chain of events according to the turn type.
      **/
     void main();
+    ArrayList<InterMainCharacter> getCurrentTurnMainCharaters();
     TurnType getType();
-
-
 
 }

@@ -21,4 +21,9 @@ public class HoneySyrup extends AbstractItem implements InterItem {
     public void useItem(@NotNull InterMainCharacter character) {
         character.restoreFP(3);
     }
+
+    @Override
+    public ItemType getType() {
+        return ItemType.HONEYSYRUP;
+    }
 }

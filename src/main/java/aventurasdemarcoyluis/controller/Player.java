@@ -7,6 +7,8 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 
+import java.util.ArrayList;
+
 /*
  * Representation of a real-life player.
  * Every Player has a chest with their items.
@@ -16,14 +18,32 @@ public class Player {
     private String playerName;
     private ItemVault playerVault;
     private EnemyList enemyList;
+
+    private ArrayList<InterMainCharacter> mainCharacterArrayList;
+    private ArrayList<InterMainCharacter> aliveMainCharacterArrayList;
+
+
     private Marco playerMarco;
     private Luis playerLuis;
+
     private int battleNumber;
+    private int playerLvl;
 
     public Player(String name, Marco marco, Luis luis){
         this.playerLuis = luis;
         this.playerMarco = marco;
         this.playerName = name;
+        this.playerLvl = 1;
+
+        this.mainCharacterArrayList = new ArrayList<>();
+        mainCharacterArrayList.add(this.playerMarco);
+        mainCharacterArrayList.add(this.playerLuis);
+
+        this.aliveMainCharacterArrayList = new ArrayList<>();
+        mainCharacterArrayList.add(this.playerMarco);
+        mainCharacterArrayList.add(this.playerLuis);
+
+
         this.enemyList = new EnemyList();
         this.playerVault = new ItemVault();
         this.battleNumber = 0;
@@ -34,6 +54,12 @@ public class Player {
     public Player(String name){
         this.playerLuis = new Luis(10,10,10,100,10,100,1);
         this.playerMarco = new Marco(10,10,10,100,10,100,1);
+        this.playerLvl = 1;
+
+        this.mainCharacterArrayList = new ArrayList<>();
+        mainCharacterArrayList.add(this.playerMarco);
+        mainCharacterArrayList.add(this.playerLuis);
+
         this.playerName = name;
         this.playerVault = new ItemVault();
         this.enemyList = new EnemyList();
@@ -126,6 +152,25 @@ public class Player {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public ArrayList<InterMainCharacter> getMainCharacterArrayList() {
+        return mainCharacterArrayList;
+    }
+
+    public int getPlayerLvl() {
+        return playerLvl;
+    }
+
+    public void setPlayerLvl(int playerLvl) {
+        this.playerLvl = playerLvl;
+
+    }
+
+    public void lvlUp() {
+        this.setPlayerLvl(getPlayerLvl()+1);
+        this.addAnItem(ItemType.REDMUSHROOM);
+        this.addAnItem(ItemType.HONEYSYRUP);
     }
 
 

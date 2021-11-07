@@ -21,4 +21,9 @@ public class RedMushroom extends AbstractItem implements InterItem {
     public void useItem(@NotNull InterMainCharacter character) {
         character.restoreHP(0.1 * character.getMaxHP());
     }
+
+    @Override
+    public ItemType getType() {
+        return ItemType.REDMUSHROOM;
+    }
 }

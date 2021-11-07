@@ -15,4 +15,8 @@ public interface InterEntity {
     boolean isKO();
 
     EntityType getType();
+
+    double getDef();
+
+    double getHp();
 }

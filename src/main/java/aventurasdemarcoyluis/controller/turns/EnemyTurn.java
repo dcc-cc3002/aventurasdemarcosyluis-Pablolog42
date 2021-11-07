@@ -5,13 +5,15 @@ import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
-public class EnemyTurn implements InterTurn {
+import java.util.ArrayList;
+
+public class EnemyTurn extends AbstractTurn implements InterTurn {
 
     private Player player;
     private TurnType type;
 
     public EnemyTurn(Player player) {
-        this.player = player;
+        super(player);
         this.type = TurnType.ENEMY;
     }
 
@@ -29,9 +31,19 @@ public class EnemyTurn implements InterTurn {
         System.out.println("::::::::::::::: End of Enemy Turn ::::::::::::::");
     }
 
+    @Override
+    public ArrayList<InterMainCharacter> getCurrentTurnMainCharaters() {
+        ArrayList<InterMainCharacter> currentTurnMainCharacters = new ArrayList<>();
 
+        // Agrego solo los personajes principales que no están KO.
+        // este metodo es el que se encarga de cumplir con el requisito
+        // "Quitar a un personaje del "Turno" cuando esté KO"
+        for (InterMainCharacter character : this.player.getMainCharacterArrayList()){
+            if(!character.isKO()) currentTurnMainCharacters.add(character);
+        }
+        return currentTurnMainCharacters;
 
-
+    }
 
 
     // TODO: Esto es lo más feo que he visto en mucho tiempo. Hay que cambiarlo y pedir perdón por nuestros pecados.
@@ -48,10 +60,9 @@ public class EnemyTurn implements InterTurn {
         return attackedCharacter;
     }
 
-
     @Override
     public TurnType getType() {
-        return type;
+        return this.type;
     }
 
 

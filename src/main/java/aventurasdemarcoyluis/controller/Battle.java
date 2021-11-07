@@ -5,6 +5,7 @@ import aventurasdemarcoyluis.controller.turns.EnemyTurn;
 import aventurasdemarcoyluis.controller.turns.ItemTurn;
 import aventurasdemarcoyluis.controller.turns.PassingTurn;
 import aventurasdemarcoyluis.model.items.ItemType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
 
@@ -73,35 +74,6 @@ public class Battle {
                 String selection = entrada.nextLine();
 
 
-                switch (selection) {
-                    case "1" -> {
-                        AttackTurn attackTurn = new AttackTurn(player);
-                        attackTurn.main();
-
-                    }
-                    case "2" -> {
-                        // In case the player wants to use an item, but has none left.
-                        if (player.getPlayerVault().isEmpty()){
-                            System.out.println("You can't use an item, as you have none left!");
-                            continue;
-                        }
-
-                        ItemTurn itemTurn = new ItemTurn(player);
-                        itemTurn.main();
-                    }
-                    case "3" -> {
-                        PassingTurn passingTurn = new PassingTurn(player);
-                        passingTurn.main();
-                    }
-                    default -> {
-                        System.out.println("Please, select a valid option");
-                        continue;
-                    }
-                }
-
-
-
-
                 // En caso de que el jugador no esté KO luego
                 EnemyTurn enemyTurn = new EnemyTurn(this.player);
                 enemyTurn.main();
@@ -131,6 +103,8 @@ public class Battle {
         }
 
     }
+
+
 
 
     private boolean checkKoRoutine() {
@@ -176,11 +150,13 @@ public class Battle {
                 this.player.addAnItem(ItemType.HONEYSYRUP,3);
                 this.player.addAnItem(ItemType.REDMUSHROOM,3);
             }
-            case 1, 2, 3, 4, 5 -> {
-                // en las batallas posteriores, se agrega 1 item de c/u
-                this.player.addAnItem(ItemType.HONEYSYRUP);
-                this.player.addAnItem(ItemType.REDMUSHROOM);
-            }
+
+            // Deprecated: esto ahora se hace solo al hacer player.lvlUp()
+//            case 1, 2, 3, 4, 5 -> {
+//                // en las batallas posteriores, se agrega 1 item de c/u
+//                this.player.addAnItem(ItemType.HONEYSYRUP);
+//                this.player.addAnItem(ItemType.REDMUSHROOM);
+//            }
 
         }
     }

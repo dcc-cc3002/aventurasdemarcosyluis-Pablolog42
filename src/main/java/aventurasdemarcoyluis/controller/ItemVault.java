@@ -81,6 +81,7 @@ public class ItemVault {
                 "++++++++++++++++++++++++++++++++++";
     }
 
+
     public boolean isEmpty() {
         return (this.mushroomAmount == 0)&&(this.honeyAmount==0);
     }
