@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller.turns;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.Player;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
@@ -7,12 +8,13 @@ import java.util.ArrayList;
 
 public class PassingTurn extends AbstractTurn implements InterTurn{
 
-    private Player player;
-    private TurnType type;
+    private GameController controller;
+    private final TurnType type = TurnType.PASSING;
+    private InterMainCharacter involvedMainCharacter=null;
 
-    public PassingTurn(Player player) {
-        super(player);
-        this.type = TurnType.PASSING;
+    public PassingTurn(GameController controller) {
+        super(controller);
+        this.controller = controller;
     }
 
     /**
@@ -23,7 +25,7 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
      **/
     @Override
     public void main() {
-        System.out.println(this.player.getPlayerName() + " has passed this turn. It's now the enemy's turn.");
+        System.out.println(this.controller.getPlayer().getPlayerName() + " has passed this turn. It's now the enemy's turn.");
         System.out.println();
 
     }
@@ -35,7 +37,7 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
         // Agrego solo los personajes principales que no están KO.
         // este metodo es el que se encarga de cumplir con el requisito
         // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.player.getMainCharacterArrayList()){
+        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
             if(!character.isKO()) currentTurnMainCharacters.add(character);
         }
         return currentTurnMainCharacters;
@@ -46,4 +48,11 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
     public TurnType getType() {
         return this.type;
     }
+
+    @Override
+    public InterMainCharacter getInvolvedMainCharacter() {
+        return involvedMainCharacter;
+    }
+
+
 }

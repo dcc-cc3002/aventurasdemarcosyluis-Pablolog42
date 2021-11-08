@@ -1,47 +1,92 @@
 package aventurasdemarcoyluis.controller.turns;
 
-import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class AttackTurn extends AbstractTurn implements InterTurn {
 
-    private Player player;
+    private GameController controller;
     private final TurnType type = TurnType.ATTACK;
 
 
-    private InterMainCharacter attackingMainCharacter;
+    private InterMainCharacter involvedMainCharacter;
+    private BufferedReader reader;
 
-    public AttackTurn(Player player) {
-        super(player);
-        this.attackingMainCharacter = null;
-//        this.type = TurnType.ATTACK;
+    public AttackTurn(GameController controller) {
+        super(controller);
+        this.controller = controller;
+        this.involvedMainCharacter = null;
+        this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
-
-    Scanner entrada = new Scanner(System.in);
-
-
-    public void setAttackingMainCharacter(InterMainCharacter attackingMainCharacter) {
-        this.attackingMainCharacter = attackingMainCharacter;
-    }
-
-    public InterMainCharacter getAttackingMainCharacter() {
-        return attackingMainCharacter;
-    }
-
 
     /**
      * Main method of the current turn.
      * Implement's the logic chain of events according to the turn type.
      **/
     @Override
-    public void main() {
+    public void main() throws IOException {
 
         System.out.println("####### You are now attacking! #######");
+        System.out.println("Select the enemy to attack: (Choose a number)");
+        System.out.println("Wild enemies:");
+
+        System.out.println(this.controller);
+
+
+        System.out.println(this.controller.getPlayer().getEnemyList());
+
+        BufferedReader reader = this.getReader();
+
+        String enemySelection = reader.readLine();
+
+        InterEnemy target = selectEnemyToAttack(enemySelection);
+
+
+        System.out.println("Target enemy: " + target);
+
+        System.out.println("Please, select the character to perform the attack:");
+        System.out.println(controller.getPlayer().getMainCharacterArrayList());
+        System.out.println("1. Select Marco    2. Select Luis");
+        String attackerSelection = reader.readLine();
+
+        this.involvedMainCharacter = attackerSelection.equals("1")? controller.getPlayer().getMarco():controller.getPlayer().getLuis();
+        System.out.println("Attacker selected: " + this.involvedMainCharacter);
+
+        System.out.println("Select the attack to perform:");
+        System.out.println("1. Jump-Attack   2.Hammer-Attack");
+        String attackSelection = reader.readLine();
+
+
+
+        attackSelectedEnemy(attackSelection, this.involvedMainCharacter, target);
+
+        System.out.println("########### End of attack turn ###########");
+
 
     }
+
+    public void attackSelectedEnemy(String attackSelection, InterMainCharacter attackingCharacter, InterEnemy attackedEnemy){
+        switch (attackSelection){
+            case "1" -> involvedMainCharacter.jumpAttack(attackedEnemy);
+            case "2" -> involvedMainCharacter.hammerAttack(attackedEnemy);
+            default -> {
+                System.out.println("Please, select a valid option.");
+            }
+        }
+    }
+
+    @Override
+    public InterMainCharacter getInvolvedMainCharacter() {
+        return involvedMainCharacter;
+    }
+
 
     @Override
     public ArrayList<InterMainCharacter> getCurrentTurnMainCharaters() {
@@ -50,7 +95,7 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
         // Agrego solo los personajes principales que no están KO.
         // este metodo es el que se encarga de cumplir con el requisito
         // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.player.getMainCharacterArrayList()){
+        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
             if(!character.isKO()) currentTurnMainCharacters.add(character);
         }
         return currentTurnMainCharacters;
@@ -62,8 +107,11 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
         return this.type;
     }
 
-    public void selectEnemyToAttack(){
 
+    public InterEnemy selectEnemyToAttack(String enemyNumber){
+        return this.controller.getPlayer().getEnemyList().retrieveEnemy(Integer.parseInt(enemyNumber)-1);
     }
+
+
 
 }

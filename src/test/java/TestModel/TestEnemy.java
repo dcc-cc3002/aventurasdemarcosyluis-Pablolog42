@@ -25,7 +25,7 @@ public class TestEnemy {
 
         testMarco = new Marco(10,10,10,1000,10,10,2);
 
-        testSpiny = new Spiny(10,1,0,100,1);
+        testSpiny = new Spiny(10,1,1,100,1);
     }
 
     @Test

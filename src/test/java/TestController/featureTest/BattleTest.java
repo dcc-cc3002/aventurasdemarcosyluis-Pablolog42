@@ -4,18 +4,18 @@ import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.turns.TurnOwner;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.Boo;
 import aventurasdemarcoyluis.model.enemies.Goomba;
-import aventurasdemarcoyluis.model.enemies.Spiny;
-import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
+import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +23,6 @@ public class BattleTest {
 
 
     GameController controller;
-    InterMainCharacter exampleMainCharacter;
 
     @BeforeEach
     public void setUp() {
@@ -31,53 +30,37 @@ public class BattleTest {
         controller.setPlayer("Ernesto Sábato");
     }
 
+    /*
+    Asserts that the battle is lost when the player characters are both KO.
+
+    Tests the following requisites:
+
+
+
+     */
     @Test
-    public void constructorTest(){
-        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
-        assertNull(controller.getCurrentTurn());
+    public void battleLostTest() throws IOException {
+        // Battle Begins
+        controller.createAndSetNewBattle();
+
+        // let's pass until all enemies are KO
+        while(!controller.isGameFinished()) {
+            // Player passes and finishes turn
+            controller.selectTurnKind("passing");
+            controller.startCurrentTurn();
+            controller.finishTurn();
+            // enemy turn
+            controller.startCurrentTurn();
+            controller.finishTurn();
+        }
+
+        assertTrue(controller.getPlayer().isPlayerKO());
+
+        assertTrue(controller.isGameFinished());
+        // winner false -> assert the player has lost.
+        assertFalse(controller.getWinner());
 
     }
 
-    @Test
-    public void creationTest(){
-        /* Assert that we can achieve the requirements:
-             1. Create main characters.
-             2. Create Enemies
-             3. Create Items
-             4. Create Item Vault
-        */
-
-        // Assert the constructor can create main characters
-        assertTrue(controller.getPlayerMainCharacter(EntityType.MARCO) instanceof Marco);
-        assertTrue(controller.getPlayerMainCharacter(EntityType.LUIS) instanceof Luis);
-
-        // Assert that controller.createMainCharacter() can create main characters.
-        exampleMainCharacter = controller.createMainCharacter(EntityType.MARCO,10,11,12,100,10,100,1);
-
-        assertTrue(exampleMainCharacter instanceof Marco);
-        assertEquals(10, exampleMainCharacter.getAtk());
-        assertEquals(11, exampleMainCharacter.getDef());
-        assertEquals(12, exampleMainCharacter.getHp());
-        assertEquals(100, exampleMainCharacter.getMaxHP());
-
-    }
-
-    @Test
-    public void turnsTest(){
-
-        controller.selectTurnKind("attack");
-        /* Assert that we can achieve the requirements:
-             5. Implementar los turnos - parte de la implementation que define el turno actual.
-             11. Obtener el personaje del turno actual. - getCurrentTurnOwner()
-             12. Obtener Personaje del siguiente Turno (en este caso, se obtiene si es el turno del jugador, o del enemigo) - getNextTurnOwner()
-        */
-        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
-        assertEquals(TurnType.ATTACK, controller.getCurrentTurn().getType());
-        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
-
-
-
-
-    }
 
 }

@@ -1,38 +1,43 @@
 package aventurasdemarcoyluis.controller.turns;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.Player;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ItemTurn extends AbstractTurn implements InterTurn{
 
-    private Player player;
-    private TurnType type;
+    private GameController controller;
+    private final TurnType type = TurnType.ITEM;
+    private InterMainCharacter involvedMainCharacter=null;
+    private BufferedReader reader;
 
-    public ItemTurn(Player player) {
-        super(player);
-        this.type = TurnType.ITEM;
+    public ItemTurn(GameController controller) {
+        super(controller);
+        this.controller = controller;
+        this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    Scanner entrada = new Scanner(System.in);
-
+ 
     @Override
-    public void main() {
+    public void main() throws IOException {
+
+        Player player = controller.getPlayer();
 
         System.out.println(player.getPlayerVault().toString());
 
         System.out.println("Please choose a character to use the item: ");
         System.out.println("1. " + player.getMarco()+"\n" + "2. " + player.getLuis());
-        String character = entrada.nextLine();
-
-        InterMainCharacter selectedCharacter = null;
-
-        switch (character){
-            case "1" -> selectedCharacter = player.getMarco();
-            case "2" -> selectedCharacter = player.getLuis();
+        String selectedCharacter = reader.readLine();
+        
+        switch (selectedCharacter){
+            case "1" -> this.involvedMainCharacter = player.getMarco();
+            case "2" -> this.involvedMainCharacter = player.getLuis();
             default -> {
                 // Case invalid selection
                 System.out.println("Please enter a valid selection! \n");
@@ -42,16 +47,17 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
 
 
         // Case character KO
-        if(selectedCharacter.isKO()){
+        if(involvedMainCharacter.isKO()){
             System.out.println("The chosen character is K.O. and can't use an item. Please select another character! \n");
             main(); return;
         }
 
+
         System.out.println("Please choose an item to use: ");
         System.out.println("1. Use Honey Syrup       2. Use Red Mushroom");
-        String item = entrada.nextLine();
+        String item = reader.readLine();
 
-        ItemType selectedItem = null;
+        ItemType selectedItem;
 
         switch (item){
             case "1" -> selectedItem = ItemType.HONEYSYRUP;
@@ -70,10 +76,13 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
             main(); return;
         }
 
-        System.out.println(selectedCharacter.getType() + " has successfully used a " + selectedItem + "\n");
+        System.out.println(involvedMainCharacter.getType() + " has successfully used a " + selectedItem);
 
         // After all checks, the item is used.
-        player.useItem(selectedItem, selectedCharacter);
+        player.useItem(selectedItem, involvedMainCharacter);
+
+        System.out.println(involvedMainCharacter.getType() + "'s new stats are:" );
+        System.out.println(involvedMainCharacter + "\n");
 
     }
 
@@ -84,7 +93,7 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
         // Agrego solo los personajes principales que no están KO.
         // este metodo es el que se encarga de cumplir con el requisito
         // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.player.getMainCharacterArrayList()){
+        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
             if(!character.isKO()) currentTurnMainCharacters.add(character);
         }
         return currentTurnMainCharacters;
@@ -94,5 +103,15 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
     @Override
     public TurnType getType() {
         return this.type;
+    }
+
+    @Override
+    public InterMainCharacter getInvolvedMainCharacter() {
+        return involvedMainCharacter;
+    }
+
+    @Override
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
     }
 }

@@ -44,30 +44,32 @@ public class TestPlayer {
     @Test
     public void enemyAttackingTest(){
         testGoomba.attack(testMarco);// A normal attack with k=0.75 should do 0.15 dmg to marco
-        assertEquals(9.85,testMarco.getHp());
+        assertEquals(7.75,testMarco.getHp());
     }
     @Test
     public void luisTest(){
         assertEquals(1,testLuis.getMaxFP());
         testLuis.enemyAttacking(testGoomba);
-        assertEquals(998.5,testLuis.getHp());
+        assertEquals(977.5,testLuis.getHp());
 
         // this should fail at compiling, because Luis can't attack Boo.
         //testLuis.jumpAttack(testBoo);
 
         testLuis.setHp(1000);
         testLuis.enemyAttacking(testBoo);
-        assertEquals(925,testLuis.getHp());
+        assertEquals(0,testLuis.getHp());
+        assertTrue(testLuis.isKO());
 
         testLuis.setHp(1000);
         testLuis.enemyAttacking(testSpiny);
-        assertEquals(992.5,testLuis.getHp());
+        // Luis is KO and can't receive further damage.
+        assertEquals(1000,testLuis.getHp());
     }
     @Test
     public void marcoTest(){
         testMarco.setHp(1000);
         testMarco.goombaAttacking(testGoomba);
-        assertEquals(999.85,testMarco.getHp());
+        assertEquals(997.75,testMarco.getHp());
 
         testMarco.setHp(1000);
 

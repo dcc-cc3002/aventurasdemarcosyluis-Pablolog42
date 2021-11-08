@@ -1,11 +1,7 @@
 package aventurasdemarcoyluis.controller;
 
-import aventurasdemarcoyluis.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.controller.turns.EnemyTurn;
-import aventurasdemarcoyluis.controller.turns.ItemTurn;
-import aventurasdemarcoyluis.controller.turns.PassingTurn;
 import aventurasdemarcoyluis.model.items.ItemType;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
 
@@ -75,7 +71,7 @@ public class Battle {
 
 
                 // En caso de que el jugador no esté KO luego
-                EnemyTurn enemyTurn = new EnemyTurn(this.player);
+                EnemyTurn enemyTurn = new EnemyTurn(this.controller);
                 enemyTurn.main();
 
                 //TODO: en este punto, hay que chequear si el jugador, o todos los enemigos estan ko para ver si se termina la batalla
@@ -117,6 +113,9 @@ public class Battle {
         return false;
     }
 
+    private void checkForBattleWinner(){
+
+    }
 
     public void setRandomEnemyList(){
         // Seleccionar n tipos random, acorde al numero de batalla que se está jugando
@@ -143,13 +142,9 @@ public class Battle {
 
 
     public void addInitialItems(){
-        int battleNumber = this.player.getBattleNumber();
-        switch (battleNumber){
-            case 0 -> {
-                // En la primera batalla, se agregan 3 items de c/u al inventario del jugador.
-                this.player.addAnItem(ItemType.HONEYSYRUP,3);
-                this.player.addAnItem(ItemType.REDMUSHROOM,3);
-            }
+        // En la primera batalla, se agregan 3 items de c/u al inventario del jugador.
+        this.player.addAnItem(ItemType.HONEYSYRUP,3);
+        this.player.addAnItem(ItemType.REDMUSHROOM,3);
 
             // Deprecated: esto ahora se hace solo al hacer player.lvlUp()
 //            case 1, 2, 3, 4, 5 -> {
@@ -158,7 +153,7 @@ public class Battle {
 //                this.player.addAnItem(ItemType.REDMUSHROOM);
 //            }
 
-        }
+
     }
 
 

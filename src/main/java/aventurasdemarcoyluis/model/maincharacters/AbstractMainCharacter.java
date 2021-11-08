@@ -165,13 +165,14 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
         return fp;
     }
     /** Gets the current HP of an entity **/
-    public double getMaxFP() {
+    public int getMaxFP() {
         return maxFP;
     }
     /** Sets the current FP of an entity **/
     public void setFp(int fp) {
         this.fp = fp;
     }
+
 
 
 
@@ -191,6 +192,8 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
         return this.isKO()? ko:notKo;
     }
+
+
 }
 
 

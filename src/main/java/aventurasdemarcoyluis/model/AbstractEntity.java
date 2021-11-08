@@ -152,4 +152,12 @@ public abstract class AbstractEntity implements InterEntity {
         isKO = KO;
     }
 
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public void lvlUp(){
+        this.setLvl(this.getLvl()+1);
+    }
+
 }

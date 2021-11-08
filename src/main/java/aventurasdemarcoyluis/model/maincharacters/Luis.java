@@ -62,5 +62,25 @@ public class Luis extends AbstractMainCharacter{
     }
 
 
+    /**
+     * Jump-Attacks a Goomba.
+     * Sends DD message to jumpAttack() method.
+     *
+     * @param enemy The enemy to send the attack message to
+     */
+    public void jumpAttack(InterEnemy enemy){
+        this.jumpAttackAction(enemy);
+    }
+
+    /**
+     * Hammer-Attacks an enemy.
+     * Sends DD message to hammerAttack() method.
+     *
+     * @param enemy The enemy to send the attack message to
+     */
+    public void hammerAttack(InterEnemy enemy){
+        this.hammerAttackAction(enemy);
+    }
+
 
 }

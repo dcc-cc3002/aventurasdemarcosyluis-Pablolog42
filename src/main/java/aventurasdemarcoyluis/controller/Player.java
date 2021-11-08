@@ -2,7 +2,6 @@ package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.model.items.AbstractItem;
 import aventurasdemarcoyluis.model.items.ItemType;
-import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
@@ -171,6 +170,8 @@ public class Player {
         this.setPlayerLvl(getPlayerLvl()+1);
         this.addAnItem(ItemType.REDMUSHROOM);
         this.addAnItem(ItemType.HONEYSYRUP);
+        this.getLuis().lvlUp();
+        this.getMarco().lvlUp();
     }
 
 
