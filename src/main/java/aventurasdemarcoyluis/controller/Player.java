@@ -49,10 +49,10 @@ public class Player {
     }
     
 
-    // By default, the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 100, HP 10, MAXHP 100, LVL 1
+    // By default, the values for Marco, Luis are: ATK 10, DEF 10, FP 10, MAXFP 20, HP 10, MAXHP 20, LVL 1
     public Player(String name){
-        this.playerLuis = new Luis(10,10,10,100,10,100,1);
-        this.playerMarco = new Marco(10,10,10,100,10,100,1);
+        this.playerLuis = new Luis(10,10,10,20,10,20,1);
+        this.playerMarco = new Marco(10,10,10,20,10,20,1);
         this.playerLvl = 1;
 
         this.mainCharacterArrayList = new ArrayList<>();
@@ -167,7 +167,7 @@ public class Player {
     }
 
     public void lvlUp() {
-        this.setPlayerLvl(getPlayerLvl()+1);
+        if(this.battleNumber ==0){return;}
         this.addAnItem(ItemType.REDMUSHROOM);
         this.addAnItem(ItemType.HONEYSYRUP);
         this.getLuis().lvlUp();

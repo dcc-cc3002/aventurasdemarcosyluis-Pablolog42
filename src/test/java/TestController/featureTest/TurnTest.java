@@ -7,6 +7,7 @@ import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.Goomba;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
@@ -131,11 +132,17 @@ public class TurnTest {
 
         // The enemy turn is started.
         controller.startCurrentTurn();
+
+        // as said, we attack with marco
+        assertTrue(controller.getCurrentTurn().getInvolvedMainCharacter() instanceof AbstractMainCharacter);
+
         // The turn is now finished
         controller.finishTurn();
 
         // lets check if the turn logic works after 2 turns
         assertEquals(TurnOwner.PLAYER, controller.getCurrentTurnOwner());
+
+
 
     }
 
@@ -175,6 +182,9 @@ public class TurnTest {
 
         controller.startCurrentTurn();
 
+        // Check whether marco is receiving the item.
+        assertEquals(EntityType.MARCO,controller.getCurrentTurn().getInvolvedMainCharacter().getType());
+
         // Let's check if 1 honey was used
         assertEquals(2, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
         controller.finishTurn();
@@ -199,14 +209,17 @@ public class TurnTest {
 
         InterMainCharacter playerMarco = controller.getPlayer().getMarco();
 
+        // Como este es un turno de paso, no hay personaje de turno.
+        assertNull(controller.getCurrentTurn().getInvolvedMainCharacter());
+
         // Nada debería haber cambiado con los jugadores de base.
         assertNotNull(playerMarco);
         assertEquals(10, playerMarco.getAtk());
         assertEquals(10, playerMarco.getDef());
-        assertEquals(10, playerMarco.getHp());
-        assertEquals(100, playerMarco.getMaxHP());
-        assertEquals(10, playerMarco.getFp());
-        assertEquals(100, playerMarco.getMaxFP());
+        assertEquals(20, playerMarco.getHp());
+        assertEquals(20, playerMarco.getMaxHP());
+        assertEquals(20, playerMarco.getFp());
+        assertEquals(20, playerMarco.getMaxFP());
         assertEquals(1, playerMarco.getLvl());
 
         controller.finishTurn();

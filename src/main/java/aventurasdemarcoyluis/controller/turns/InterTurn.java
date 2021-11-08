@@ -6,7 +6,7 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+// TODO: comentar interface
 public interface InterTurn {
 
     /**

@@ -22,10 +22,6 @@ public class EnemyList {
         }
     }
 
-    public void addEnemy(InterEnemy enemy){
-        this.list.add(enemy);
-    }
-
     public InterEnemy retrieveRandomEnemy(){
         Random rand = new Random();
         return this.list.get(rand.nextInt(this.list.size()));
@@ -48,6 +44,7 @@ public class EnemyList {
         for(InterEnemy enemy : this.list){
             out = out.concat(enemy.toString()+ "\n");
         }
+        if(out.equals("")) return "No enemies in enemy list";
         return out;
     }
 
@@ -69,6 +66,13 @@ public class EnemyList {
         return null;
     }
 
+    public boolean isListKO(){
+        ArrayList<Boolean> listKOStatus = new ArrayList<>();
+        for(InterEnemy enemy : this.list){
+            listKOStatus.add(enemy.isKO());
+        }
 
+        return !listKOStatus.contains(false);
+    }
 
 }

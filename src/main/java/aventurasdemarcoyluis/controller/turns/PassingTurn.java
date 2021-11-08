@@ -30,19 +30,7 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
 
     }
 
-    @Override
-    public ArrayList<InterMainCharacter> getCurrentTurnMainCharaters() {
-        ArrayList<InterMainCharacter> currentTurnMainCharacters = new ArrayList<>();
 
-        // Agrego solo los personajes principales que no están KO.
-        // este metodo es el que se encarga de cumplir con el requisito
-        // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
-            if(!character.isKO()) currentTurnMainCharacters.add(character);
-        }
-        return currentTurnMainCharacters;
-
-    }
 
     @Override
     public TurnType getType() {

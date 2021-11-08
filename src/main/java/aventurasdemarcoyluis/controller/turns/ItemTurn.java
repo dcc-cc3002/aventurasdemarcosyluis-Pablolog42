@@ -39,9 +39,7 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
             case "1" -> this.involvedMainCharacter = player.getMarco();
             case "2" -> this.involvedMainCharacter = player.getLuis();
             default -> {
-                // Case invalid selection
-                System.out.println("Please enter a valid selection! \n");
-                main(); return;
+                this.involvedMainCharacter = null;
             }
         }
 
@@ -49,7 +47,6 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
         // Case character KO
         if(involvedMainCharacter.isKO()){
             System.out.println("The chosen character is K.O. and can't use an item. Please select another character! \n");
-            main(); return;
         }
 
 
@@ -63,9 +60,7 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
             case "1" -> selectedItem = ItemType.HONEYSYRUP;
             case "2" -> selectedItem = ItemType.REDMUSHROOM;
             default -> {
-                // Case Invalid Selection
-                System.out.println("Please enter a valid selection! \n");
-                main(); return;
+                selectedItem = null;
             }
         }
 
@@ -86,19 +81,7 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
 
     }
 
-    @Override
-    public ArrayList<InterMainCharacter> getCurrentTurnMainCharaters() {
-        ArrayList<InterMainCharacter> currentTurnMainCharacters = new ArrayList<>();
 
-        // Agrego solo los personajes principales que no están KO.
-        // este metodo es el que se encarga de cumplir con el requisito
-        // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
-            if(!character.isKO()) currentTurnMainCharacters.add(character);
-        }
-        return currentTurnMainCharacters;
-
-    }
 
     @Override
     public TurnType getType() {

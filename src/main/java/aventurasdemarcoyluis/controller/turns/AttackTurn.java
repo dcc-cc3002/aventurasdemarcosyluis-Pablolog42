@@ -37,8 +37,6 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
         System.out.println("Select the enemy to attack: (Choose a number)");
         System.out.println("Wild enemies:");
 
-        System.out.println(this.controller);
-
 
         System.out.println(this.controller.getPlayer().getEnemyList());
 
@@ -65,21 +63,18 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
 
 
 
-        attackSelectedEnemy(attackSelection, this.involvedMainCharacter, target);
+        attackSelectedEnemy(attackSelection, target);
 
         System.out.println("########### End of attack turn ###########");
 
 
     }
 
-    public void attackSelectedEnemy(String attackSelection, InterMainCharacter attackingCharacter, InterEnemy attackedEnemy){
+    public void attackSelectedEnemy(String attackSelection, InterEnemy attackedEnemy){
         switch (attackSelection){
             case "1" -> involvedMainCharacter.jumpAttack(attackedEnemy);
             case "2" -> involvedMainCharacter.hammerAttack(attackedEnemy);
-            default -> {
-                System.out.println("Please, select a valid option.");
-            }
-        }
+           }
     }
 
     @Override
@@ -88,19 +83,7 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
     }
 
 
-    @Override
-    public ArrayList<InterMainCharacter> getCurrentTurnMainCharaters() {
-        ArrayList<InterMainCharacter> currentTurnMainCharacters = new ArrayList<>();
 
-        // Agrego solo los personajes principales que no están KO.
-        // este metodo es el que se encarga de cumplir con el requisito
-        // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
-            if(!character.isKO()) currentTurnMainCharacters.add(character);
-        }
-        return currentTurnMainCharacters;
-
-    }
 
     @Override
     public TurnType getType() {

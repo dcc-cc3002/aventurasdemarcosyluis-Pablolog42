@@ -158,6 +158,28 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     }
 
 
+    /**
+     * Jump-Attacks a Goomba.
+     * Sends DD message to jumpAttack() method.
+     *
+     * @param enemy The enemy to send the attack message to
+     */
+    public void jumpAttack(InterEnemy enemy){
+        this.jumpAttackAction(enemy);
+    }
+
+    /**
+     * Hammer-Attacks an enemy.
+     * Sends DD message to hammerAttack() method.
+     *
+     * @param enemy The enemy to send the attack message to
+     */
+    public void hammerAttack(InterEnemy enemy){
+        this.hammerAttackAction(enemy);
+    }
+
+
+
     // Setters and getters
 
     /** Gets the current FP of an entity **/
@@ -172,7 +194,10 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     public void setFp(int fp) {
         this.fp = fp;
     }
-
+    /** Sets the maxFP of an entity **/
+    public void setMaxFP(int maxFP){
+        this.maxFP = maxFP;
+    }
 
 
 
@@ -191,6 +216,17 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
         String ko = "%%% K.O. %%% " + notKo;
 
         return this.isKO()? ko:notKo;
+    }
+
+    public void lvlUp(){
+        // Level Up!
+        this.setLvl(this.getLvl()+1);
+        // Increase 15% of every stat
+        this.setMaxHP((115.0/100)*this.getMaxHP());
+        this.setMaxFP((int)((115.0/100)*this.getMaxFP()));
+        this.setAtk((115.0/100)*this.getAtk());
+        this.setDef((115.0/100)*this.getDef());
+
     }
 
 

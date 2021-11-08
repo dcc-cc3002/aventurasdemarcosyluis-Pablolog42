@@ -3,7 +3,6 @@ package aventurasdemarcoyluis.controller;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.*;
-import aventurasdemarcoyluis.model.items.InterItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
@@ -11,7 +10,6 @@ import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class GameController {
@@ -23,7 +21,6 @@ public class GameController {
     private InterTurn currentTurn;
     private TurnOwner currentTurnOwner;
 
-    private InterTurn nextTurn = null;
     private TurnOwner nextTurnOwner = null;
 
 
@@ -66,7 +63,9 @@ public class GameController {
     }
 
 
-
+    public void setPlayer(Player player) {
+        this.mainPlayer = player;
+    }
 
     public void setPlayer(String playerName) {
         this.mainPlayer = new Player(playerName);
@@ -84,23 +83,24 @@ public class GameController {
         this.gameFinished = gameFinished;
     }
 
-    public String getCurrentBattleWinner() {
-        return currentBattleWinner;
-    }
-
-
-
-    public Battle getCurrentBattle() {
-        return currentBattle;
-    }
 
     public void createAndSetNewBattle() {
         this.currentBattle = new Battle(this.mainPlayer);
 
         this.mainPlayer.increaseBattleNumber();
+        // Restore the player's character's fp and hp to the max
+        this.mainPlayer.getMarco().restoreHP(mainPlayer.getMarco().getMaxHP());
+        this.mainPlayer.getLuis().restoreHP(mainPlayer.getLuis().getMaxHP());
+        this.mainPlayer.getMarco().restoreFP(mainPlayer.getMarco().getMaxFP());
+        this.mainPlayer.getLuis().restoreFP(mainPlayer.getLuis().getMaxFP());
+
         this.currentBattle.setRandomEnemyList();
         this.currentBattle.addInitialItems();
-        this.playerLvlUp();
+
+        if (this.mainPlayer.getBattleNumber()>1) {
+            this.getPlayer().setPlayerLvl(getPlayer().getPlayerLvl() +1 );
+            this.playerLvlUp();
+        }
 
     }
 
@@ -120,19 +120,6 @@ public class GameController {
         this.currentTurn = currentTurn;
     }
 
-    public void useItemFromVault(@NotNull InterItem item, InterMainCharacter character){
-        this.mainPlayer.useItem(item.getType(), character);
-    }
-
-    // Note: can return null if player doesn't have he requested item
-    public InterItem getItemFromVault(ItemType itemType){
-        return this.mainPlayer.getPlayerVault().retrieveItem(itemType);
-    }
-
-    public ArrayList<InterMainCharacter> getTurnMainCharacters(){
-        return this.getCurrentTurn().getCurrentTurnMainCharaters();
-    }
-
     public boolean getWinner() {
         return winner;
     }
@@ -147,10 +134,10 @@ public class GameController {
 
     public void playerLvlUp(){
         if(this.getPlayer().getPlayerLvl() == 1){
+            //do nothing
             return;
         }
         this.mainPlayer.lvlUp();
-
     }
 
 
@@ -232,14 +219,6 @@ public class GameController {
 
     public void setNextTurnOwner(TurnOwner nextTurnOwner) {
         this.nextTurnOwner = nextTurnOwner;
-    }
-
-    public InterTurn getNextTurn() {
-        return nextTurn;
-    }
-
-    public void setNextTurn(InterTurn nextTurn) {
-        this.nextTurn = nextTurn;
     }
 
     public Player getPlayer() {

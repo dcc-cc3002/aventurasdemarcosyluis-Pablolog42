@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class AbstractEntity implements InterEntity {
 
-    private final double atk;
-    private final double def;
+    private double atk;
+    private double def;
     private double hp;
     private double maxHP;
     private int lvl;
@@ -152,12 +152,23 @@ public abstract class AbstractEntity implements InterEntity {
         isKO = KO;
     }
 
+    public void setAtk(double atk) {
+        this.atk = atk;
+    }
+
+    public void setDef(double def) {
+        this.def = def;
+    }
+
+    public void setMaxHP(double maxHP) {
+        this.maxHP = maxHP;
+    }
+
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
 
-    public void lvlUp(){
-        this.setLvl(this.getLvl()+1);
-    }
+
+
 
 }

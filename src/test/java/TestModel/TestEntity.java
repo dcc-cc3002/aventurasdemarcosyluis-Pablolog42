@@ -44,5 +44,9 @@ public class TestEntity {
     public void fPSystem(){
         testMarco.restoreFP(1000);
         assertEquals(100,testMarco.getFp());
+        testMarco.setMaxFP(100000);
+        assertEquals(100000,testMarco.getMaxFP());
     }
+
+
 }
