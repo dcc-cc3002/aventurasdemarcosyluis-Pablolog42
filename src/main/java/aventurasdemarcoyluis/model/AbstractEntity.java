@@ -118,10 +118,12 @@ public abstract class AbstractEntity implements InterEntity {
         return lvl;
     }
     /** Gets the defense of an entity **/
+    @Override
     public double getDef() {
         return def;
     }
     /** Gets the current HP of an entity **/
+    @Override
     public double getHp() {
         return hp;
     }
@@ -131,6 +133,7 @@ public abstract class AbstractEntity implements InterEntity {
         return maxHP;
     }
     /** Gets the type of entity **/
+    @Override
     public EntityType getType() {
         return type;
     }
@@ -140,6 +143,7 @@ public abstract class AbstractEntity implements InterEntity {
         return this.type.toString();
     }
     /** Gets the KO status of an entity **/
+    @Override
     public boolean isKO() {
         return this.isKO;
     }
@@ -151,19 +155,19 @@ public abstract class AbstractEntity implements InterEntity {
     public void setKO(boolean KO) {
         isKO = KO;
     }
-
+    /** Sets the atk of an entity **/
     public void setAtk(double atk) {
         this.atk = atk;
     }
-
+    /** Sets the def of an entity **/
     public void setDef(double def) {
         this.def = def;
     }
-
+    /** Sets the maxHP of an entity **/
     public void setMaxHP(double maxHP) {
         this.maxHP = maxHP;
     }
-
+    /** Sets the lvl of an entity **/
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }

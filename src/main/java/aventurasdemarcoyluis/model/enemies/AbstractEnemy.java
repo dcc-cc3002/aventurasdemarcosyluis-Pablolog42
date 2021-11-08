@@ -29,6 +29,13 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
         super(ATK, DEF, HP, MAXHP, LVL, TYPE);
     }
 
+    /**
+     * Computes the amount of damage to be inflicted (according to the dmg formula)
+     * when receiving an attack from another AbstractEntity.
+     *
+     * @param k The Base damage multiplier for a given attack
+     * @param attacker The AbstractEntity currently attacking
+     */
     @Override
     public double computeDmg(double k, @NotNull InterEntity attacker){
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
@@ -57,7 +64,11 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
     public void playerJumpAttacking(InterMainCharacter player) {
         this.receiveDamage(this.computeDmg(1,player));
     }
-
+    /**
+     * Provides a string representation of the current entity.
+     * Overrides "toString" method in Object Class.
+     * @return a string representation of the current entity.
+     */
     @Override
     public String toString(){
         return this.getType().toString() + " with stats:   " + "| ATK: " + this.getAtk() + " | DEF: " + this.getDef() + " | HP: " + this.getHp() + " | MAXHP: " + this.getMaxHP() + " | LVL: " + this.getLvl() + " |";

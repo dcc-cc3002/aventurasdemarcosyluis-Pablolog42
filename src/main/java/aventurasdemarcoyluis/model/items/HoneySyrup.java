@@ -22,6 +22,10 @@ public class HoneySyrup extends AbstractItem implements InterItem {
         character.restoreFP(3);
     }
 
+    /**
+     * Get the type of  item
+     * @return The item's itemType
+     */
     @Override
     public ItemType getType() {
         return ItemType.HONEYSYRUP;

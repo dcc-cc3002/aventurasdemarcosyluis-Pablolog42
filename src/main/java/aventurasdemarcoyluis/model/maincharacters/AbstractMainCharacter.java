@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 /*
-    Abstract representation of a Player.
+    Abstract representation of a MainCharacter.
     A player is a specific kind of Entity.
  */
 public abstract class AbstractMainCharacter extends AbstractEntity implements InterMainCharacter {
@@ -148,15 +148,15 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     }
 
 
-    // Items
-
-    // Sends DD message to item to be used.
-    // note: at this point, the player always has the item to be used.
+    /**
+     * Sends DD message to item to be used.
+     * note: at this point, the player always has the item to be used.
+     * @param item the Item to be used
+     */
     @Override
     public void useItem(@NotNull InterItem item){
         item.useItem(this);
     }
-
 
     /**
      * Jump-Attacks a Goomba.
@@ -178,15 +178,29 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
         this.hammerAttackAction(enemy);
     }
 
+    /**
+     * Executes the lvlUp routine for the MainCharacter, increasing all stats according to the given level.
+     */
+    public void lvlUp(){
+        // Level Up!
+        this.setLvl(this.getLvl()+1);
+        // Increase 15% of every stat
+        this.setMaxHP((115.0/100)*this.getMaxHP());
+        this.setMaxFP((int)((115.0/100)*this.getMaxFP()));
+        this.setAtk((115.0/100)*this.getAtk());
+        this.setDef((115.0/100)*this.getDef());
 
+    }
 
     // Setters and getters
 
     /** Gets the current FP of an entity **/
+    @Override
     public int getFp() {
         return fp;
     }
     /** Gets the current HP of an entity **/
+    @Override
     public int getMaxFP() {
         return maxFP;
     }
@@ -200,8 +214,11 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     }
 
 
-
-
+    /**
+     * Provides a string representation of the current entity.
+     * Overrides "toString" method in Object Class.
+     * @return a string representation of the current entity.
+     */
     @Override
     public String toString(){
         String notKo = this.getType().toString() + " with stats:   " +
@@ -216,17 +233,6 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
         String ko = "%%% K.O. %%% " + notKo;
 
         return this.isKO()? ko:notKo;
-    }
-
-    public void lvlUp(){
-        // Level Up!
-        this.setLvl(this.getLvl()+1);
-        // Increase 15% of every stat
-        this.setMaxHP((115.0/100)*this.getMaxHP());
-        this.setMaxFP((int)((115.0/100)*this.getMaxFP()));
-        this.setAtk((115.0/100)*this.getAtk());
-        this.setDef((115.0/100)*this.getDef());
-
     }
 
 

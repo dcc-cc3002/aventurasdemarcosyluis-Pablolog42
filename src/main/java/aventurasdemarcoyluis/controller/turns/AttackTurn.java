@@ -3,11 +3,11 @@ package aventurasdemarcoyluis.controller.turns;
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 
 public class AttackTurn extends AbstractTurn implements InterTurn {
@@ -19,6 +19,11 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
     private InterMainCharacter involvedMainCharacter;
     private BufferedReader reader;
 
+    /**
+     * AttackTurn Constructor
+     * By default, sets the class reader as a System.in BufferStream.
+     * @param controller the game controller controlling the turn.
+     */
     public AttackTurn(GameController controller) {
         super(controller);
         this.controller = controller;
@@ -70,31 +75,53 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
 
     }
 
-    public void attackSelectedEnemy(String attackSelection, InterEnemy attackedEnemy){
+    /**
+     * Lets the current involvedMainCharacter attack an enemy.
+     * @param attackSelection Selects the type of attack to perform:
+     *                        1 -> Jump Attack
+     *                        2 -> Hammer Attack
+     *
+     * @param attackedEnemy Selects the enemy who receives the performed attack.
+     */
+    public void attackSelectedEnemy(@NotNull String attackSelection, InterEnemy attackedEnemy){
         switch (attackSelection){
             case "1" -> involvedMainCharacter.jumpAttack(attackedEnemy);
             case "2" -> involvedMainCharacter.hammerAttack(attackedEnemy);
            }
     }
 
+    /**
+     * Returns the enemy to attack, given the number of enemy selected from the list.
+     * @param enemyNumber The string that depicts the enemy number selected from the enemyList.
+     * @return The Enemy associated to the entered EnemyNumber
+     */
+    public InterEnemy selectEnemyToAttack(String enemyNumber){
+        return this.controller.getPlayer().getEnemyList().retrieveEnemy(Integer.parseInt(enemyNumber)-1);
+    }
+
+    /**
+     * Gets the current turn's "Involved Character"
+     *
+     * The involved character is the mainCharacter of the player which is being currently
+     * acted upon (either by using an item on them, or letting them attack an enemy).
+     *
+     * Note that in the "Passing" turn, there is no action being performed, and thus,
+     * the Involved Character should return null.
+     *
+     * @return The current Involved Character.
+     */
     @Override
     public InterMainCharacter getInvolvedMainCharacter() {
         return involvedMainCharacter;
     }
 
-
-
-
+    /**
+     * Returns the type of turn played.
+     * @return Type of turn played.
+     */
     @Override
     public TurnType getType() {
         return this.type;
     }
-
-
-    public InterEnemy selectEnemyToAttack(String enemyNumber){
-        return this.controller.getPlayer().getEnemyList().retrieveEnemy(Integer.parseInt(enemyNumber)-1);
-    }
-
-
 
 }

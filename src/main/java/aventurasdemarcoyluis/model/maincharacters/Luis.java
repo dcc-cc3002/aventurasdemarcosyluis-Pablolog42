@@ -1,7 +1,6 @@
 package aventurasdemarcoyluis.model.maincharacters;
 
 import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.*;
 
 /*
     Luis player Class

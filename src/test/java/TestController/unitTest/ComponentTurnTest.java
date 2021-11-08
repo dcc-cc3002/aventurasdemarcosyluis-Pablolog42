@@ -37,7 +37,7 @@ public class ComponentTurnTest {
         controller.createAndSetNewBattle();
         controller.selectTurnKind("attack");
 
-        ArrayList<InterMainCharacter> turnMainCharacterList = controller.getCurrentTurn().getCurrentTurnMainCharaters();
+        ArrayList<InterMainCharacter> turnMainCharacterList = controller.getCurrentTurn().getCurrentTurnMainCharacters();
 
         //There should be 1 marco and 1 luis in the current turn
 
@@ -47,7 +47,7 @@ public class ComponentTurnTest {
         this.controller.getPlayer().getLuis().setKO(true);
 
         // lets check the current turn characters again.
-        turnMainCharacterList = controller.getCurrentTurn().getCurrentTurnMainCharaters();
+        turnMainCharacterList = controller.getCurrentTurn().getCurrentTurnMainCharacters();
 
         // There should only be one mario in the list, as the KO character is removed fronm the turn.
         // Luis and mario should be in the current turn

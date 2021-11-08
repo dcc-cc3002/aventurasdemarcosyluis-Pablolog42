@@ -8,8 +8,10 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
+/**
+ * Representation of the turn in which the player uses an item.
+ */
 public class ItemTurn extends AbstractTurn implements InterTurn{
 
     private GameController controller;
@@ -17,13 +19,22 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
     private InterMainCharacter involvedMainCharacter=null;
     private BufferedReader reader;
 
+    /**
+     * ItemTurn class Constructor
+     * @param controller the game controller managing the turn.
+     */
     public ItemTurn(GameController controller) {
         super(controller);
         this.controller = controller;
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
- 
+    /**
+     *  Main method of the current turn.
+     *  Implement's the logic chain of events according to the turn type.
+     *
+     * @throws IOException Excepción en caso de error en input de texto.
+     **/
     @Override
     public void main() throws IOException {
 
@@ -82,17 +93,39 @@ public class ItemTurn extends AbstractTurn implements InterTurn{
     }
 
 
-
+    /**
+     * Returns the type of turn played.
+     * @return Type of turn played.
+     */
     @Override
     public TurnType getType() {
         return this.type;
     }
 
+
+    /**
+     * Gets the current turn's "Involved Character"
+     * <p>
+     * The involved character is the mainCharacter of the player which is being currently
+     * acted upon (either by using an item on them, or letting them attack an enemy).
+     * <p>
+     * Note that in the "Passing" turn, there is no action being performed, and thus,
+     * the Involved Character should return null.
+     *
+     * @return The current Involved Character.
+     */
     @Override
     public InterMainCharacter getInvolvedMainCharacter() {
         return involvedMainCharacter;
     }
 
+    /**
+     * Sets a Buffered Reader stream as an input to a turn.
+     * The BufferedReader can be instanced with a string
+     * or with the use of the System.in input.
+     *
+     * @param reader The reader to set.
+     */
     @Override
     public void setReader(BufferedReader reader) {
         this.reader = reader;

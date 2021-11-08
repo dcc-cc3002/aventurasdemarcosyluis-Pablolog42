@@ -4,26 +4,52 @@
 
 El siguiente programa consiste en la implementación del juego RPG de "Las flipantes Aventuras de Marcos y Luis". 
 
-El juego código distintos personajes, enemigos e ítems, y las posibles interacciones entre sí. El código fuente del juego se encuentra en `/src/test/java/aventurasdemarcoyluis.examples.PlayExample.Java` 
+El juego código distintos personajes, enemigos e ítems, y las posibles interacciones entre sí. El código fuente del juego se encuentra en `/src/test/java/aventurasdemarcoyluis` 
 
-Las interacciones entre personajes, enemigos e ítems están descritas en el enunciado de la _Tarea_, que se encuentra en: https://www.u-cursos.cl/ingenieria/2021/2/CC3002/1/tareas/r/2021091617049EBCB4003D150FF0__Enunciado_Tarea_01.pdf
+El juego utiliza el paradigma de Modelo - vista - Controlador.
 
-En general, se ha utilizado una aproximación de resolución del problema basada en herencia de clases, en donde se tiene que la jerarquia decreciente de clases para entidades es:
+En esta iteración, se pretende finalizar la integración entre el modelo y el controlador del juego.
 
-`Entity <- Player <- Marcos, Luis`
-`Entity <- Enemy <- Goomba, Spiny, Boo`
+Las interacciones entre personajes, enemigos e ítems están descritas en el enunciado de la _Tarea_, que se encuentra en: https://www.u-cursos.cl/ingenieria/2021/2/CC3002/1/tareas/r/202110071618D5520956CF891D63__Enunciado_Tarea_02_CC3002.pdf
 
-Se realiza algo análogo en el caso de los items del juego.
+Estas interacciones están mediadas casi en su mayoría por el controlador del juego, en este caso contenido en la clase GameController (`java/aventurasdemarcoyluis/controller/GameController.java`)
 
-Para ejecutar el código, se incluye una pequeña demostración funcional del programa en `/src/main/java/aventurasdemarcoyluis`, paquete que en sí está subdividido acorde a cada uno de los componentes principales del juego antes descritos.
+El controlador está encargado de realizar las siguientes labores:
 
-Algunas suposiciones realizadas (puesto que no se han descrito explícitamente en el enunciado de la tarea) son:
+1. Crear a los personajes principales.
+2. Crear a los enemigos.
+3. Crear a los Items.
+4. Crear el baúl de los personajes principales.
+5. Implementar los turnos.
+6. Que un jugador pueda utilizar un elemento al ba´ul.
+7. Obtener los elementos del baúl. 
+8. Obtener todos los personajes del turno. 
+9. Quitar a un personaje del “turno” cuando est´a K.O. 
+10. Saber cuando los personajes principales ganan o pierden. 
+11. Obtener el personaje que posee el turno actual. 
+12. Obtener el personaje del siguiente turno. 
+13. Terminar el turno del jugador actual.
+
+Los números de cada requerimiento se referencian en las clases que testean al controlador, encontradas en: `src/test/java/TestController`
+
+La jerarquía de flujo del juego está guiada por (De más grande a más pequeño):
+
+``Juego <- Batalla <- Turno (Ataque, Item, Pass, Enemigo)``
+
+Es el controlador quien se encarga de relacionar cada una de estas etapas.
+
+Se espera que, dentro de cada batalla, se realicen diversos turnos intercalados entre el Jugador (quien es el que controla y posee a los personajes principales),}
+y el "Enemigo" (Quienes son los encargados de atacar aleatoriamente a algún jugador.)
+
+Además de esto, se tiene que dentro de un mismo Juego, al pasar cada batalla los personajes principales van subiendo de nivel, 
+obteniendo nuevos items y viéndose enfrentados a más enemigos.
+
+El juego termina en el momento en que:
     
-    1. Los enemigos igual tienen FP. esto es en caso de querer agregar algún enemigo especial que utilice FP como "maná"
-    2. Los enemigos pueden utilizar items. (Similar a 1., esto es en caso de querer agregar esta mecanica más adelante)
-    3. Un pesronaje K.O. puede "Revivir" al utilizar el item  _Red Mushroom_
-    4. La implementación del "estado invencible" se ha realizado mediante un campo de Booleano en cada personaje.
-    5. La vida (HP) y el maná (FP) de cada entidad tienen valores máximos (maxFp, maxHp), y mínimos (HP,FP>0)
-    6. Cada instancia de una entidad tiene un nombre (String name) carácteristico, en caso de querer jugar con nombres de la vida real (Por , si Luis Jara quisiera jugar con el personaje Luis)
+1. El Jugador ha sido derrotado (Sus personajes principales están ambos KO)
+2. El Jugador ha peleado 5 batallas seguidas sin ser derrotado (El jugador Gana.)
 
-Se incluyen además en `/src/test/java/` todos los tests de UnitTesting con coverage de aprox. 94%, junto con los diagramas de clase UML en la carpeta `/UML Diagrams/`
+
+En general, se ha utilizado una aproximación de resolución del problema basada en herencia de clases, en conjunto de implementación de interfaces para componentes con métodos comunes.
+
+Se incluyen además en `/src/test/java/` todos los tests de UnitTesting con coverage de aprox. 91%, junto con los diagramas de clase UML en la carpeta `/UML Diagrams/`
