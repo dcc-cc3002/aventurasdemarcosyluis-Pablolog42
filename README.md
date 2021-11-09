@@ -2,6 +2,8 @@
 
 #### Alumno: Pablo González Aguilera - 20973277-7
 
+Entrega 3
+
 El siguiente programa consiste en la implementación del juego RPG de "Las flipantes Aventuras de Marcos y Luis". 
 
 El juego código distintos personajes, enemigos e ítems, y las posibles interacciones entre sí. El código fuente del juego se encuentra en `/src/test/java/aventurasdemarcoyluis` 
