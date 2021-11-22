@@ -175,7 +175,7 @@ public class GameController implements InterController {
      *                  "passing": creates a passingTurn
      *                  any other: doesn't do anything.
      */
-    public void selectNewTurnKind(@NotNull TurnType selection) {
+    public void selectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException {
         // This switch statement sets the current turn
         switch (selection) {
             case ATTACK -> {
@@ -198,7 +198,7 @@ public class GameController implements InterController {
                 PassingTurn passingTurn = new PassingTurn(this);
                 this.setCurrentTurn(passingTurn);
             }
-            default -> System.out.println("Please, select a valid option");
+            default -> throw new InvalidSelectionException("Please, select a valid option");
         }
     }
 
@@ -237,18 +237,28 @@ public class GameController implements InterController {
             return;
         }
 
-        // Si el turno que se está terminando no es del enemigo, y está jugando Luis,
-        // implica que es del jugador, y el siguiente será del enemigo.
+        // Si el turno que se está terminando es de Luis,
+        //  el siguiente será del enemigo.
         if(this.getCurrentTurnOwner() == TurnOwner.LUIS){
             // Se setea el turno siguiente a que sea del enemigo.
+
             this.setCurrentTurnOwner(TurnOwner.ENEMY);
             this.setNextTurnOwner(calculateNextTurnOwner());
 
             this.setCurrentTurn(new EnemyTurn(this));
+
             // The enemies turn should be started immediately after the player's
             // last main character has finished their turn.
             this.startCurrentTurn();
+            return;
         }
+
+
+        assert (this.getNextTurnOwner() != TurnOwner.ENEMY);
+
+        // As the next turn isn't of an Enemy, and the player hasn't selected wich
+        // turn kind they want to perform next, we set it to null.
+        this.setCurrentTurn(null);
 
         // Set's the next turn's owner according to what is specified
         this.setCurrentTurnOwner(getNextTurnOwner());

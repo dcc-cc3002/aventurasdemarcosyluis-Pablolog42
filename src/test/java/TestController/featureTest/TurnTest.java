@@ -85,21 +85,29 @@ public class TurnTest {
         assertEquals(TurnOwner.MARCO,controller.getCurrentTurnOwner());
         assertEquals(TurnOwner.LUIS,controller.getNextTurnOwner());
         assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
-
+        // Marco Passes
         controller.startCurrentTurn();
-//        controller.finishTurn();
+
 
         assertEquals(TurnOwner.LUIS,controller.getCurrentTurnOwner());
         assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
-        assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
 
         controller.selectNewTurnKind(TurnType.PASSING);
-        controller.startCurrentTurn();
-//        controller.finishTurn();
+        assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
 
-        assertEquals(TurnOwner.ENEMY,controller.getCurrentTurnOwner());
-        assertEquals(TurnOwner.MARCO,controller.getNextTurnOwner());
-        assertEquals(TurnType.ENEMY, controller.getCurrentTurn().getType());
+        controller.startCurrentTurn();
+
+
+
+        // After luis makes their turn, the enemy turn will start inmediatly.
+        // As the enemyTurn self-finshes, the new current turn owner
+        // Should be the character that comes after the enemies attack.
+        // As per the order: Marco -> Luis -> Enemy -> Marco -> Luis -> enemy ->...
+
+        // after the enemy turn self-finishes, the current character should be marco.
+        assertEquals(TurnOwner.MARCO,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.LUIS,controller.getNextTurnOwner());
+        assertNull(controller.getCurrentTurn());
 
         // The enemy's turn should be executed immediately after luis's turn.
 

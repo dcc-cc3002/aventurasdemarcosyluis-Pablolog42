@@ -1,5 +1,6 @@
 package TestController.unitTest;
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
@@ -21,7 +22,7 @@ public class ComponentTurnTest {
         controller.setPlayer("Ernesto Sábato");
     }
     @Test
-    public void getControllerFromTurnTest(){
+    public void getControllerFromTurnTest() throws InvalidSelectionException {
         controller.createAndSetNewBattle();
         controller.selectNewTurnKind(TurnType.ATTACK);
         // The controller should be the exact same.
@@ -34,7 +35,7 @@ public class ComponentTurnTest {
      * 9. Quitar a un personaje del turno cuando está KO.
      */
     @Test
-    public void getCurrentTurnMainCharatersTest() throws IOException {
+    public void getCurrentTurnMainCharatersTest() throws IOException, InvalidSelectionException {
         controller.createAndSetNewBattle();
         controller.selectNewTurnKind(TurnType.ATTACK);
 

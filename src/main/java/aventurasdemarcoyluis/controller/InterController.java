@@ -78,7 +78,7 @@ public interface InterController {
      *                  "passing": creates a passingTurn
      *                  any other: doesn't do anything.
      */
-    void selectNewTurnKind(@NotNull TurnType selection);
+    void selectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException;
 
     /**
      * Executes the main method of the controller's currently selected turn.
