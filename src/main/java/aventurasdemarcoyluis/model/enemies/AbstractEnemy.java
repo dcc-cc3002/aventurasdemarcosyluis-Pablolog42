@@ -18,12 +18,13 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
     /**
      * Creates a new AbstractEnemy
      * enemies don't have FP.
-     * @param ATK jumpAttack points
-     * @param DEF defense points
-     * @param HP  health points
+     *
+     * @param ATK   jumpAttack points
+     * @param DEF   defense points
+     * @param HP    health points
      * @param MAXHP Maximum HP of the unit
-     * @param LVL  level of the Unit
-     * @param TYPE type of the enemy (see enum "EnemyType")
+     * @param LVL   level of the Unit
+     * @param TYPE  type of the enemy (see enum "EnemyType")
      */
     public AbstractEnemy(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE) {
         super(ATK, DEF, HP, MAXHP, LVL, TYPE);
@@ -33,20 +34,19 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
      * Computes the amount of damage to be inflicted (according to the dmg formula)
      * when receiving an attack from another AbstractEntity.
      *
-     * @param k The Base damage multiplier for a given attack
+     * @param k        The Base damage multiplier for a given attack
      * @param attacker The AbstractEntity currently attacking
      */
     @Override
-    public double computeDmg(double k, @NotNull InterEntity attacker){
+    public double computeDmg(double k, @NotNull InterEntity attacker) {
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
     }
 
     /**
-     *  Receives the double dispatch call sent from an AbstractMainCharacter.
-     *  After that, infringes DMG according to the Hammer-Attack constant (k=1.5)
+     * Receives the double dispatch call sent from an AbstractMainCharacter.
+     * After that, infringes DMG according to the Hammer-Attack constant (k=1.5)
      *
      * @param player The player sending the attack Message
-     *
      **/
     @Override
     public void playerHammerAttacking(InterMainCharacter player) {
@@ -54,23 +54,24 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
     }
 
     /**
-     *  Receives the double dispatch call sent from an AbstractMainCharacter.
-     *  After that, infringes DMG according to the Jump-Attack constant (k=1)
+     * Receives the double dispatch call sent from an AbstractMainCharacter.
+     * After that, infringes DMG according to the Jump-Attack constant (k=1)
      *
      * @param player The player sending the attack Message
-     *
      **/
     @Override
     public void playerJumpAttacking(InterMainCharacter player) {
-        this.receiveDamage(this.computeDmg(1,player));
+        this.receiveDamage(this.computeDmg(1, player));
     }
+
     /**
      * Provides a string representation of the current entity.
      * Overrides "toString" method in Object Class.
+     *
      * @return a string representation of the current entity.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return this.getType().toString() + " with stats:   " + "| ATK: " + this.getAtk() + " | DEF: " + this.getDef() + " | HP: " + this.getHp() + " | MAXHP: " + this.getMaxHP() + " | LVL: " + this.getLvl() + " |";
     }
 

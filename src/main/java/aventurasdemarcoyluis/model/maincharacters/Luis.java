@@ -5,7 +5,7 @@ import aventurasdemarcoyluis.model.EntityType;
 /*
     Luis player Class
  */
-public class Luis extends AbstractMainCharacter{
+public class Luis extends AbstractMainCharacter {
     /**
      * Creates a new AbstractEntity
      *
@@ -20,10 +20,6 @@ public class Luis extends AbstractMainCharacter{
     public Luis(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL) {
         super(ATK, DEF, FP, MAXFP, HP, MAXHP, LVL, EntityType.LUIS);
     }
-
-
-
-
 
 
 }

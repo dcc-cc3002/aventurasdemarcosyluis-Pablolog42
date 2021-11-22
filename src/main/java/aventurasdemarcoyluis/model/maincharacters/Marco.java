@@ -2,7 +2,8 @@ package aventurasdemarcoyluis.model.maincharacters;
 
 
 import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.*;
+import aventurasdemarcoyluis.model.enemies.Goomba;
+import aventurasdemarcoyluis.model.enemies.Spiny;
 
 /*
     Marco player Class
@@ -35,7 +36,7 @@ public class Marco extends AbstractMainCharacter {
      *
      * @param goomba The Goomba sending the attack msg.
      **/
-    public void goombaAttacking(Goomba goomba){
+    public void goombaAttacking(Goomba goomba) {
         this.enemyAttacking(goomba);
     }
 
@@ -44,10 +45,9 @@ public class Marco extends AbstractMainCharacter {
      *
      * @param spiny The Spiny sending the attack msg.
      **/
-    public void spinyAttacking(Spiny spiny){
+    public void spinyAttacking(Spiny spiny) {
         this.enemyAttacking(spiny);
     }
-
 
 
 }

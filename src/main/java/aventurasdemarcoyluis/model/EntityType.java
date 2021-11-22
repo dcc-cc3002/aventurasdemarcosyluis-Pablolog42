@@ -1,4 +1,5 @@
 package aventurasdemarcoyluis.model;
+
 /**
  * Enum denoting the five types of entity in the game.
  * An entity can be:
@@ -9,34 +10,8 @@ package aventurasdemarcoyluis.model;
  * 5. Luis
  */
 public enum EntityType {
-    GOOMBA{
-        /**
-         * Provides a string representation of an EntityType.
-         * @return a string representation of an EntityType
-         */
-        @Override
-        public String toString() {
-            return "Goomba";
-        }
-    },BOO{
-        /**
-         * Provides a string representation of an EntityType.
-         * @return a string representation of an EntityType
-         */
-        @Override
-        public String toString() {
-            return "Boo";
-    }
-    },SPINY{
-        /**
-         * Provides a string representation of an EntityType.
-         * @return a string representation of an EntityType
-         */
-        @Override
-        public String toString() {
-            return "Spiny";
-        }
-    },MARCO{
+
+    MARCO {
         /**
          * Provides a string representation of an EntityType.
          * @return a string representation of an EntityType
@@ -45,7 +20,10 @@ public enum EntityType {
         public String toString() {
             return "Marco";
         }
-    },LUIS{
+
+
+
+    }, LUIS {
         /**
          * Provides a string representation of an EntityType.
          * @return a string representation of an EntityType
@@ -54,5 +32,47 @@ public enum EntityType {
         public String toString() {
             return "Luis";
         }
-    }
+
+
+
+    }, GOOMBA {
+        /**
+         * Provides a string representation of an EntityType.
+         * @return a string representation of an EntityType
+         */
+        @Override
+        public String toString() {
+            return "Goomba";
+        }
+
+    }, BOO {
+        /**
+         * Provides a string representation of an EntityType.
+         * @return a string representation of an EntityType
+         */
+        @Override
+        public String toString() {
+            return "Boo";
+        }
+
+
+
+
+    }, SPINY {
+        /**
+         * Provides a string representation of an EntityType.
+         * @return a string representation of an EntityType
+         */
+        @Override
+        public String toString() {
+            return "Spiny";
+        }
+
+    };
+
+
+    private static final EntityType[] values = values();
+    public static EntityType get(int ordinal) { return values[ordinal]; }
+
+
 }

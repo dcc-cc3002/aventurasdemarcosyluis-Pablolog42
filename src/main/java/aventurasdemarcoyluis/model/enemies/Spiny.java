@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /*
     Spiny enemy Class
  */
-public class Spiny extends AbstractEnemy{
+public class Spiny extends AbstractEnemy {
 
     /**
      * Creates a new Spiny
@@ -23,29 +23,29 @@ public class Spiny extends AbstractEnemy{
     }
 
     /**
-     *  Sends the double dispatch attack message to a player.
-     * @param player The player being attacked.
+     * Sends the double dispatch attack message to a player.
      *
+     * @param player The player being attacked.
      **/
     @Override
-    public void attack(@NotNull InterMainCharacter player){
+    public void attack(@NotNull InterMainCharacter player) {
         player.enemyAttacking(this);
     }
 
 
     // when jump-attacking spinny, the player does 0 dmg and looses 5% of their MAX HP.
+
     /**
-     *  Receives the double dispatch call sent from an AbstractMainCharacter.
-     *  In this case (Spiny being Jump-attacked), Spiny will always dodge the attacker take any dmg from the player,
-     *  and will instead infringe 5% of the maincharacters' maxHP as backlash damage.
+     * Receives the double dispatch call sent from an AbstractMainCharacter.
+     * In this case (Spiny being Jump-attacked), Spiny will always dodge the attacker take any dmg from the player,
+     * and will instead infringe 5% of the maincharacters' maxHP as backlash damage.
      *
      * @param player The player sending the Jump-attack Message
      **/
     @Override
     public void playerJumpAttacking(@NotNull InterMainCharacter player) {
-        player.receiveDamage(player.getMaxHP()*0.05);
+        player.receiveDamage(player.getMaxHP() * 0.05);
     }
-
 
 
 }

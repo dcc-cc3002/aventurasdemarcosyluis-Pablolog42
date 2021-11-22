@@ -1,8 +1,8 @@
 package aventurasdemarcoyluis.model.maincharacters;
 
 import aventurasdemarcoyluis.model.AbstractEntity;
-import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.InterItem;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,18 +59,20 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     /**
      * Jump-Attacks an Enemy.
      * Is segregated by "jumpAttack" method in all subclasses. (Done through selectable calling of this method)
-     *
+     * <p>
      * Checks if the player is KO (and thus, if they can attack)
      * In case they can, checks if they have enough FP
      * Finally, sends the double dispatch message to the enemy.
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttackAction(InterEnemy enemy){
+    public void jumpAttackAction(InterEnemy enemy) {
         int fpCost = 1;
-        int targetFP = this.getFp()-fpCost;
+        int targetFP = this.getFp() - fpCost;
         // In case the attack is not a legal move, exit the method
-        if(!validateAttack(fpCost)){ return; }
+        if (!validateAttack(fpCost)) {
+            return;
+        }
 
         this.setFp(targetFP);
         enemy.playerJumpAttacking(this);
@@ -79,9 +81,9 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
     /**
      * Hammer-Attacks an enemy.
-     *
+     * <p>
      * Is segregated by "jumpAttack" method in all subclasses. (Done through selectable calling of this method)
-     *
+     * <p>
      * Checks if the player is KO (and thus, if they can attack)
      * In case they can, checks if they have enough FP
      * Afterwards, checks if the attack has failed (25% probability of failing)
@@ -89,17 +91,19 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttackAction(InterEnemy enemy){
+    public void hammerAttackAction(InterEnemy enemy) {
         int fpCost = 2;
-        int targetFP = this.getFp()-fpCost;
+        int targetFP = this.getFp() - fpCost;
 
         // In case the attack is not a legal move, exit the method
-        if(!validateAttack(fpCost)){ return; }
+        if (!validateAttack(fpCost)) {
+            return;
+        }
 
         // 25% of failing: 0,1,2,3 possible outcomes. 0 is a fail.
         Random rand = new Random();
         int int_random = rand.nextInt(4);
-        if(int_random == 0) {
+        if (int_random == 0) {
             System.out.println("Hammer Attack has Failed!");
             return;
         }
@@ -114,9 +118,11 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      * Checks if an attack is a legal move.
      * Checks if the player attacking is KO
      * checks if the player attacking has enough FP
+     *
      * @param fpCost The FP cost of the attack to perform
      * @return A boolean indicating if the attack is valid or not.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean validateAttack(int fpCost) {
 
         int targetFP = this.getFp() - fpCost;
@@ -151,10 +157,11 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     /**
      * Sends DD message to item to be used.
      * note: at this point, the player always has the item to be used.
+     *
      * @param item the Item to be used
      */
     @Override
-    public void useItem(@NotNull InterItem item){
+    public void useItem(@NotNull InterItem item) {
         item.useItem(this);
     }
 
@@ -164,7 +171,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttack(InterEnemy enemy){
+    public void jumpAttack(InterEnemy enemy) {
         this.jumpAttackAction(enemy);
     }
 
@@ -174,42 +181,53 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttack(InterEnemy enemy){
+    public void hammerAttack(InterEnemy enemy) {
         this.hammerAttackAction(enemy);
     }
 
     /**
      * Executes the lvlUp routine for the MainCharacter, increasing all stats according to the given level.
      */
-    public void lvlUp(){
+    public void lvlUp() {
         // Level Up!
-        this.setLvl(this.getLvl()+1);
+        this.setLvl(this.getLvl() + 1);
         // Increase 15% of every stat
-        this.setMaxHP((115.0/100)*this.getMaxHP());
-        this.setMaxFP((int)((115.0/100)*this.getMaxFP()));
-        this.setAtk((115.0/100)*this.getAtk());
-        this.setDef((115.0/100)*this.getDef());
+        this.setMaxHP((115.0 / 100) * this.getMaxHP());
+        this.setMaxFP((int) ((115.0 / 100) * this.getMaxFP()));
+        this.setAtk((115.0 / 100) * this.getAtk());
+        this.setDef((115.0 / 100) * this.getDef());
 
     }
 
     // Setters and getters
 
-    /** Gets the current FP of an entity **/
+    /**
+     * Gets the current FP of an entity
+     **/
     @Override
     public int getFp() {
         return fp;
     }
-    /** Gets the current HP of an entity **/
+
+    /**
+     * Gets the current HP of an entity
+     **/
     @Override
     public int getMaxFP() {
         return maxFP;
     }
-    /** Sets the current FP of an entity **/
+
+    /**
+     * Sets the current FP of an entity
+     **/
     public void setFp(int fp) {
         this.fp = fp;
     }
-    /** Sets the maxFP of an entity **/
-    public void setMaxFP(int maxFP){
+
+    /**
+     * Sets the maxFP of an entity
+     **/
+    public void setMaxFP(int maxFP) {
         this.maxFP = maxFP;
     }
 
@@ -217,10 +235,11 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     /**
      * Provides a string representation of the current entity.
      * Overrides "toString" method in Object Class.
+     *
      * @return a string representation of the current entity.
      */
     @Override
-    public String toString(){
+    public String toString() {
         String notKo = this.getType().toString() + " with stats:   " +
                 "| ATK: " + this.getAtk() +
                 " | DEF: " + this.getDef() +
@@ -232,7 +251,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
         String ko = "%%% K.O. %%% " + notKo;
 
-        return this.isKO()? ko:notKo;
+        return this.isKO() ? ko : notKo;
     }
 
 

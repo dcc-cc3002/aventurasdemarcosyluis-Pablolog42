@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.model.enemies;
 
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
+import org.jetbrains.annotations.NotNull;
 
 /*
     Boo enemy Class
@@ -11,6 +12,7 @@ public class Boo extends AbstractEnemy {
 
     /**
      * Creates a new Boo
+     *
      * @param ATK   jumpAttack points
      * @param DEF   defense points
      * @param HP    heal points
@@ -22,30 +24,29 @@ public class Boo extends AbstractEnemy {
     }
 
     /**
-     *  Sends the double dispatch attack message to a player.
-     * @param player The player being attacked.
-     * Note: In this case, Boo can only attack "Luis" Main Character.
+     * Sends the double dispatch attack message to a player.
      *
+     * @param player The player being attacked.
+     *               Note: In this case, Boo can only attack "Luis" Main Character.
      **/
     @Override
-    public void attack(InterMainCharacter player){
+    public void attack(@NotNull InterMainCharacter player) {
         player.enemyAttacking(this);
     }
 
     // Boo dodges hammer attack
+
     /**
-     *  Receives the double dispatch call sent from an AbstractMainCharacter.
-     *  In this case (Boo being Hammer-attacked), Boo will always dodge the attack, not infringing any damage to them.
+     * Receives the double dispatch call sent from an AbstractMainCharacter.
+     * In this case (Boo being Hammer-attacked), Boo will always dodge the attack, not infringing any damage to them.
      *
      * @param player The player sending the Hammer-attack Message
-     *
      **/
     @Override
-    public void playerHammerAttacking(InterMainCharacter player) {
+    public void playerHammerAttacking(@NotNull InterMainCharacter player) {
         System.out.println(this.getName() + " has dodged " + player.getName() + "'s attack!");
     }
 
 
-
-    }
+}
 

@@ -27,8 +27,9 @@ public class ItemVault {
      * Modifies the amount of an item in an ItemVault.
      * If the amount to modify is negative, removes items from the ItemVault.
      * If removing an amount of items results in a negative balance, restores the balance to 0.
+     *
      * @param amountToAddOrRemove The amount of items to add or remove from the ItemVault.
-     * @param itemType The kind of item to be removed from the ItemVault (either Red Mushroom or Honey Syrup).
+     * @param itemType            The kind of item to be removed from the ItemVault (either Red Mushroom or Honey Syrup).
      */
     public void modifyItemAmount(int amountToAddOrRemove, @NotNull ItemType itemType) {
         switch (itemType) {
@@ -59,33 +60,38 @@ public class ItemVault {
      * Retrieves an item from the vault to be used.
      * Retrieving an item decreases the amount of that item by 1, and can only be done if there exist any of the
      * item to use left in the vault.
+     *
      * @param itemType The type of item to be retrieved
      * @return An instance of the item retrieved from the vault
      */
-    public AbstractItem retrieveItem(ItemType itemType){
+    public AbstractItem retrieveItem(ItemType itemType) {
         // Check if the player has an item of the kind we want to use in their armamento
-        if(this.getItemAmount(itemType)<1){
+        if (this.getItemAmount(itemType) < 1) {
             System.out.println("The player doesn't have a/an " + itemType + " in their inventory!");
             return null;
         }
         // Remove the used item from the inventory
-        this.modifyItemAmount(-1,itemType);
+        this.modifyItemAmount(-1, itemType);
 
         switch (itemType) {
-            case HONEYSYRUP -> {return new HoneySyrup();}
-            case REDMUSHROOM -> {return new RedMushroom();}
+            case HONEYSYRUP -> {
+                return new HoneySyrup();
+            }
+            case REDMUSHROOM -> {
+                return new RedMushroom();
+            }
         }
         // TODO: Add exception? no sé si acá o en los métodos que llaman a esto
         return null;
     }
 
     /**
-    Overriding equals() to compare two Complex objects
-    Code Referenced from https://www.geeksforgeeks.org/overriding-equals-method-in-java/
-     For two vaults to be considered equal, the amounts and types of the vaults have to be the same.
-
-     @return Returns the boolean indicating if two vaults are the same.
-    */
+     * Overriding equals() to compare two Complex objects
+     * Code Referenced from https://www.geeksforgeeks.org/overriding-equals-method-in-java/
+     * For two vaults to be considered equal, the amounts and types of the vaults have to be the same.
+     *
+     * @return Returns the boolean indicating if two vaults are the same.
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -111,7 +117,7 @@ public class ItemVault {
      * @return A string containing the current item amounts in a vault.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "++++++++++ Player  Vault ++++++++++\n" +
                 "Honey Syrup amount: " + this.honeyAmount + "\n" +
                 "Red Mushroom amount: " + this.mushroomAmount + "\n" +
@@ -121,10 +127,11 @@ public class ItemVault {
     /**
      * Returns a boolean that indicates if the vault is empty.
      * A vault is considered empty when both item amounts are 0.
+     *
      * @return a boolean that indicates if the vault is empty.
      */
     public boolean isEmpty() {
-        return (this.mushroomAmount == 0)&&(this.honeyAmount==0);
+        return (this.mushroomAmount == 0) && (this.honeyAmount == 0);
     }
 }
 

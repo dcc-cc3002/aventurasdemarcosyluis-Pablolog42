@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.model.enemies;
 
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
+import org.jetbrains.annotations.NotNull;
 
 /*
     Goomba enemy Class
@@ -22,12 +23,12 @@ public class Goomba extends AbstractEnemy {
     }
 
     /**
-     *  Sends the double dispatch attack message to a player.
-     * @param player The player being attacked.
+     * Sends the double dispatch attack message to a player.
      *
+     * @param player The player being attacked.
      **/
     @Override
-    public void attack(InterMainCharacter player){
+    public void attack(@NotNull InterMainCharacter player) {
         player.enemyAttacking(this);
     }
 }

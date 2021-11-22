@@ -1,34 +1,36 @@
 package aventurasdemarcoyluis.controller.turns;
 
+import aventurasdemarcoyluis.controller.EnemyList;
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 
-public class AttackTurn extends AbstractTurn implements InterTurn {
+public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
-    private GameController controller;
+    private final GameController controller;
     private final TurnType type = TurnType.ATTACK;
 
-
     private InterMainCharacter involvedMainCharacter;
-    private BufferedReader reader;
+
+    private int enemyNumberToAttack;
+    private AttackType attackType;
 
     /**
      * AttackTurn Constructor
      * By default, sets the class reader as a System.in BufferStream.
+     *
      * @param controller the game controller controlling the turn.
      */
     public AttackTurn(GameController controller) {
         super(controller);
         this.controller = controller;
         this.involvedMainCharacter = null;
-        this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     /**
@@ -36,75 +38,102 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
      * Implement's the logic chain of events according to the turn type.
      **/
     @Override
-    public void main() throws IOException {
-
-        System.out.println("####### You are now attacking! #######");
-        System.out.println("Select the enemy to attack: (Choose a number)");
-        System.out.println("Wild enemies:");
+    public void main() throws InvalidSelectionException {
 
 
-        System.out.println(this.controller.getPlayer().getEnemyList());
-
-        BufferedReader reader = this.getReader();
-
-        String enemySelection = reader.readLine();
-
-        InterEnemy target = selectEnemyToAttack(enemySelection);
-
-
+        InterEnemy target = retrieveEnemyToAttack(this.enemyNumberToAttack);
         System.out.println("Target enemy: " + target);
 
-        System.out.println("Please, select the character to perform the attack:");
-        System.out.println(controller.getPlayer().getMainCharacterArrayList());
-        System.out.println("1. Select Marco    2. Select Luis");
-        String attackerSelection = reader.readLine();
 
-        this.involvedMainCharacter = attackerSelection.equals("1")? controller.getPlayer().getMarco():controller.getPlayer().getLuis();
+        System.out.println("The attacking character is: "+ controller.getCurrentTurnOwner());
+
+        switch (controller.getCurrentTurnOwner()){
+            case LUIS -> {
+                this.involvedMainCharacter = this.controller.getPlayer().getLuis();
+            }
+            case MARCO -> {
+                this.involvedMainCharacter = this.controller.getPlayer().getMarco();
+            }
+        }
+
+        System.out.println();
         System.out.println("Attacker selected: " + this.involvedMainCharacter);
+        System.out.println("Attack Selected: " + this.attackType);
+        System.out.println("Target enemy: " + target);
 
-        System.out.println("Select the attack to perform:");
-        System.out.println("1. Jump-Attack   2.Hammer-Attack");
-        String attackSelection = reader.readLine();
-
-
-
-        attackSelectedEnemy(attackSelection, target);
+        attackSelectedEnemy(this.attackType, target);
 
         System.out.println("########### End of attack turn ###########");
 
+        controller.finishTurn();
 
+
+    }
+
+    public void printEnemyList(){
+        System.out.print(this.controller.getPlayer().getEnemyList());
+    }
+
+    public EnemyList getEnemyList(){
+        return this.controller.getPlayer().getEnemyList();
+    }
+
+    public void setAttackType(AttackType attackType) {
+        this.attackType = attackType;
+    }
+
+    /**
+     * The fist enemy has index 1.
+     * @param enemyNumberToAttack The natural number of the enemy to attack
+     */
+    public void setEnemyNumberToAttack(int enemyNumberToAttack){
+        this.enemyNumberToAttack = enemyNumberToAttack;
     }
 
     /**
      * Lets the current involvedMainCharacter attack an enemy.
+     *
      * @param attackSelection Selects the type of attack to perform:
      *                        1 -> Jump Attack
      *                        2 -> Hammer Attack
-     *
-     * @param attackedEnemy Selects the enemy who receives the performed attack.
+     * @param attackedEnemy   Selects the enemy who receives the performed attack.
      */
-    public void attackSelectedEnemy(@NotNull String attackSelection, InterEnemy attackedEnemy){
-        switch (attackSelection){
-            case "1" -> involvedMainCharacter.jumpAttack(attackedEnemy);
-            case "2" -> involvedMainCharacter.hammerAttack(attackedEnemy);
-           }
+    public void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException {
+        switch (attackSelection) {
+            // TODO: integration with model
+            case JUMP -> involvedMainCharacter.jumpAttack(attackedEnemy);
+            case HAMMER -> involvedMainCharacter.hammerAttack(attackedEnemy);
+            default -> {
+                try {
+                    throw new InvalidSelectionException("No se ha seleccionado un tipo de ataque, o el tipo seleccionado no es válido");
+                }catch (InvalidSelectionException e){
+                    main();
+                }
+            }
+        }
     }
 
     /**
      * Returns the enemy to attack, given the number of enemy selected from the list.
+     *
      * @param enemyNumber The string that depicts the enemy number selected from the enemyList.
      * @return The Enemy associated to the entered EnemyNumber
      */
-    public InterEnemy selectEnemyToAttack(String enemyNumber){
-        return this.controller.getPlayer().getEnemyList().retrieveEnemy(Integer.parseInt(enemyNumber)-1);
+    @Override
+    public InterEnemy retrieveEnemyToAttack(int enemyNumber) throws InvalidSelectionException {
+        try{
+            return this.controller.getPlayer().getEnemyList().retrieveEnemy(enemyNumber - 1);
+        }catch (IndexOutOfBoundsException e){
+            throw new InvalidSelectionException("No ha seleccionado un número de enemigo a atacar, o ha seleccionado un número inválido (que no se encuentra en la lista de enemigos).");
+        }
     }
 
     /**
      * Gets the current turn's "Involved Character"
-     *
+     * <p>
      * The involved character is the mainCharacter of the player which is being currently
      * acted upon (either by using an item on them, or letting them attack an enemy).
-     *
+     * <p>
      * Note that in the "Passing" turn, there is no action being performed, and thus,
      * the Involved Character should return null.
      *
@@ -117,6 +146,7 @@ public class AttackTurn extends AbstractTurn implements InterTurn {
 
     /**
      * Returns the type of turn played.
+     *
      * @return Type of turn played.
      */
     @Override

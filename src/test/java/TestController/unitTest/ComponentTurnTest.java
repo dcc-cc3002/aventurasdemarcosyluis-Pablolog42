@@ -1,5 +1,6 @@
 package TestController.unitTest;
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ public class ComponentTurnTest {
     @Test
     public void getControllerFromTurnTest(){
         controller.createAndSetNewBattle();
-        controller.selectTurnKind("attack");
+        controller.selectNewTurnKind(TurnType.ATTACK);
         // The controller should be the exact same.
         assertEquals(controller,controller.getCurrentTurn().getController());
     }
@@ -35,7 +36,7 @@ public class ComponentTurnTest {
     @Test
     public void getCurrentTurnMainCharatersTest() throws IOException {
         controller.createAndSetNewBattle();
-        controller.selectTurnKind("attack");
+        controller.selectNewTurnKind(TurnType.ATTACK);
 
         ArrayList<InterMainCharacter> turnMainCharacterList = controller.getCurrentTurn().getCurrentTurnMainCharacters();
 

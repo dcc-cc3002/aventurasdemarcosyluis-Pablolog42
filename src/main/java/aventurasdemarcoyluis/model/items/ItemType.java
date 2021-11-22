@@ -16,8 +16,7 @@ public enum ItemType {
         public String toString() {
             return "Red Mushroom";
         }
-    }
-    ,HONEYSYRUP {
+    }, HONEYSYRUP {
         /**
          * Provides a string representation of an ItemType.
          * @return a string representation of an ItemType

@@ -2,6 +2,8 @@ package TestController.featureTest;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +35,14 @@ public class BattleTest {
     10. Saber cuando los personajes principales pierden
      */
     @Test
-    public void gameLostTest() throws IOException {
+    public void gameLostTest() throws IOException, InvalidSelectionException {
         // Battle Begins
         controller.createAndSetNewBattle();
 
         // let's pass until all enemies are KO
         while(!controller.isGameFinished()) {
             // Player passes and finishes turn
-            controller.selectTurnKind("passing");
+            controller.selectNewTurnKind(TurnType.PASSING);
             controller.startCurrentTurn();
             controller.finishTurn();
             // enemy turn
@@ -52,7 +54,7 @@ public class BattleTest {
 
         assertTrue(controller.isGameFinished());
         // winner false -> assert the player has lost.
-        assertFalse(controller.getWinner());
+        assertFalse(controller.getPlayerWon());
 
     }
 
@@ -64,12 +66,12 @@ public class BattleTest {
     10. Saber cuando los personajes principales pierden
      */
     @Test
-    public void gameWon5BattlesTest() throws IOException {
+    public void gameWon5BattlesTest() throws IOException, InvalidSelectionException {
         // Battle Begins
         controller.createAndSetNewBattle();
         // Generamos 5 batallas que asumiremos como ganadas (donde ni enemigos ni jugador pierden.)
        for(int i = 0; i<5; i++) {
-           controller.selectTurnKind("passing");
+           controller.selectNewTurnKind(TurnType.PASSING);
            controller.startCurrentTurn();
            controller.finishTurn();
            controller.createAndSetNewBattle();
@@ -80,7 +82,7 @@ public class BattleTest {
 
         assertTrue(controller.isGameFinished());
         // winner false -> assert the player has lost.
-        assertTrue(controller.getWinner());
+        assertTrue(controller.getPlayerWon());
 
     }
 
@@ -93,7 +95,7 @@ public class BattleTest {
     10. Saber cuando los personajes principales pierden
  */
     @Test
-    public void battleWonTest() throws IOException {
+    public void battleWonTest() throws IOException, InvalidSelectionException {
 
         // These players should kill all enemies pretty quickly
         Marco killerMarco = new Marco(10000,10000,10000,10000,1000,1000,1);
@@ -105,7 +107,7 @@ public class BattleTest {
         controller1.setPlayer(killerPlayer);
 
         controller1.createAndSetNewBattle();
-        controller1.selectTurnKind("attack");
+        controller1.selectNewTurnKind(TurnType.ATTACK);
 
 
         BufferedReader reader = new BufferedReader(new StringReader("1\n1\n1\n2\n1\n1\n3\n1\n1"));
@@ -117,7 +119,7 @@ public class BattleTest {
         controller1.startCurrentTurn();
         controller1.finishTurn();
 
-        controller1.selectTurnKind("attack");
+        controller1.selectNewTurnKind(TurnType.ATTACK);
         controller1.getCurrentTurn().setReader(reader);
         controller1.startCurrentTurn();
         controller1.finishTurn();
@@ -126,7 +128,7 @@ public class BattleTest {
         controller1.startCurrentTurn();
         controller1.finishTurn();
 
-        controller1.selectTurnKind("attack");
+        controller1.selectNewTurnKind(TurnType.ATTACK);
         controller1.getCurrentTurn().setReader(reader);
         controller1.startCurrentTurn();
         controller1.finishTurn();

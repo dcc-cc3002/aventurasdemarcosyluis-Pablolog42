@@ -1,22 +1,22 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
-import java.io.IOException;
-
 /**
- *  representation of the turn of the enemy in the game.
+ * representation of the turn of the enemy in the game.
  */
 public class EnemyTurn extends AbstractTurn implements InterTurn {
 
-    private GameController controller;
+    private final GameController controller;
     private InterMainCharacter involvedMainCharacter;
     private final TurnType type = TurnType.ENEMY;
 
     /**
      * EnemyTurn Constructor
+     *
      * @param controller the game controller managing the turn.
      */
     public EnemyTurn(GameController controller) {
@@ -25,11 +25,11 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
     }
 
     /**
-     *  Main method of the current turn.
-     *  Implement's the logic chain of events according to the turn type.*
+     * Main method of the current turn.
+     * Implement's the logic chain of events according to the turn type.*
      **/
     @Override
-    public void main() {
+    public void main() throws InvalidSelectionException {
         // A random character and a random enemy are selected.
         this.involvedMainCharacter = selectCharacter();
         InterEnemy attackingEnemy = this.controller.getPlayer().getEnemyList().retrieveRandomEnemy();
@@ -38,34 +38,33 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
         System.out.println("Randomly, " + attackingEnemy + " attacks " + this.involvedMainCharacter.getType());
         // Fight! https://pbs.twimg.com/media/DTMfiQOU0AEWIYA.jpg
         attackingEnemy.attack(this.involvedMainCharacter);
-        System.out.println("::::::::::::::: End of Enemy Turn ::::::::::::::");
+        System.out.println("::::::::::::::: End of Enemy Turn ::::::::");
+
+        controller.finishTurn();
     }
-
-
 
 
     // TODO: Esto es lo más feo que he visto en mucho tiempo. Hay que cambiarlo y pedir perdón por nuestros pecados.
 
 
     /**
-     *  Randomly selects the main character to attack form the player. In case one character is KO,
-     *  selects the other character.
+     * Randomly selects the main character to attack form the player. In case one character is KO,
+     * selects the other character.
      *
      * @return the character to be attacked y an enemy.
      **/
-    public InterMainCharacter selectCharacter() {
+    public InterMainCharacter selectCharacter() throws InvalidSelectionException {
 
         if (this.controller.getPlayer().isPlayerKO()) {
-            //TODO: agregar exception
-            System.out.println("The player is KO and can't be attacked!"); return null;
+            throw new InvalidSelectionException("The player is KO and can't be attacked!");
         }
 
-        // Selects which player's character to attack
+        // Randomly elects which player's character to attack
         double rand = Math.random();
         InterMainCharacter attackedCharacter = rand < 0.5 ? this.controller.getPlayer().getLuis() : this.controller.getPlayer().getMarco();
 
         // The player can't be KO
-        if(attackedCharacter.isKO()){
+        if (attackedCharacter.isKO()) {
             attackedCharacter = selectCharacter();
         }
 
@@ -74,6 +73,7 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
 
     /**
      * Returns the type of turn played.
+     *
      * @return Type of turn played.
      */
     @Override
@@ -83,10 +83,10 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
 
     /**
      * Gets the current turn's "Involved Character"
-     *
+     * <p>
      * The involved character is the mainCharacter of the player which is being currently
      * acted upon (either by using an item on them, or letting them attack an enemy).
-     *
+     * <p>
      * Note that in the "Passing" turn, there is no action being performed, and thus,
      * the Involved Character should return null.
      *
@@ -96,6 +96,10 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
     public InterMainCharacter getInvolvedMainCharacter() {
         return involvedMainCharacter;
     }
+
+
+
+
 
 
 }

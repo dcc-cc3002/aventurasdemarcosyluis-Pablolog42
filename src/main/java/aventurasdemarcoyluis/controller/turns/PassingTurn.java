@@ -1,22 +1,22 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
-
-import java.util.ArrayList;
 
 /**
  * Class that depicts a turn in which the player passes. (does nothing)
  */
-public class PassingTurn extends AbstractTurn implements InterTurn{
+public class PassingTurn extends AbstractTurn implements InterTurn {
 
-    private GameController controller;
+    private final GameController controller;
     private final TurnType type = TurnType.PASSING;
-    private InterMainCharacter involvedMainCharacter=null;
+    private final InterMainCharacter involvedMainCharacter = null;
 
     /**
      * PassingTurn Class constructor
+     *
      * @param controller the controller that manages the current turn and battle.
      */
     public PassingTurn(GameController controller) {
@@ -25,21 +25,23 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
     }
 
     /**
-     *  Main method of the current turn.
-     *  Implement's the logic chain of events according to the turn type.
-     *
-     *  In this case, a passing turn does nothing.
+     * Main method of the current turn.
+     * Implement's the logic chain of events according to the turn type.
+     * <p>
+     * In this case, a passing turn does nothing.
      **/
     @Override
-    public void main() {
+    public void main() throws InvalidSelectionException {
         System.out.println(this.controller.getPlayer().getPlayerName() + " has passed this turn. It's now the enemy's turn.");
         System.out.println();
 
+        controller.finishTurn();
     }
 
 
     /**
      * Returns the type of turn played.
+     *
      * @return Type of turn played.
      */
     @Override
@@ -49,10 +51,10 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
 
     /**
      * Gets the current turn's "Involved Character"
-     *
+     * <p>
      * The involved character is the mainCharacter of the player which is being currently
      * acted upon (either by using an item on them, or letting them attack an enemy).
-     *
+     * <p>
      * Note that in the "Passing" turn, there is no action being performed, and thus,
      * the Involved Character should return null.
      *
@@ -60,8 +62,10 @@ public class PassingTurn extends AbstractTurn implements InterTurn{
      */
     @Override
     public InterMainCharacter getInvolvedMainCharacter() {
-        return involvedMainCharacter;
+        return null;
     }
+
+
 
 
 }

@@ -1,13 +1,13 @@
 package TestController.featureTest;
 
 import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.turns.TurnOwner;
-import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.controller.turns.*;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.Goomba;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.ItemType;
-import aventurasdemarcoyluis.model.maincharacters.AbstractMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TurnTest {
 
+    // TODO: Quitar verbose output para todos los tests  NullOutputStream para hacer un test silencioso (se vió en la clase 11)
 
     GameController controller;
     InterMainCharacter exampleMainCharacter;
@@ -35,12 +36,10 @@ public class TurnTest {
 
     @Test
     public void constructorTest(){
-        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.MARCO,controller.getCurrentTurnOwner());
         assertNull(controller.getCurrentTurn());
-
-
-
     }
+
 
     @Test
     public void creationTest(){
@@ -77,6 +76,41 @@ public class TurnTest {
     }
 
 
+
+    @Test
+    public void turnOrderTest() throws InvalidSelectionException {
+        controller.createAndSetNewBattle();
+        controller.selectNewTurnKind(TurnType.PASSING);
+
+        assertEquals(TurnOwner.MARCO,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.LUIS,controller.getNextTurnOwner());
+        assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
+
+        controller.startCurrentTurn();
+//        controller.finishTurn();
+
+        assertEquals(TurnOwner.LUIS,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
+        assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
+
+        controller.selectNewTurnKind(TurnType.PASSING);
+        controller.startCurrentTurn();
+//        controller.finishTurn();
+
+        assertEquals(TurnOwner.ENEMY,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.MARCO,controller.getNextTurnOwner());
+        assertEquals(TurnType.ENEMY, controller.getCurrentTurn().getType());
+
+        // The enemy's turn should be executed immediately after luis's turn.
+
+
+
+
+
+
+    }
+
+
     /* Assert that we can achieve the requirements:
          5. Create a turn (Attack turn)
          5. Implement the turn logic (player -> enemy -> player...)
@@ -85,9 +119,7 @@ public class TurnTest {
          13. Finish the current turn
     */
     @Test
-    public void attackTurnTest() throws IOException {
-
-
+    public void attackTurnTest() throws IOException, InvalidSelectionException {
 
         // Battle Begins
         controller.createAndSetNewBattle();
@@ -97,52 +129,32 @@ public class TurnTest {
         assertEquals(3, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.REDMUSHROOM));
 
 
-        controller.selectTurnKind("attack");
+        controller.selectNewTurnKind(TurnType.ATTACK);
+
         /* Assert that we can achieve the requirements:
              5. Implementar los turnos - parte de la implementation que define el turno actual.
              11. Obtener el personaje del turno actual. - getCurrentTurnOwner()
              12. Obtener Personaje del siguiente Turno (en este caso, se obtiene si es el turno del jugador, o del enemigo) - getNextTurnOwner()
         */
-        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.MARCO,controller.getCurrentTurnOwner());
+        assertEquals(TurnOwner.LUIS,controller.getNextTurnOwner());
         assertEquals(TurnType.ATTACK, controller.getCurrentTurn().getType());
-        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
 
+        InterAttackTurn currentTurn = (InterAttackTurn) controller.getCurrentTurn();
 
-        /*
-        Se Ataca al primer enemigo aleatorio que aparezaca. (1)
-        Se ataca con marco (1)
-        Se hace un jump-attack (1)
-         */
-        BufferedReader reader = new BufferedReader(new StringReader("1\n1\n1"));
-        controller.getCurrentTurn().setReader(reader);
+        System.out.println(currentTurn.getEnemyList());
 
-        // The attack turn is started, and the partameters given in the buffer reader are selected.
-        controller.startCurrentTurn();
+        // Marco Attacks the first enemy on the list
+        currentTurn.setEnemyNumberToAttack(1);
+        // Marco will make a jumpAttack
+        currentTurn.setAttackType(AttackType.JUMP);
 
-        // test that we can get the current turn's main character
-        assertTrue(controller.getCurrentTurn().getInvolvedMainCharacter() instanceof Marco);
-
-        // the turn is finished, and enemies can now attack.
+        // The turn finishes
         controller.finishTurn();
 
-        // as the turn has finished, this should be an enemy turn
-        assertEquals(TurnType.ENEMY, controller.getCurrentTurn().getType());
-        // Thus, the next turn should be the player's turn.
-        assertEquals(TurnOwner.PLAYER, controller.getNextTurnOwner());
 
-        // The enemy turn is started.
-        controller.startCurrentTurn();
-
-        // as said, we attack with marco
-        assertTrue(controller.getCurrentTurn().getInvolvedMainCharacter() instanceof AbstractMainCharacter);
-
-        // The turn is now finished
-        controller.finishTurn();
-
-        // lets check if the turn logic works after 2 turns
-        assertEquals(TurnOwner.PLAYER, controller.getCurrentTurnOwner());
-
-
+        // Now, it should be Luis's turn
+        assertEquals(TurnOwner.LUIS, controller.getCurrentTurnOwner());
 
     }
 
@@ -153,7 +165,7 @@ public class TurnTest {
       7. Obtener los elementos del baul
     */
     @Test
-    public void itemTurnTest() throws IOException {
+    public void itemTurnTest() throws IOException, InvalidSelectionException {
 
 
 
@@ -165,11 +177,11 @@ public class TurnTest {
         assertEquals(3, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.REDMUSHROOM));
 
 
-        controller.selectTurnKind("item");
+        controller.selectNewTurnKind(TurnType.ITEM);
 
-        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
+//        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
         assertEquals(TurnType.ITEM, controller.getCurrentTurn().getType());
-        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
+        assertEquals(TurnOwner.ENEMY,controller.calculateNextTurnOwner());
 
 
         /*
@@ -194,15 +206,15 @@ public class TurnTest {
 
 
     @Test
-    public void passingTest() throws IOException {
+    public void passingTest() throws IOException, InvalidSelectionException {
 
         controller.createAndSetNewBattle();
 
-        controller.selectTurnKind("passing");
+        controller.selectNewTurnKind(TurnType.PASSING);
 
-        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
+//        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
         assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
-        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
+        assertEquals(TurnOwner.ENEMY,controller.calculateNextTurnOwner());
 
         // Should do nothing.
         controller.startCurrentTurn();

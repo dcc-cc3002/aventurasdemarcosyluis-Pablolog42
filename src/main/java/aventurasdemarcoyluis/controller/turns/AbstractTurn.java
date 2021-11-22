@@ -12,11 +12,12 @@ import java.util.ArrayList;
  */
 public abstract class AbstractTurn implements InterTurn {
 
-    private GameController controller;
+    private final GameController controller;
     private BufferedReader reader;
 
     /**
      * AbstractTurn Constructor
+     *
      * @param controller the game controller controlling the turn.
      */
     public AbstractTurn(GameController controller) {
@@ -25,6 +26,7 @@ public abstract class AbstractTurn implements InterTurn {
 
     /**
      * Returns the current turn's Buffer Reader
+     *
      * @return The current turn reader.
      */
     @Override
@@ -46,6 +48,7 @@ public abstract class AbstractTurn implements InterTurn {
 
     /**
      * Gets the current turn's game controller
+     *
      * @return The current controller.
      */
     @Override
@@ -55,6 +58,7 @@ public abstract class AbstractTurn implements InterTurn {
 
     /**
      * Returns the array of mainCharacters still present (not KO) in the turn.
+     *
      * @return Returns the array of mainCharacters
      */
     @Override
@@ -64,8 +68,8 @@ public abstract class AbstractTurn implements InterTurn {
         // Agrego solo los personajes principales que no están KO.
         // este metodo es el que se encarga de cumplir con el requisito
         // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()){
-            if(!character.isKO()) currentTurnMainCharacters.add(character);
+        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()) {
+            if (!character.isKO()) currentTurnMainCharacters.add(character);
         }
         return currentTurnMainCharacters;
 

@@ -24,6 +24,7 @@ public class RedMushroom extends AbstractItem implements InterItem {
 
     /**
      * Get the type of  item
+     *
      * @return The item's itemType
      */
     @Override
