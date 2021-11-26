@@ -1,5 +1,6 @@
 package TestModel;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.enemies.Boo;
 import aventurasdemarcoyluis.model.enemies.Goomba;
 import aventurasdemarcoyluis.model.enemies.Spiny;
@@ -32,7 +33,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void hammerAttackTest(){
+    public void hammerAttackTest() throws InvalidAttackException {
         testMarco.hammerAttack(testBoo); // Boo should dodge hammer Attack
         assertEquals(100, testBoo.getHp(), 0.001);
 

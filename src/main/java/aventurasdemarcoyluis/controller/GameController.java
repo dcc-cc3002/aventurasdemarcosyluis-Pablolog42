@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
@@ -208,7 +209,7 @@ public class GameController implements InterController {
      * @throws IOException Exception related to an unexpected input received by the ReadableBuffer.
      */
     @Override
-    public void startCurrentTurn() throws InvalidSelectionException {
+    public void startCurrentTurn() throws InvalidSelectionException, InvalidAttackException {
         this.currentTurn.main();
     }
 
@@ -220,7 +221,7 @@ public class GameController implements InterController {
      * Something analogous happens when the player has lost.
      */
     @Override
-    public void finishTurn() throws InvalidSelectionException {
+    public void finishTurn() throws InvalidSelectionException, InvalidAttackException {
 
         // This handles the finish game logic.
         // check if the player is KO after the turn.

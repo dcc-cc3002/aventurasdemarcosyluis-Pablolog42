@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.items.AbstractItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
@@ -116,16 +117,14 @@ public class Player {
      *
      * @param itemType the type of Item to use.
      */
-    public void useItem(ItemType itemType, InterMainCharacter character) {
+    public void useItem(ItemType itemType, InterMainCharacter character) throws InvalidSelectionException {
         // Case no item to use
         if (playerVault.getItemAmount(itemType) < 1) {
-            System.out.println(this.playerName + " doesn't have a/an " + itemType + " in their inventory!");
-            return;
+            throw new InvalidSelectionException(this.playerName + " doesn't have a/an " + itemType + " in their inventory!");
         }
         // Case the character to use the item is KO
         if (character.isKO()) {
-            System.out.println(character.getName() + " can't use an item, as they are K.O!");
-            return;
+            throw new InvalidSelectionException(character.getName() + " can't use an item, as they are K.O!");
         }
         AbstractItem instancedItem = playerVault.retrieveItem(itemType);
         character.useItem(instancedItem);

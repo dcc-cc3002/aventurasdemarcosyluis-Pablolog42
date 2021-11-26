@@ -1,5 +1,6 @@
 package TestModel;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.Boo;
 import aventurasdemarcoyluis.model.enemies.Goomba;
@@ -35,7 +36,7 @@ public class TestEnemy {
     }
 
     @Test
-    public void jumpAttackTest(){
+    public void jumpAttackTest() throws InvalidAttackException {
         testMarco.jumpAttack(testBoo); // Should do 2 dmg
         assertEquals(98, testBoo.getHp(), 0.001);
     }

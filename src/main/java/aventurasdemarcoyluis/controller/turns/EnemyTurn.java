@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
@@ -29,7 +30,7 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
      * Implement's the logic chain of events according to the turn type.*
      **/
     @Override
-    public void main() throws InvalidSelectionException {
+    public void main() throws InvalidSelectionException, InvalidAttackException {
         // A random character and a random enemy are selected.
         this.involvedMainCharacter = selectCharacter();
         InterEnemy attackingEnemy = this.controller.getPlayer().getEnemyList().retrieveRandomEnemy();

@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.model.maincharacters;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.AbstractEntity;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
@@ -13,7 +14,6 @@ import java.util.Random;
     A player is a specific kind of Entity.
  */
 public abstract class AbstractMainCharacter extends AbstractEntity implements InterMainCharacter {
-
 
     private int fp;
     private int maxFP;
@@ -66,13 +66,13 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttackAction(InterEnemy enemy) {
+    public void jumpAttackAction(InterEnemy enemy) throws InvalidAttackException {
         int fpCost = 1;
         int targetFP = this.getFp() - fpCost;
         // In case the attack is not a legal move, exit the method
-        if (!validateAttack(fpCost)) {
-            return;
-        }
+
+        validateAttack(fpCost);
+
 
         this.setFp(targetFP);
         enemy.playerJumpAttacking(this);
@@ -91,14 +91,11 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttackAction(InterEnemy enemy) {
+    public void hammerAttackAction(InterEnemy enemy) throws InvalidAttackException {
         int fpCost = 2;
         int targetFP = this.getFp() - fpCost;
 
-        // In case the attack is not a legal move, exit the method
-        if (!validateAttack(fpCost)) {
-            return;
-        }
+        validateAttack(fpCost);
 
         // 25% of failing: 0,1,2,3 possible outcomes. 0 is a fail.
         Random rand = new Random();
@@ -123,20 +120,17 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      * @return A boolean indicating if the attack is valid or not.
      */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public boolean validateAttack(int fpCost) {
+    public void validateAttack(int fpCost) throws InvalidAttackException {
 
         int targetFP = this.getFp() - fpCost;
 
         if (this.isKO()) {
-            System.out.println(this.getName() + " is K.O. and can't attack");
-            return false;
+            throw new InvalidAttackException(this.getName() + " is K.O. and can't attack");
         }
 
         if (targetFP < 0) {
-            System.out.println("Not enough FP!");
-            return false;
+            throw new InvalidAttackException(this.getName() + " has not enough FP to make this kind of attack!");
         }
-        return true;
     }
 
 
@@ -171,7 +165,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttack(InterEnemy enemy) {
+    public void jumpAttack(InterEnemy enemy) throws InvalidAttackException {
         this.jumpAttackAction(enemy);
     }
 
@@ -181,7 +175,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttack(InterEnemy enemy) {
+    public void hammerAttack(InterEnemy enemy) throws InvalidAttackException {
         this.hammerAttackAction(enemy);
     }
 

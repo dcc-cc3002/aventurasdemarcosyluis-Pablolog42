@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
@@ -21,7 +22,7 @@ public interface InterTurn {
      *
      * @throws IOException Excepción en caso de error en input de texto.
      **/
-    void main() throws InvalidSelectionException;
+    void main() throws InvalidSelectionException, InvalidAttackException;
 
     /**
      * Returns the array of mainCharacters still present (not KO) in the turn.

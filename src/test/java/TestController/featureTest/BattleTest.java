@@ -2,6 +2,7 @@ package TestController.featureTest;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
@@ -35,7 +36,7 @@ public class BattleTest {
     10. Saber cuando los personajes principales pierden
      */
     @Test
-    public void gameLostTest() throws IOException, InvalidSelectionException {
+    public void gameLostTest() throws IOException, InvalidSelectionException, InvalidAttackException {
         // Battle Begins
         controller.createAndSetNewBattle();
 
@@ -66,7 +67,7 @@ public class BattleTest {
     10. Saber cuando los personajes principales pierden
      */
     @Test
-    public void gameWon5BattlesTest() throws IOException, InvalidSelectionException {
+    public void gameWon5BattlesTest() throws IOException, InvalidSelectionException, InvalidAttackException {
         // Battle Begins
         controller.createAndSetNewBattle();
         // Generamos 5 batallas que asumiremos como ganadas (donde ni enemigos ni jugador pierden.)
@@ -95,7 +96,7 @@ public class BattleTest {
     10. Saber cuando los personajes principales pierden
  */
     @Test
-    public void battleWonTest() throws IOException, InvalidSelectionException {
+    public void battleWonTest() throws IOException, InvalidSelectionException, InvalidAttackException {
 
         // These players should kill all enemies pretty quickly
         Marco killerMarco = new Marco(10000,10000,10000,10000,1000,1000,1);

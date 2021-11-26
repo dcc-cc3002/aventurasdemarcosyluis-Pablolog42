@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
@@ -85,7 +86,7 @@ public interface InterController {
      *
      * @throws IOException Exception related to an unexpected input received by the ReadableBuffer.
      */
-    void startCurrentTurn() throws IOException, InvalidSelectionException;
+    void startCurrentTurn() throws IOException, InvalidSelectionException, InvalidAttackException;
 
     /**
      * Finishes the controller's player turn.
@@ -94,7 +95,7 @@ public interface InterController {
      * In case the player has won, executes the playerWinning sequence.
      * Something analogous happens when the player has lost.
      */
-    void finishTurn() throws InvalidSelectionException;
+    void finishTurn() throws InvalidSelectionException, InvalidAttackException;
 
     /**
      * Sequence to be executed when a player wins the game.

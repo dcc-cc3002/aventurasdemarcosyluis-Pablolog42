@@ -1,5 +1,6 @@
 package TestModel;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.*;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
@@ -22,7 +23,7 @@ public class TestEntity {
     }
 
     @Test
-    public void hpKoSystemTest(){
+    public void hpKoSystemTest() throws InvalidAttackException {
         testMarco.jumpAttack(testBoo); // Should do 20 dmg
         assertEquals(0, testBoo.getHp(), 0.001); // Marco should kill Scary, as they only have 1 HP left. (Scary should have 0 HP instead of -19)
         assertTrue(testBoo.isKO()); // Thus, Scary should be dead :(

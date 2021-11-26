@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.model.maincharacters;
 
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.InterEntity;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.InterItem;
@@ -33,7 +34,7 @@ public interface InterMainCharacter extends InterEntity {
      *
      * @param enemy The enemy to send the attack message to
      */
-    void jumpAttack(InterEnemy enemy);
+    void jumpAttack(InterEnemy enemy) throws InvalidAttackException;
 
     /**
      * Hammer-Attacks an enemy.
@@ -41,7 +42,7 @@ public interface InterMainCharacter extends InterEntity {
      *
      * @param enemy The enemy to send the attack message to
      */
-    void hammerAttack(InterEnemy enemy);
+    void hammerAttack(InterEnemy enemy) throws InvalidAttackException;
 
     //** Gets the mainCharacter's fp **//
     int getFp();

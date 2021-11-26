@@ -1,6 +1,7 @@
 package TestModel;
 
 import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.enemies.Goomba;
 import aventurasdemarcoyluis.model.enemies.Spiny;
 import aventurasdemarcoyluis.model.items.HoneySyrup;
@@ -41,19 +42,19 @@ public class TestItem {
     }
 
     @Test
-    public void testHoneySyrup(){
+    public void testHoneySyrup() throws InvalidSelectionException {
         jugador1.addAnItem(HONEYSYRUP);
         jugador1.useItem(HONEYSYRUP,jugador1.getLuis());  // restores 3fp to Juan Radrigans' Luis Main Character
         assertEquals(13,testLuis.getFp());
     }
     @Test
-    public void testRedMushroom(){
+    public void testRedMushroom() throws InvalidSelectionException {
         jugador1.addAnItem(REDMUSHROOM);
         jugador1.useItem(REDMUSHROOM,jugador1.getMarco());
         assertEquals(6,testMarco.getHp()); // restores 10% of maxHP (in this case 1HP)
     }
     @Test
-    public void testNoItem(){
+    public void testNoItem() throws InvalidSelectionException {
         Marco Marco1 = jugador1.getMarco();
 
         jugador1.useItem(REDMUSHROOM, Marco1);

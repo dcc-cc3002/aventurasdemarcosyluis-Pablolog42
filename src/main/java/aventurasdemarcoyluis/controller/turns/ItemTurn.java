@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.controller.turns;
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.ItemVault;
 import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
@@ -46,7 +47,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
      * @throws IOException Excepción en caso de error en input de texto.
      **/
     @Override
-    public void main() throws InvalidSelectionException {
+    public void main() throws InvalidSelectionException, InvalidAttackException {
 
         Player player = controller.getPlayer();
         TurnOwner turnOwner = controller.getCurrentTurnOwner();
@@ -77,6 +78,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
         System.out.println(involvedMainCharacter.getType() + " has successfully used a " + selectedItem);
 
         // After all checks, the item is used.
+
         player.useItem(selectedItem, involvedMainCharacter);
 
         System.out.println(involvedMainCharacter.getType() + "'s new stats are:");
@@ -86,7 +88,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
 
     }
 
-    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, IOException {
+    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, IOException, InvalidAttackException {
         // Case Player doesn't have enough item
         if (this.controller.getPlayer().getPlayerVault().getItemAmount(Objects.requireNonNull(selectedItem)) == 0) {
             try{
