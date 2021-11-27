@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
@@ -269,6 +270,10 @@ public class GameController implements InterController {
 
     }
 
+    public void changePhase(Phase phase){
+        this.setPhase(phase);
+    }
+
     /**
      * Sequence to be executed when a player wins the game.
      * sets the controller's winner to true (Player)
@@ -296,6 +301,16 @@ public class GameController implements InterController {
 
     @Override
     public void setPhase(Phase phase) {
+        //If the phase transition is illegal
+        try{
+        if(!this.phase.canTransitionTurn()){
+            throw new InvalidTransitionException("Illegal Transition between Phases!"); }
+        } catch (Exception e){
+            // If the change is invalid, do nothing.
+            e.printStackTrace();
+            return;
+        }
+
         this.phase = phase;
     }
 

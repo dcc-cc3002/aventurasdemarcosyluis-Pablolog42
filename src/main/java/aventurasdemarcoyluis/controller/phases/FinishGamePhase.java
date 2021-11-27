@@ -1,4 +1,4 @@
 package aventurasdemarcoyluis.controller.phases;
 
-public class PhaseCharacterSelection {
+public class FinishGamePhase extends Phase{
 }

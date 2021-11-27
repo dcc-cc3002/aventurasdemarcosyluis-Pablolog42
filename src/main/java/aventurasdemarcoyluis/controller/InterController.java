@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
@@ -111,5 +112,5 @@ public interface InterController {
      */
     void playerLosingSequence();
 
-    void setPhase(Phase phase);
+    void setPhase(Phase phase) throws InvalidTransitionException;
 }
