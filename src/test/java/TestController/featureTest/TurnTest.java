@@ -2,6 +2,7 @@ package TestController.featureTest;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.AttackType;
@@ -79,7 +80,7 @@ public class TurnTest {
 
 
     @Test
-    public void turnOrderTest() throws InvalidSelectionException, InvalidAttackException {
+    public void turnOrderTest() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
         controller.createAndSetNewBattle();
         controller.selectNewTurnKind(TurnType.PASSING);
 
@@ -128,7 +129,7 @@ public class TurnTest {
          13. Finish the current turn
     */
     @Test
-    public void attackTurnTest() throws IOException, InvalidSelectionException, InvalidAttackException {
+    public void attackTurnTest() throws IOException, InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
 
         // Battle Begins
         controller.createAndSetNewBattle();
@@ -174,7 +175,7 @@ public class TurnTest {
       7. Obtener los elementos del baul
     */
     @Test
-    public void itemTurnTest() throws IOException, InvalidSelectionException, InvalidAttackException {
+    public void itemTurnTest() throws IOException, InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
 
 
 
@@ -215,7 +216,7 @@ public class TurnTest {
 
 
     @Test
-    public void passingTest() throws IOException, InvalidSelectionException, InvalidAttackException {
+    public void passingTest() throws IOException, InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
 
         controller.createAndSetNewBattle();
 

@@ -1,10 +1,11 @@
 package aventurasdemarcoyluis.controller.phases.enemyPhases;
 
 import aventurasdemarcoyluis.controller.phases.Phase;
-import aventurasdemarcoyluis.controller.phases.enemyPhases.SelectEnemyToAttackPhase;
+import aventurasdemarcoyluis.controller.phases.characterPhases.UseItemPhase;
+
 
 public class StartEnemyTurnPhase extends Phase {
     public void toSelectRandomEnemyToBeAttacker(){
-        controller.changePhase(new SelectEnemyToAttackPhase());
+        controller.changePhase(new UseItemPhase.SelectEnemyToBeAttackedPhase());
     }
 }

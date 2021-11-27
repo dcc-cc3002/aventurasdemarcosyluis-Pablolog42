@@ -7,4 +7,10 @@ public class AttackPhase extends Phase {
     public void toFinishTurnPhase(){
         controller.changePhase(new FinishTurnPhase());
     }
+
+    @Override
+    public String toString() {
+        return "AttackPhase";
+    }
+
 }

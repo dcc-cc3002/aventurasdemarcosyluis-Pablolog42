@@ -4,6 +4,7 @@ import aventurasdemarcoyluis.controller.EnemyList;
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
@@ -39,7 +40,7 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
      * Implement's the logic chain of events according to the turn type.
      **/
     @Override
-    public void main() throws InvalidSelectionException, InvalidAttackException {
+    public void main() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
 
 
         InterEnemy target = retrieveEnemyToAttack(this.enemyNumberToAttack);
@@ -99,7 +100,7 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
      *                        2 -> Hammer Attack
      * @param attackedEnemy   Selects the enemy who receives the performed attack.
      */
-    public void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException, InvalidAttackException {
+    public void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
         switch (attackSelection) {
             // TODO: integration with model
             case JUMP -> involvedMainCharacter.jumpAttack(attackedEnemy);

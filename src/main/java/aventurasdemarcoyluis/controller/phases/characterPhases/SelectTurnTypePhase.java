@@ -1,7 +1,7 @@
 package aventurasdemarcoyluis.controller.phases.characterPhases;
 
 import aventurasdemarcoyluis.controller.phases.Phase;
-import aventurasdemarcoyluis.controller.phases.enemyPhases.SelectEnemyToAttackPhase;
+
 
 public class SelectTurnTypePhase extends Phase {
 
@@ -9,10 +9,16 @@ public class SelectTurnTypePhase extends Phase {
         controller.changePhase(new SelectItemPhase());
     }
     public void toSelectEnemyToAttackPhase(){
-        controller.changePhase(new SelectEnemyToAttackPhase());
+        controller.changePhase(new SelectEnemyToBeAttackedPhase());
     }
 
     public void toPassingTurn(){
         controller.changePhase(new StartPassingTurnPhase());
+    }
+
+
+    @Override
+    public String toString() {
+        return "SelectAttackTurnPhase";
     }
 }

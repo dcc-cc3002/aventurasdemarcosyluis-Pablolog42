@@ -43,4 +43,9 @@ public class Phase {
     public void setCanTransitionPhase(boolean canTransitionPhase) {
         this.canTransitionPhase = canTransitionPhase;
     }
+
+    @Override
+    public String toString() {
+        return "Phase";
+    }
 }

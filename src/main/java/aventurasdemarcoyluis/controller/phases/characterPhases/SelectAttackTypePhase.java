@@ -8,4 +8,10 @@ public class SelectAttackTypePhase extends Phase {
     public void toEnemyAttackPhase(){
         controller.changePhase(new EnemyAttackPhase());
     }
+
+    @Override
+    public String toString() {
+        return "SelectAttackTypePhase";
+    }
+
 }

@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.controller.turns;
 import aventurasdemarcoyluis.controller.EnemyList;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +20,7 @@ public interface InterAttackTurn extends InterTurn{
      */
     InterEnemy retrieveEnemyToAttack(int enemyNumber) throws InvalidSelectionException;
 
-    void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException, InvalidAttackException;
+    void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException;
 
     EnemyList getEnemyList();
 

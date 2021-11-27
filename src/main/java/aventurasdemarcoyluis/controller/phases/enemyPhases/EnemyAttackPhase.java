@@ -25,5 +25,10 @@ public class EnemyAttackPhase extends Phase {
     }
 
 
+    @Override
+    public String toString() {
+        return "enemyAttackPhase";
+    }
+
 
 }

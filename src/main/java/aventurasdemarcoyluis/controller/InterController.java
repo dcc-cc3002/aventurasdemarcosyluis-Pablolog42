@@ -87,7 +87,7 @@ public interface InterController {
      *
      * @throws IOException Exception related to an unexpected input received by the ReadableBuffer.
      */
-    void startCurrentTurn() throws IOException, InvalidSelectionException, InvalidAttackException;
+    void startCurrentTurn() throws IOException, InvalidSelectionException, InvalidAttackException, InvalidTransitionException;
 
     /**
      * Finishes the controller's player turn.
@@ -96,7 +96,7 @@ public interface InterController {
      * In case the player has won, executes the playerWinning sequence.
      * Something analogous happens when the player has lost.
      */
-    void finishTurn() throws InvalidSelectionException, InvalidAttackException;
+    void finishTurn() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException;
 
     /**
      * Sequence to be executed when a player wins the game.

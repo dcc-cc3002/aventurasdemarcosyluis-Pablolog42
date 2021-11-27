@@ -3,6 +3,8 @@ package aventurasdemarcoyluis.controller;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
+import aventurasdemarcoyluis.controller.phases.StartBattlePhase;
+import aventurasdemarcoyluis.controller.phases.StartGamePhase;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.EntityType;
@@ -57,6 +59,8 @@ public class GameController implements InterController {
 
         this.playerWon = false;
         this.gameFinished = false;
+
+        this.phase = new StartGamePhase();
     }
 
 
@@ -136,6 +140,9 @@ public class GameController implements InterController {
     public void createAndSetNewBattle() {
         Battle currentBattle = new Battle(this.mainPlayer);
 
+        // Cambiar fase.
+        this.changePhase(new StartBattlePhase());
+
         this.mainPlayer.increaseBattleNumber();
         // Restore the player's character's fp and hp to the max
         this.mainPlayer.getMarco().restoreHP(mainPlayer.getMarco().getMaxHP());
@@ -177,7 +184,7 @@ public class GameController implements InterController {
      *                  "passing": creates a passingTurn
      *                  any other: doesn't do anything.
      */
-    public void selectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException {
+    public void selectNewTurnKind(@NotNull TurnType selection)  {
         // This switch statement sets the current turn
         switch (selection) {
             case ATTACK -> {
@@ -200,7 +207,7 @@ public class GameController implements InterController {
                 PassingTurn passingTurn = new PassingTurn(this);
                 this.setCurrentTurn(passingTurn);
             }
-            default -> throw new InvalidSelectionException("Please, select a valid option");
+            default -> this.setCurrentTurn(null);
         }
     }
 
@@ -210,8 +217,13 @@ public class GameController implements InterController {
      * @throws IOException Exception related to an unexpected input received by the ReadableBuffer.
      */
     @Override
-    public void startCurrentTurn() throws InvalidSelectionException, InvalidAttackException {
-        this.currentTurn.main();
+    public void startCurrentTurn() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
+        try {
+            this.currentTurn.main();
+        }catch (NullPointerException e){
+            throw new InvalidTransitionException("You Haven't selected a turn Type!");
+        }
+
     }
 
     /**
@@ -222,7 +234,7 @@ public class GameController implements InterController {
      * Something analogous happens when the player has lost.
      */
     @Override
-    public void finishTurn() throws InvalidSelectionException, InvalidAttackException {
+    public void finishTurn() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
 
         // This handles the finish game logic.
         // check if the player is KO after the turn.

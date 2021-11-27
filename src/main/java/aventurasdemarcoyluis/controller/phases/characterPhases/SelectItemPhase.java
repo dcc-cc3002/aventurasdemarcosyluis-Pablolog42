@@ -7,4 +7,10 @@ public class SelectItemPhase extends Phase {
     public void toUseItemPhase(){
         controller.changePhase(new UseItemPhase());
     }
+
+    @Override
+    public String toString() {
+        return "SelectItemPhase";
+    }
+
 }

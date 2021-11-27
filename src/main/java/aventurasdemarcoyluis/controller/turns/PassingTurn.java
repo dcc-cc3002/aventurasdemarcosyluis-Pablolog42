@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.controller.turns;
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
@@ -32,7 +33,7 @@ public class PassingTurn extends AbstractTurn implements InterTurn {
      * In this case, a passing turn does nothing.
      **/
     @Override
-    public void main() throws InvalidSelectionException, InvalidAttackException {
+    public void main() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
         System.out.println(this.controller.getPlayer().getPlayerName() + " has passed this turn. It's now the enemy's turn.");
         System.out.println();
 

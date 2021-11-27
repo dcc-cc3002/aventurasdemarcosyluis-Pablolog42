@@ -5,6 +5,7 @@ import aventurasdemarcoyluis.controller.ItemVault;
 import aventurasdemarcoyluis.controller.Player;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.ItemType;
@@ -47,7 +48,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
      * @throws IOException Excepción en caso de error en input de texto.
      **/
     @Override
-    public void main() throws InvalidSelectionException, InvalidAttackException {
+    public void main() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
 
         Player player = controller.getPlayer();
         TurnOwner turnOwner = controller.getCurrentTurnOwner();
@@ -88,7 +89,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
 
     }
 
-    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, IOException, InvalidAttackException {
+    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, IOException, InvalidAttackException, InvalidTransitionException {
         // Case Player doesn't have enough item
         if (this.controller.getPlayer().getPlayerVault().getItemAmount(Objects.requireNonNull(selectedItem)) == 0) {
             try{
