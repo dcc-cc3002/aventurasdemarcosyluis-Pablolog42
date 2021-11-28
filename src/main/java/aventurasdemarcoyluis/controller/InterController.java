@@ -61,7 +61,7 @@ public interface InterController {
      * 5. Adds the initial items (3 Honey and 3 mushroom) to the player in the player's first battle.
      * 6. Runs the player lvlUp routine, in case this isn't the first battle played.
      */
-    void createAndSetNewBattle();
+    void createAndSetNewBattle() throws InvalidTransitionException;
 
     /**
      * Sends the message to the controller's player to lvlUP.
@@ -80,7 +80,7 @@ public interface InterController {
      *                  "passing": creates a passingTurn
      *                  any other: doesn't do anything.
      */
-    void selectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException;
+    void tryToSelectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException;
 
     /**
      * Executes the main method of the controller's currently selected turn.

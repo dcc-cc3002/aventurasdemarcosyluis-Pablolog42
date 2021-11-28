@@ -14,6 +14,7 @@ public abstract class AbstractTurn implements InterTurn {
 
     private final GameController controller;
     private BufferedReader reader;
+    protected InterMainCharacter involvedMainCharacter = null;
 
     /**
      * AbstractTurn Constructor
@@ -73,6 +74,10 @@ public abstract class AbstractTurn implements InterTurn {
         }
         return currentTurnMainCharacters;
 
+    }
+
+    public void setInvolvedMainCharacter(InterMainCharacter playerMainCharacter){
+        this.involvedMainCharacter = playerMainCharacter;
     }
 
 

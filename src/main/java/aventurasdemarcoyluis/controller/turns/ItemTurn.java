@@ -7,7 +7,6 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
@@ -23,7 +22,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
 
     private final GameController controller;
     private final TurnType type = TurnType.ITEM;
-    private InterMainCharacter involvedMainCharacter = null;
+
     private BufferedReader reader;
 
     private ItemType selectedItem = null;
@@ -80,7 +79,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
 
         // After all checks, the item is used.
 
-        player.useItem(selectedItem, involvedMainCharacter);
+        player.tryToUseItem(selectedItem, involvedMainCharacter);
 
         System.out.println(involvedMainCharacter.getType() + "'s new stats are:");
         System.out.println(involvedMainCharacter + "\n");
@@ -89,17 +88,16 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
 
     }
 
-    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, IOException, InvalidAttackException, InvalidTransitionException {
+    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
         // Case Player doesn't have enough item
         if (this.controller.getPlayer().getPlayerVault().getItemAmount(Objects.requireNonNull(selectedItem)) == 0) {
-            try{
-                throw new InvalidSelectionException("The player doesn't have any " + selectedItem + " to use!");
-            }catch (InvalidSelectionException e){
-                main();
-            }
+            throw new InvalidSelectionException("The player doesn't have any " + selectedItem + " to use!");
         }
 
         this.selectedItem = selectedItem;
+        main();
+
+
     }
 
     public ItemVault getPlayerVault(){

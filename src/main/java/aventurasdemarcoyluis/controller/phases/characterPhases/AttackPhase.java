@@ -5,7 +5,7 @@ import aventurasdemarcoyluis.controller.phases.Phase;
 
 public class AttackPhase extends Phase {
     public void toFinishTurnPhase(){
-        controller.changePhase(new FinishTurnPhase());
+        controller.tryToChangePhase(new FinishTurnPhase());
     }
 
     @Override

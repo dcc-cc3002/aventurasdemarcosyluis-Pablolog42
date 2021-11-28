@@ -2,7 +2,7 @@ package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.GameController;
 
-public class Phase {
+public class Phase implements InterPhase{
     protected GameController controller;
 
     protected boolean canUseItem;

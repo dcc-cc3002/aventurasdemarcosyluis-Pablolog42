@@ -5,7 +5,7 @@ import aventurasdemarcoyluis.controller.phases.Phase;
 public class SelectEnemyWhoWillAttackPhase extends Phase {
 
 public void toSelectCharacterToAttackPhase(){
-    controller.changePhase(new SelectCharacterToAttackPhase());
+    controller.tryToChangePhase(new SelectCharacterToAttackPhase());
 }
 
 }

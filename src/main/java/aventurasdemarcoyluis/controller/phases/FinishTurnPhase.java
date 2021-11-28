@@ -5,9 +5,9 @@ import aventurasdemarcoyluis.controller.phases.enemyPhases.StartEnemyTurnPhase;
 
 public class FinishTurnPhase extends Phase{
     public void toEnemyTurnPhase(){
-        controller.changePhase(new StartEnemyTurnPhase());
+        controller.tryToChangePhase(new StartEnemyTurnPhase());
     }
     public void toNewMainCharacterPhase(){
-        controller.changePhase(new StartMainCharacterTurnPhase());
+        controller.tryToChangePhase(new StartMainCharacterTurnPhase());
     }
 }

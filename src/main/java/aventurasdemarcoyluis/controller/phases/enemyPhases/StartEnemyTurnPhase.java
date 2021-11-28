@@ -6,6 +6,6 @@ import aventurasdemarcoyluis.controller.phases.characterPhases.UseItemPhase;
 
 public class StartEnemyTurnPhase extends Phase {
     public void toSelectRandomEnemyToBeAttacker(){
-        controller.changePhase(new UseItemPhase.SelectEnemyToBeAttackedPhase());
+        controller.tryToChangePhase(new SelectEnemyWhoWillAttackPhase());
     }
 }

@@ -9,19 +9,19 @@ public class EnemyAttackPhase extends Phase {
 
     // Either the player is KO and the game has ended
     public void toFinishGamePhase(){
-        controller.changePhase(new FinishGamePhase());
+        controller.tryToChangePhase(new FinishGamePhase());
     }
 
     // There might also be enemies left, and the player isnt KO.
     // In this case, the battle continues.
     public void toStartMainCharacterTurnPhase(){
-        controller.changePhase(new StartMainCharacterTurnPhase());
+        controller.tryToChangePhase(new StartMainCharacterTurnPhase());
     }
 
     // Or finally, there might be no enemies left, and the player isn't KO.
     // In this case, the battle ends
     public void toBattleEndingPhase(){
-        controller.changePhase(new FinishBattlePhase());
+        controller.tryToChangePhase(new FinishBattlePhase());
     }
 
 

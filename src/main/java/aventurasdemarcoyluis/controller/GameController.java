@@ -32,6 +32,10 @@ public class GameController implements InterController {
     private TurnOwner currentTurnOwner;
     private TurnOwner nextTurnOwner;
 
+    private InterMainCharacter currentInvolvedMainCharacter = null;
+
+    private Battle currentBattle = null;
+
 
     private boolean playerWon;
     private boolean gameFinished;
@@ -53,7 +57,8 @@ public class GameController implements InterController {
 
         // The player's mario always plays first
         this.currentTurnOwner = TurnOwner.MARCO;
-        this.nextTurnOwner = TurnOwner.LUIS;
+        // This should be luis
+        this.nextTurnOwner = calculateNextTurnOwner();
 
         this.mainPlayer = new Player("J1");
 
@@ -138,10 +143,10 @@ public class GameController implements InterController {
      */
     @Override
     public void createAndSetNewBattle() {
+
         Battle currentBattle = new Battle(this.mainPlayer);
 
-        // Cambiar fase.
-        this.changePhase(new StartBattlePhase());
+        this.setCurrentBattle(currentBattle);
 
         this.mainPlayer.increaseBattleNumber();
         // Restore the player's character's fp and hp to the max
@@ -174,6 +179,10 @@ public class GameController implements InterController {
         this.mainPlayer.lvlUp();
     }
 
+
+
+
+
     /**
      * Indicates to the controller which type of turn will be performed in the current turn.
      * Instances a given turnType accordingly, and sets the controllers' current turn to the selected turn.
@@ -184,8 +193,7 @@ public class GameController implements InterController {
      *                  "passing": creates a passingTurn
      *                  any other: doesn't do anything.
      */
-    public void selectNewTurnKind(@NotNull TurnType selection)  {
-        // This switch statement sets the current turn
+    public void tryToSelectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException {
         switch (selection) {
             case ATTACK -> {
                 InterTurn attackTurn = new AttackTurn(this);
@@ -193,10 +201,11 @@ public class GameController implements InterController {
             }
             case ITEM -> {
                 // In case the player wants to use an item, but has none left.
-                if (this.mainPlayer.getPlayerVault().isEmpty()) {
-                    System.out.println("You can't use an item, as you have none left!");
-                    // Note: in the "flow" version (tarea 3), change this break for a "continue"
-                    break;
+                if (this.getPlayer().getPlayerVault().isEmpty()) {
+                    throw new InvalidSelectionException("You can't use an item, as you have none left!");
+                }
+                if (this.currentInvolvedMainCharacter.isKO()){
+                    throw new InvalidSelectionException("You can't use an item as the current character is KO.");
                 }
 
                 InterItemTurn itemTurn = new ItemTurn(this);
@@ -209,6 +218,7 @@ public class GameController implements InterController {
             }
             default -> this.setCurrentTurn(null);
         }
+
     }
 
     /**
@@ -282,8 +292,33 @@ public class GameController implements InterController {
 
     }
 
-    public void changePhase(Phase phase){
-        this.setPhase(phase);
+
+    public void configureCurrentInvolvedMainCharacter(){
+        TurnOwner turnOwner = getCurrentTurnOwner();
+
+        switch (turnOwner){
+            case LUIS -> {this.setInvolvedMainCharacter(getPlayerMainCharacter(EntityType.LUIS));}
+            case MARCO -> {this.setInvolvedMainCharacter(getPlayerMainCharacter(EntityType.MARCO));}
+        }
+    }
+
+    private void setInvolvedMainCharacter(InterMainCharacter playerMainCharacter) {
+
+    }
+
+
+    public void tryToChangePhase(Phase phaseToChangeTo)  {
+        // If the phase transition is illegal
+        if(!this.phase.canTransitionTurn()){
+            try {
+                throw new InvalidTransitionException("You can't Transition phase at this time!");
+            }catch (InvalidTransitionException e){
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        this.setPhase(phaseToChangeTo);
     }
 
     /**
@@ -313,16 +348,6 @@ public class GameController implements InterController {
 
     @Override
     public void setPhase(Phase phase) {
-        //If the phase transition is illegal
-        try{
-        if(!this.phase.canTransitionTurn()){
-            throw new InvalidTransitionException("Illegal Transition between Phases!"); }
-        } catch (Exception e){
-            // If the change is invalid, do nothing.
-            e.printStackTrace();
-            return;
-        }
-
         this.phase = phase;
     }
 
@@ -469,4 +494,7 @@ public class GameController implements InterController {
     }
 
 
+    public void setCurrentBattle(Battle currentBattle) {
+        this.currentBattle = currentBattle;
+    }
 }

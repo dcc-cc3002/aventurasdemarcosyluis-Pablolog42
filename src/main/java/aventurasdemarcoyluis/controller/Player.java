@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.items.AbstractItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
@@ -117,7 +118,7 @@ public class Player {
      *
      * @param itemType the type of Item to use.
      */
-    public void useItem(ItemType itemType, InterMainCharacter character) throws InvalidSelectionException {
+    public void tryToUseItem(ItemType itemType, InterMainCharacter character) throws InvalidSelectionException {
         // Case no item to use
         if (playerVault.getItemAmount(itemType) < 1) {
             throw new InvalidSelectionException(this.playerName + " doesn't have a/an " + itemType + " in their inventory!");
@@ -163,6 +164,9 @@ public class Player {
     public ItemVault getPlayerVault() {
         return playerVault;
     }
+
+
+
 
     /**
      * Gets the Players' Enemy List.

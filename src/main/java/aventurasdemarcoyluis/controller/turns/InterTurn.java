@@ -76,4 +76,5 @@ public interface InterTurn {
     InterMainCharacter getInvolvedMainCharacter();
 
 
+    void setInvolvedMainCharacter(InterMainCharacter playerMainCharacter);
 }
