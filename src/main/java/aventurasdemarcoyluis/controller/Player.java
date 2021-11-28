@@ -18,9 +18,9 @@ public class Player {
 
     private final String playerName;
     private final ItemVault playerVault;
-    private final EnemyList enemyList;
 
-    private final ArrayList<InterMainCharacter> mainCharacterArrayList;
+
+
 
 
     private final Marco playerMarco;
@@ -42,16 +42,7 @@ public class Player {
         this.playerName = name;
         this.playerLvl = 1;
 
-        this.mainCharacterArrayList = new ArrayList<>();
-        mainCharacterArrayList.add(this.playerMarco);
-        mainCharacterArrayList.add(this.playerLuis);
 
-        ArrayList<InterMainCharacter> aliveMainCharacterArrayList = new ArrayList<>();
-        mainCharacterArrayList.add(this.playerMarco);
-        mainCharacterArrayList.add(this.playerLuis);
-
-
-        this.enemyList = new EnemyList();
         this.playerVault = new ItemVault();
         this.battleNumber = 0;
     }
@@ -67,14 +58,9 @@ public class Player {
         this.playerMarco = new Marco(10, 10, 10, 20, 10, 20, 1);
         this.playerLvl = 1;
 
-        this.mainCharacterArrayList = new ArrayList<>();
-        mainCharacterArrayList.add(this.playerMarco);
-        mainCharacterArrayList.add(this.playerLuis);
-
         this.playerName = name;
         this.playerVault = new ItemVault();
-        this.enemyList = new EnemyList();
-    }
+     }
 
 
     // K.O.
@@ -168,12 +154,6 @@ public class Player {
 
 
 
-    /**
-     * Gets the Players' Enemy List.
-     **/
-    public EnemyList getEnemyList() {
-        return this.enemyList;
-    }
 
     /**
      * Gets the Players' Marco MainCharacter.
@@ -203,12 +183,7 @@ public class Player {
         return playerName;
     }
 
-    /**
-     * Gets the Players' Main character list. (an arrayList containing the player's marco and luis).
-     **/
-    public ArrayList<InterMainCharacter> getMainCharacterArrayList() {
-        return mainCharacterArrayList;
-    }
+
 
     /**
      * Gets the Players' current level.

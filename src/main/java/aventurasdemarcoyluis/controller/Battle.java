@@ -10,14 +10,17 @@ public class Battle {
     protected final Player player;
     private String battleWinner;
 
+    private GameController controller;
+
     /**
      * Battle Class constructor.
      * Creates a new controller
      *
      * @param player
      */
-    public Battle(Player player) {
+    public Battle(Player player, GameController controller) {
         this.player = player;
+        this.controller = controller;
         boolean battleFinished = false;
     }
 
@@ -35,16 +38,16 @@ public class Battle {
         int battleNumber = this.player.getBattleNumber();
         switch (battleNumber) {
             case 0, 1 -> {
-                this.player.getEnemyList().clearList();
-                this.player.getEnemyList().addRandomEnemies(3);
+                this.controller.getEnemyList().clearList();
+                this.controller.getEnemyList().addRandomEnemies(3);
             }
             case 2, 3 -> {
-                this.player.getEnemyList().clearList();
-                this.player.getEnemyList().addRandomEnemies(5);
+                this.controller.getEnemyList().clearList();
+                this.controller.getEnemyList().addRandomEnemies(5);
             }
             case 4 -> {
-                this.player.getEnemyList().clearList();
-                this.player.getEnemyList().addRandomEnemies(6);
+                this.controller.getEnemyList().clearList();
+                this.controller.getEnemyList().addRandomEnemies(6);
             }
         }
     }

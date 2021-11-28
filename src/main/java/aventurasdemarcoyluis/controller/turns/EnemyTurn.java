@@ -34,7 +34,7 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
     public void main() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
         // A random character and a random enemy are selected.
         this.involvedMainCharacter = selectCharacter();
-        InterEnemy attackingEnemy = this.controller.getPlayer().getEnemyList().retrieveRandomEnemy();
+        InterEnemy attackingEnemy = this.controller.getEnemyList().retrieveRandomEnemy();
 
         System.out.println("::::::::::::::: Enemy Turn :::::::::::::::");
         System.out.println("Randomly, " + attackingEnemy + " attacks " + this.involvedMainCharacter.getType());

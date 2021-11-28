@@ -57,24 +57,6 @@ public abstract class AbstractTurn implements InterTurn {
         return controller;
     }
 
-    /**
-     * Returns the array of mainCharacters still present (not KO) in the turn.
-     *
-     * @return Returns the array of mainCharacters
-     */
-    @Override
-    public ArrayList<InterMainCharacter> getCurrentTurnMainCharacters() {
-        ArrayList<InterMainCharacter> currentTurnMainCharacters = new ArrayList<>();
-
-        // Agrego solo los personajes principales que no están KO.
-        // este metodo es el que se encarga de cumplir con el requisito
-        // "Quitar a un personaje del "Turno" cuando esté KO"
-        for (InterMainCharacter character : this.controller.getPlayer().getMainCharacterArrayList()) {
-            if (!character.isKO()) currentTurnMainCharacters.add(character);
-        }
-        return currentTurnMainCharacters;
-
-    }
 
     public void setInvolvedMainCharacter(InterMainCharacter playerMainCharacter){
         this.involvedMainCharacter = playerMainCharacter;

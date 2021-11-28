@@ -26,13 +26,6 @@ public interface InterTurn {
     void main() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException;
 
     /**
-     * Returns the array of mainCharacters still present (not KO) in the turn.
-     *
-     * @return Returns the array of mainCharacters
-     */
-    ArrayList<InterMainCharacter> getCurrentTurnMainCharacters();
-
-    /**
      * Returns the type of turn played.
      *
      * @return Type of turn played.

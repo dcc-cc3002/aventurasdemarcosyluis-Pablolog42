@@ -6,4 +6,7 @@ public class WaitSelectEnemyToBeAttackedPhase extends Phase {
     public void toAttackPhase(){
         controller.tryToChangePhase(new AttackPhase());
     }
+
+
+
 }

@@ -1,6 +1,9 @@
 package aventurasdemarcoyluis.model;
 
+import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
 import org.jetbrains.annotations.NotNull;
+
+import java.beans.PropertyChangeSupport;
 
 /*
     Abstract representation of an entity in the game.
@@ -15,6 +18,8 @@ public abstract class AbstractEntity implements InterEntity {
     private int lvl;
     private boolean isKO;
     private final EntityType type;
+
+    private final PropertyChangeSupport entityKoNotifier = new PropertyChangeSupport(this);
 
 
     /**
@@ -57,6 +62,7 @@ public abstract class AbstractEntity implements InterEntity {
             // a dead enemy has 0 HP
             this.hp = 0;
             this.isKO = true;
+            entityKoNotifier.firePropertyChange("EntityIsNowKO",this,this);
             return;
         }
         System.out.println(this.type.toString() + " has received " + damage + " damage points!");

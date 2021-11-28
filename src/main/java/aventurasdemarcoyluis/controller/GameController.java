@@ -2,23 +2,24 @@ package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
+import aventurasdemarcoyluis.controller.phases.InterPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.StartBattlePhase;
-import aventurasdemarcoyluis.controller.phases.StartGamePhase;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.AbstractEnemy;
-import aventurasdemarcoyluis.model.enemies.Boo;
-import aventurasdemarcoyluis.model.enemies.Goomba;
-import aventurasdemarcoyluis.model.enemies.Spiny;
+import aventurasdemarcoyluis.model.InterEntity;
+import aventurasdemarcoyluis.model.enemies.*;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Main Class of the controller Module.
@@ -36,11 +37,20 @@ public class GameController implements InterController {
 
     private Battle currentBattle = null;
 
+    private final ArrayList<InterMainCharacter> mainCharacterList;
+    private final ArrayList<InterMainCharacter> activeMainCharacterList;
+
+    private final EnemyList enemyList;
 
     private boolean playerWon;
     private boolean gameFinished;
 
-    private Phase phase;
+    private InterPhase phase;
+
+
+    private final EntityKoHandler entityKoNotification = new EntityKoHandler(this);
+
+    private PropertyChangeSupport playerHasWonBattle = new PropertyChangeSupport(this);
 
 
     /**
@@ -62,10 +72,20 @@ public class GameController implements InterController {
 
         this.mainPlayer = new Player("J1");
 
+        this.activeMainCharacterList = new ArrayList<>();
+        this.mainCharacterList = new ArrayList<>();
+
+        mainCharacterList.add(mainPlayer.getMarco());
+        mainCharacterList.add(mainPlayer.getLuis());
+        activeMainCharacterList.add(mainPlayer.getMarco());
+        activeMainCharacterList.add(mainPlayer.getLuis());
+
+        this.enemyList = new EnemyList();
+
         this.playerWon = false;
         this.gameFinished = false;
 
-        this.phase = new StartGamePhase();
+        this.phase = new StartBattlePhase(this);
     }
 
 
@@ -144,16 +164,18 @@ public class GameController implements InterController {
     @Override
     public void createAndSetNewBattle() {
 
-        Battle currentBattle = new Battle(this.mainPlayer);
+        Battle currentBattle = new Battle(this.mainPlayer,this);
 
         this.setCurrentBattle(currentBattle);
 
         this.mainPlayer.increaseBattleNumber();
+
         // Restore the player's character's fp and hp to the max
-        this.mainPlayer.getMarco().restoreHP(mainPlayer.getMarco().getMaxHP());
-        this.mainPlayer.getLuis().restoreHP(mainPlayer.getLuis().getMaxHP());
-        this.mainPlayer.getMarco().restoreFP(mainPlayer.getMarco().getMaxFP());
-        this.mainPlayer.getLuis().restoreFP(mainPlayer.getLuis().getMaxFP());
+        for(InterMainCharacter character : activeMainCharacterList){
+            character.restoreHP(character.getMaxHP());
+            character.restoreFP(character.getMaxFP());
+        }
+
 
         currentBattle.setRandomEnemyList();
         currentBattle.addInitialItems();
@@ -307,17 +329,11 @@ public class GameController implements InterController {
     }
 
 
-    public void tryToChangePhase(Phase phaseToChangeTo)  {
+    public void tryToChangePhase(Phase phaseToChangeTo) throws InvalidTransitionException {
         // If the phase transition is illegal
-        if(!this.phase.canTransitionTurn()){
-            try {
-                throw new InvalidTransitionException("You can't Transition phase at this time!");
-            }catch (InvalidTransitionException e){
-                e.printStackTrace();
-                return;
-            }
+        if(!this.phase.validatePhaseChange(phaseToChangeTo)){
+            throw new InvalidTransitionException("You can't Transition phase at this time!");
         }
-
         this.setPhase(phaseToChangeTo);
     }
 
@@ -352,6 +368,37 @@ public class GameController implements InterController {
     }
 
 
+    public void updateEntityKoStatus(InterEntity entity){
+
+        switch (entity.getType()){
+            case MARCO,LUIS -> removeKoMainCharactersFromList();
+            case BOO,SPINY,GOOMBA -> removeKoEnemiesFromList();
+        }
+
+        if(enemyList.getList().isEmpty()){
+//            fireProperychange(THEBATTLEHAS BEEN WON BY THE PLAYER)
+        }
+
+        if(activeMainCharacterList.isEmpty()){
+            playerHasWonBattle.firePropertyChange("BattleWonByPlayer",false,true);
+        }
+
+
+
+    }
+
+    private void removeKoEnemiesFromList() {
+        enemyList.getList().removeIf(InterEnemy::isKO);
+    }
+
+    private void removeKoMainCharactersFromList() {
+        activeMainCharacterList.removeIf(InterMainCharacter::isKO);
+    }
+
+    public void playerWonBattleSequence() {
+    }
+
+
     /* Getters and setters */
 
     /**
@@ -361,8 +408,22 @@ public class GameController implements InterController {
      * @return the players main character, according to the Type given.
      */
     public InterMainCharacter getPlayerMainCharacter(EntityType type) {
-        return type == EntityType.MARCO ? this.mainPlayer.getMarco() : this.mainPlayer.getLuis();
+
+        for(InterMainCharacter character : activeMainCharacterList){
+            if(character.getType() == type) return character;
+        }
+        // TODO: add exception
+        return null;
     }
+
+
+    /**
+     * Gets the Players' Enemy List.
+     **/
+    public EnemyList getEnemyList() {
+        return this.enemyList;
+    }
+
 
     /**
      * Gets the gameFinished status.
@@ -496,5 +557,9 @@ public class GameController implements InterController {
 
     public void setCurrentBattle(Battle currentBattle) {
         this.currentBattle = currentBattle;
+    }
+
+    public Phase getCurrentPhase() {
+        return phase;
     }
 }

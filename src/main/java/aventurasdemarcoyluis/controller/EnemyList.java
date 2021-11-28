@@ -128,4 +128,8 @@ public class EnemyList {
         if (out.equals("")) return "No enemies in enemy list";
         return out;
     }
+
+    public ArrayList<InterEnemy> getList() {
+        return list;
+    }
 }

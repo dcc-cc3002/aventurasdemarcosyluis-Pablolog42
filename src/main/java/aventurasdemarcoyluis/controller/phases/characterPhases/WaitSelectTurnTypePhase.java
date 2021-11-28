@@ -1,16 +1,51 @@
 package aventurasdemarcoyluis.controller.phases.characterPhases;
 
+import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
+import aventurasdemarcoyluis.controller.phases.PhaseType;
 import aventurasdemarcoyluis.controller.turns.TurnType;
-
+import org.jetbrains.annotations.NotNull;
 
 public class WaitSelectTurnTypePhase extends Phase {
 
-    private boolean playerNotKORequisite = false;
-    private boolean turnSelected = false;
+    PhaseType phaseType = PhaseType.WAITSELECTTURNTYPEPHASE;
 
-    public WaitSelectTurnTypePhase(){
-        controller.configureCurrentInvolvedMainCharacter();
+    boolean isTurnTypeSelected = false;
+
+
+    public WaitSelectTurnTypePhase(GameController controller) {
+        super(controller);
+    }
+
+    /**
+     * Try to transition to next phase, according to the current
+     * phase change prerequisites.
+     *
+     * @param phase The new phase to try to transition to.
+     */
+    @Override
+    public void toNextPhase(Phase phase) {
+        try {
+            controller.tryToChangePhase(phase);
+        } catch (InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Validates whether the current transition phase is legal.
+     *
+     * @param phaseToBeChanged The phase to check for transition validity.
+     * @return The boolean indicating if the phase transition is valid or not.
+     */
+    @Override
+    public boolean validatePhaseChange(@NotNull Phase phaseToBeChanged) {
+        boolean r1 = phaseToBeChanged.getType() == PhaseType.WAITSELECTITEMPHASE;
+        boolean r2 = phaseToBeChanged.getType() == PhaseType.WAITSELECTATTACKTYPEPHASE;
+        boolean r3 = phaseToBeChanged.getType() == PhaseType.STARTPASSINGPHASE;
+        // Check if the type is selected, and whether it is a valid type
+        return isTurnTypeSelected && (r1 || r2 || r3);
     }
 
     // I can only transition to a new phase when I have selected the turn I want to play.
@@ -21,34 +56,43 @@ public class WaitSelectTurnTypePhase extends Phase {
             e.printStackTrace();
             return;
         }
-        // As a turn has been successfully selected, the phase can transition.
-        canStartNewTurn = true;
-        turnSelected = true;
+        // As a turn has been successfully selected, this prerequisite is accomplished.
+        isTurnTypeSelected = true;
     }
 
     // Checks if the transition requirements are achieved, then transitions the phase of the game.
     public void toSelectedTurnPhase(){
         switch (controller.getCurrentTurn().getType()){
-            case ITEM -> {
-                checkForItemTurnRequisites();
-                controller.tryToChangePhase(new WaitSelectItemPhase());
-            }
-            case ATTACK -> controller.tryToChangePhase(new WaitSelectEnemyToBeAttackedPhase());
-            case ENEMY ->  controller.tryToChangePhase(new StartPassingTurnPhase());
+            case ITEM -> this.toNextPhase(new WaitSelectItemPhase());
+            case ATTACK -> this.toNextPhase(new WaitSelectAttackTypePhase());
+            case ENEMY ->  this.toNextPhase(new StartPassingTurnPhase());
         }
     }
 
-    private void checkForItemTurnRequisites() {
-        if(!controller.getCurrentTurn().getInvolvedMainCharacter().isKO()) {
-            playerNotKORequisite=true;
-        }
 
 
+    /**
+     * Gets the type oh the current phase.
+     *
+     * @return The current phase's type
+     */
+    @Override
+    public PhaseType getType() {
+        return phaseType;
     }
+
+
+
 
 
     @Override
     public String toString() {
         return "SelectAttackTurnPhase";
     }
+
+
+
+    // Useless Methods (State design patter says that in this phase, they should do nothing.)
+    @Override
+    public void battleSetUpRoutine() {}
 }

@@ -73,11 +73,11 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
     }
 
     public void printEnemyList(){
-        System.out.print(this.controller.getPlayer().getEnemyList());
+        System.out.print(this.controller.getEnemyList());
     }
 
     public EnemyList getEnemyList(){
-        return this.controller.getPlayer().getEnemyList();
+        return this.controller.getEnemyList();
     }
 
     public void setAttackType(AttackType attackType) {
@@ -124,7 +124,7 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
     @Override
     public InterEnemy retrieveEnemyToAttack(int enemyNumber) throws InvalidSelectionException {
         try{
-            return this.controller.getPlayer().getEnemyList().retrieveEnemy(enemyNumber - 1);
+            return this.controller.getEnemyList().retrieveEnemy(enemyNumber - 1);
         }catch (IndexOutOfBoundsException e){
             throw new InvalidSelectionException("No ha seleccionado un número de enemigo a atacar, o ha seleccionado un número inválido (que no se encuentra en la lista de enemigos).");
         }

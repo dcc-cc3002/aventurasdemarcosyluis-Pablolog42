@@ -4,6 +4,7 @@ import aventurasdemarcoyluis.controller.phases.FinishBattlePhase;
 import aventurasdemarcoyluis.controller.phases.FinishGamePhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.characterPhases.StartMainCharacterTurnPhase;
+import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
 
 public class EnemyAttackPhase extends Phase {
 
@@ -15,7 +16,7 @@ public class EnemyAttackPhase extends Phase {
     // There might also be enemies left, and the player isnt KO.
     // In this case, the battle continues.
     public void toStartMainCharacterTurnPhase(){
-        controller.tryToChangePhase(new StartMainCharacterTurnPhase());
+        controller.tryToChangePhase(new WaitSelectTurnTypePhase());
     }
 
     // Or finally, there might be no enemies left, and the player isn't KO.
