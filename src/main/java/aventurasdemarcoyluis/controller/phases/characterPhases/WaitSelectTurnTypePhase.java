@@ -5,6 +5,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.items.ItemType;
 import org.jetbrains.annotations.NotNull;
 
 public class WaitSelectTurnTypePhase extends Phase {
@@ -63,11 +64,12 @@ public class WaitSelectTurnTypePhase extends Phase {
     // Checks if the transition requirements are achieved, then transitions the phase of the game.
     public void toSelectedTurnPhase(){
         switch (controller.getCurrentTurn().getType()){
-            case ITEM -> this.toNextPhase(new WaitSelectItemPhase());
-            case ATTACK -> this.toNextPhase(new WaitSelectAttackTypePhase());
-            case ENEMY ->  this.toNextPhase(new StartPassingTurnPhase());
+            case ITEM -> this.toNextPhase(new WaitSelectItemPhase(controller));
+            case ATTACK -> this.toNextPhase(new WaitSelectAttackTypePhase(controller));
+            case ENEMY ->  this.toNextPhase(new StartPassingTurnPhase(controller));
         }
     }
+
 
 
 
@@ -95,4 +97,7 @@ public class WaitSelectTurnTypePhase extends Phase {
     // Useless Methods (State design patter says that in this phase, they should do nothing.)
     @Override
     public void battleSetUpRoutine() {}
+    @Override
+    public void selectItem(ItemType type) {}
+
 }

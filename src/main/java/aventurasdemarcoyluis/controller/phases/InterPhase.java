@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.items.ItemType;
 
 public interface InterPhase {
     //TODO rellenar esto
@@ -41,11 +42,9 @@ public interface InterPhase {
     void toSelectedTurnPhase();
 
 
-
-
-
-
     // Item Turn
+        // WaitSelectItemPhase
+        void selectItem(ItemType type);
 
     // Attack Turn
 

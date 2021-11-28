@@ -11,6 +11,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.InterEntity;
 import aventurasdemarcoyluis.model.enemies.*;
+import aventurasdemarcoyluis.model.items.InterItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
@@ -397,6 +398,16 @@ public class GameController implements InterController {
 
     public void playerWonBattleSequence() {
     }
+
+
+    public InterItem retrieveItemFromPlayerVault(ItemType type) throws InvalidSelectionException {
+        InterItem itemToReturn = this.getPlayer().getPlayerVault().retrieveItem(type);
+
+        if(itemToReturn == null) throw new InvalidSelectionException("The player doesn't have a/an " + type + " in their inventory!");
+
+        return itemToReturn;
+    }
+
 
 
     /* Getters and setters */

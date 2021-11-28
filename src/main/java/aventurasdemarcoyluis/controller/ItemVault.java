@@ -67,7 +67,7 @@ public class ItemVault {
     public AbstractItem retrieveItem(ItemType itemType) {
         // Check if the player has an item of the kind we want to use in their armamento
         if (this.getItemAmount(itemType) < 1) {
-            System.out.println("The player doesn't have a/an " + itemType + " in their inventory!");
+//            System.out.println("The player doesn't have a/an " + itemType + " in their inventory!");
             return null;
         }
         // Remove the used item from the inventory
