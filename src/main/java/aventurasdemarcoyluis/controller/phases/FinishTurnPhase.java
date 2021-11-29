@@ -2,8 +2,6 @@ package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
-import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
-import aventurasdemarcoyluis.controller.phases.enemyPhases.StartEnemyTurnPhase;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.ItemType;

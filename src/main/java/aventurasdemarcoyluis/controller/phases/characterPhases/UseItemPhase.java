@@ -110,4 +110,19 @@ public class UseItemPhase extends Phase {
     public void selectAttackTypePhase(AttackType attackType) {
 
     }
+
+    @Override
+    public void selectEnemyToBeAttacked(int enemyNumber) {
+
+    }
+
+    @Override
+    public void selectRandomEnemyToMakeAttack() {
+
+    }
+
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {
+
+    }
 }

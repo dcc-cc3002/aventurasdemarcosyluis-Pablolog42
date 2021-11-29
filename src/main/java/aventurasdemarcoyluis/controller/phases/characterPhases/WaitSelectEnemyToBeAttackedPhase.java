@@ -48,6 +48,16 @@ public class WaitSelectEnemyToBeAttackedPhase extends Phase {
         toNextPhase(new AttackPhase(controller));
     }
 
+    @Override
+    public void selectRandomEnemyToMakeAttack() {
+
+    }
+
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {
+
+    }
+
 
     /**
      * Validates whether the current transition phase is legal.

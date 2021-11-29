@@ -441,6 +441,11 @@ public class GameController implements InterController {
     }
 
 
+    public void finishGameRoutine() {
+
+    }
+
+
 
     /* Getters and setters */
 
@@ -605,6 +610,7 @@ public class GameController implements InterController {
     public InterPhase getCurrentPhase() {
         return phase;
     }
+
 
 
 }

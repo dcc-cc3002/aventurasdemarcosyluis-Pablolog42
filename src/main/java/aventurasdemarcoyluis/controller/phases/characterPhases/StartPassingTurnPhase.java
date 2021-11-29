@@ -87,4 +87,14 @@ public class StartPassingTurnPhase extends Phase {
     public void selectEnemyToBeAttacked(int enemyNumber) {
 
     }
+
+    @Override
+    public void selectRandomEnemyToMakeAttack() {
+
+    }
+
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {
+
+    }
 }

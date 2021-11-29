@@ -122,4 +122,14 @@ public class EnemyAttackPhase extends Phase {
     public void selectEnemyToBeAttacked(int enemyNumber) {
 
     }
+
+    @Override
+    public void selectRandomEnemyToMakeAttack() {
+
+    }
+
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {
+
+    }
 }

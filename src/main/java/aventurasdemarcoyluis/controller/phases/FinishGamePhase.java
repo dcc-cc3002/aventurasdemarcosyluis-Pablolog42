@@ -7,8 +7,11 @@ import aventurasdemarcoyluis.model.items.ItemType;
 
 public class FinishGamePhase extends Phase{
 
+    PhaseType phaseType = PhaseType.FINISHGAMEPHASE;
+
     public FinishGamePhase(GameController controller) {
         super(controller);
+        controller.finishGameRoutine();
     }
 
     /**
@@ -18,9 +21,7 @@ public class FinishGamePhase extends Phase{
      * @param phase The new phase to try to transition to.
      */
     @Override
-    public void toNextPhase(Phase phase) {
-
-    }
+    public void toNextPhase(Phase phase) {}
 
     /**
      * Validates whether the current transition phase is legal.
@@ -30,6 +31,7 @@ public class FinishGamePhase extends Phase{
      */
     @Override
     public boolean validatePhaseChange(Phase phaseToBeChanged) {
+        // The game finish phase doesn't admit any change, as the game is finished
         return false;
     }
 
@@ -40,7 +42,7 @@ public class FinishGamePhase extends Phase{
      */
     @Override
     public PhaseType getType() {
-        return null;
+        return phaseType;
     }
 
     @Override

@@ -100,6 +100,16 @@ public class WaitSelectAttackTypePhase extends Phase {
     }
 
     @Override
+    public void selectRandomEnemyToMakeAttack() {
+
+    }
+
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {
+
+    }
+
+    @Override
     public void useSelectedItem() {}
 
 

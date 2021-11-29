@@ -95,16 +95,14 @@ public class WaitSelectTurnTypePhase extends Phase {
     @Override
     public void selectItem(ItemType type) {}
     @Override
-    public void useSelectedItem() {
-
-    }
+    public void useSelectedItem() {}
     @Override
-    public void selectAttackTypePhase(AttackType attackType) {
-
-    }
+    public void selectAttackTypePhase(AttackType attackType) {}
     @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
+    public void selectEnemyToBeAttacked(int enemyNumber) {}
+    @Override
+    public void selectRandomEnemyToMakeAttack() {}
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {}
 
 }

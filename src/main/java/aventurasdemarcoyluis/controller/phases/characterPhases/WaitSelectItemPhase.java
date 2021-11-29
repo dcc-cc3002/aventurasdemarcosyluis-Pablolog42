@@ -62,12 +62,29 @@ public class WaitSelectItemPhase extends Phase {
         toNextPhase(new UseItemPhase(controller, this.selectedItem));
     }
 
+    @Override
+    public void useSelectedItem() {
 
-
+    }
 
 
     @Override
     public void selectAttackTypePhase(AttackType attackType) {
+
+    }
+
+    @Override
+    public void selectEnemyToBeAttacked(int enemyNumber) {
+
+    }
+
+    @Override
+    public void selectRandomEnemyToMakeAttack() {
+
+    }
+
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {
 
     }
 

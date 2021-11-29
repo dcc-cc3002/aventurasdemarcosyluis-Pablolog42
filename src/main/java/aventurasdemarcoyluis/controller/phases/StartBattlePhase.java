@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.controller.phases;
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.ItemType;
 
 public class StartBattlePhase extends Phase{
@@ -71,12 +72,20 @@ public class StartBattlePhase extends Phase{
 
     @Override
     public void selectTurnKind(TurnType selection) {}
-
     @Override
     public void toSelectedTurnPhase() {}
-
     @Override
     public void selectItem(ItemType type) {}
+    @Override
+    public void useSelectedItem() {}
+    @Override
+    public void selectAttackTypePhase(AttackType attackType) {}
+    @Override
+    public void selectEnemyToBeAttacked(int enemyNumber) {}
+    @Override
+    public void selectRandomEnemyToMakeAttack() {}
+    @Override
+    public void selectRandomMainCharacterToBeAttacked() {}
 
 
 }
