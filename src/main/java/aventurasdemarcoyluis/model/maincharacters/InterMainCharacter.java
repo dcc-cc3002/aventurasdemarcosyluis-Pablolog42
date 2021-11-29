@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.model.maincharacters;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.InterEntity;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.InterItem;
@@ -49,4 +50,8 @@ public interface InterMainCharacter extends InterEntity {
 
     //** Gets the mainCharacter's maxFp **//
     int getMaxFP();
+
+
+    //TODO: comentar
+    void validateAttack(AttackType attackType) throws InvalidAttackException;
 }

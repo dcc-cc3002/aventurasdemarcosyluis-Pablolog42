@@ -7,6 +7,7 @@ import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
 import aventurasdemarcoyluis.controller.turns.InterItemTurn;
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.items.InterItem;
 import aventurasdemarcoyluis.model.items.ItemType;
@@ -16,13 +17,12 @@ public class UseItemPhase extends Phase {
 
     PhaseType phaseType = PhaseType.USEITEMPHASE;
 
-    InterItem itemToBeUsed = null;
-
+    ItemType itemToBeUsed;
 
     private boolean hasItemBeenUsed = false;
 
 
-    public UseItemPhase(GameController controller, InterItem selectedItem){
+    public UseItemPhase(GameController controller, ItemType selectedItem){
         super(controller);
         this.itemToBeUsed = selectedItem;
     }
@@ -52,19 +52,17 @@ public class UseItemPhase extends Phase {
         return false;
     }
 
-
-    public void useItem(EntityType mainCharacterToUseItem, ItemType itemToBeUsed){
-
-        InterMainCharacter selectedCharacter = controller.getPlayerMainCharacter(mainCharacterToUseItem);
-
+    // will use item and try to transition to finish phase
+    public void useSelectedItem(){
         try {
-            controller.getPlayer().tryToUseItem(itemToBeUsed, selectedCharacter);
+            controller.getPlayer().tryToUseItem(this.itemToBeUsed, controller.getCurrentTurnMainCharacter());
         }catch (InvalidSelectionException e){
             e.printStackTrace();
             return;
         }
         hasItemBeenUsed = true;
     }
+
 
 
 
@@ -105,6 +103,11 @@ public class UseItemPhase extends Phase {
 
     @Override
     public void selectItem(ItemType type) {
+
+    }
+
+    @Override
+    public void selectAttackTypePhase(AttackType attackType) {
 
     }
 }

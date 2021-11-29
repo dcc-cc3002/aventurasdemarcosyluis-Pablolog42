@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.ItemType;
 
 public interface InterPhase {
@@ -45,14 +46,21 @@ public interface InterPhase {
     // Item Turn
         // WaitSelectItemPhase
         void selectItem(ItemType type);
+            // UseItemPhase
+            void useSelectedItem();
 
     // Attack Turn
+    void selectAttackTypePhase(AttackType attackType);
+    void selectEnemyToBeAttacked(int enemyNumber);
+
+
 
     // finish main character Turn
 
 
     // Enemy Turn
-
+    void selectRandomEnemyToMakeAttack();
+    void selectRandomMainCharacterToBeAttacked();
 
     // Battle won
 

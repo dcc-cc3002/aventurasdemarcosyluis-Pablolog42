@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.model.maincharacters;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.AbstractEntity;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.InterItem;
@@ -119,8 +120,37 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      * @param fpCost The FP cost of the attack to perform
      * @return A boolean indicating if the attack is valid or not.
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public void validateAttack(int fpCost) throws InvalidAttackException {
+
+        int targetFP = this.getFp() - fpCost;
+
+        if (this.isKO()) {
+            throw new InvalidAttackException(this.getName() + " is K.O. and can't attack");
+        }
+
+        if (targetFP < 0) {
+            throw new InvalidAttackException(this.getName() + " has not enough FP to make this kind of attack!");
+        }
+    }
+
+
+
+    /**
+     * Checks if an attack is a legal move.
+     * Checks if the player attacking is KO
+     * checks if the player attacking has enough FP
+     *
+     * Throws exception in case any of the above conditions are encountered.
+     *
+     */
+    public void validateAttack(AttackType attackType) throws InvalidAttackException {
+
+        int fpCost=0;
+
+        switch (attackType){
+            case JUMP -> fpCost = 1;
+            case HAMMER -> fpCost = 2;
+        }
 
         int targetFP = this.getFp() - fpCost;
 

@@ -10,8 +10,6 @@ import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-
 
 public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
@@ -72,14 +70,12 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
     }
 
-    public void printEnemyList(){
-        System.out.print(this.controller.getEnemyList());
-    }
-
+    @Override
     public EnemyList getEnemyList(){
         return this.controller.getEnemyList();
     }
 
+    @Override
     public void setAttackType(AttackType attackType) {
         this.attackType = attackType;
     }
@@ -88,6 +84,7 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
      * The fist enemy has index 1.
      * @param enemyNumberToAttack The natural number of the enemy to attack
      */
+    @Override
     public void setEnemyNumberToAttack(int enemyNumberToAttack){
         this.enemyNumberToAttack = enemyNumberToAttack;
     }

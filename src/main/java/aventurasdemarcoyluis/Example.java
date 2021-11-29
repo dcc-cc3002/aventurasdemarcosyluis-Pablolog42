@@ -4,6 +4,7 @@ import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.controller.phases.InterPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 
 public class Example {
@@ -17,7 +18,7 @@ public class Example {
         controller.setPlayer("Pablo");
 
 
-        Phase currentPhase = controller.getCurrentPhase();
+        InterPhase currentPhase = controller.getCurrentPhase();
 
 
 

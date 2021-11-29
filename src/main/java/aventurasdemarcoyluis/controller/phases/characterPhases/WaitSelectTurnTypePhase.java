@@ -5,6 +5,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.ItemType;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,6 @@ public class WaitSelectTurnTypePhase extends Phase {
     }
 
 
-
-
     /**
      * Gets the type oh the current phase.
      *
@@ -82,10 +81,6 @@ public class WaitSelectTurnTypePhase extends Phase {
     public PhaseType getType() {
         return phaseType;
     }
-
-
-
-
 
     @Override
     public String toString() {
@@ -99,5 +94,17 @@ public class WaitSelectTurnTypePhase extends Phase {
     public void battleSetUpRoutine() {}
     @Override
     public void selectItem(ItemType type) {}
+    @Override
+    public void useSelectedItem() {
+
+    }
+    @Override
+    public void selectAttackTypePhase(AttackType attackType) {
+
+    }
+    @Override
+    public void selectEnemyToBeAttacked(int enemyNumber) {
+
+    }
 
 }

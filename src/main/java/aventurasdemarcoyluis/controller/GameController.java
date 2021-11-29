@@ -2,12 +2,14 @@ package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTurnException;
 import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
 import aventurasdemarcoyluis.controller.phases.InterPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.StartBattlePhase;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.InterEntity;
 import aventurasdemarcoyluis.model.enemies.*;
@@ -21,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Main Class of the controller Module.
@@ -316,18 +319,25 @@ public class GameController implements InterController {
     }
 
 
-    public void configureCurrentInvolvedMainCharacter(){
-        TurnOwner turnOwner = getCurrentTurnOwner();
-
-        switch (turnOwner){
-            case LUIS -> {this.setInvolvedMainCharacter(getPlayerMainCharacter(EntityType.LUIS));}
-            case MARCO -> {this.setInvolvedMainCharacter(getPlayerMainCharacter(EntityType.MARCO));}
-        }
-    }
-
     private void setInvolvedMainCharacter(InterMainCharacter playerMainCharacter) {
 
     }
+
+    public InterMainCharacter getCurrentTurnMainCharacter(){
+        TurnOwner turnOwner = getCurrentTurnOwner();
+
+        switch (turnOwner){
+            case LUIS -> {return getPlayerMainCharacter(EntityType.LUIS);}
+            case MARCO -> {return getPlayerMainCharacter(EntityType.MARCO);}
+        }
+        return null;
+    }
+
+    public InterMainCharacter getRandomMainCharacterFromActiveList(){
+        Random randomizer = new Random();
+        return activeMainCharacterList.get(randomizer.nextInt(activeMainCharacterList.size()));
+    }
+
 
 
     public void tryToChangePhase(Phase phaseToChangeTo) throws InvalidTransitionException {
@@ -406,6 +416,28 @@ public class GameController implements InterController {
         if(itemToReturn == null) throw new InvalidSelectionException("The player doesn't have a/an " + type + " in their inventory!");
 
         return itemToReturn;
+    }
+
+
+    public void tryToAttack(){
+
+    }
+
+
+    public void tryToSelectAttack(AttackType attackType) throws InvalidAttackException {
+        // throws exceptions if no FP left. or if character KO.
+        this.getCurrentTurnMainCharacter().validateAttack(attackType);
+
+        AttackTurn turn = (AttackTurn) this.getCurrentTurn();
+
+        turn.setAttackType(attackType);
+
+    }
+
+    public void tryToSelectEnemyToBeAttacked(int enemyIndex) throws InvalidTurnException {
+        if(!(this.getCurrentTurn().getType() == TurnType.ATTACK)) throw new InvalidTurnException("Can't select enemy in the current turn state");
+        AttackTurn turn = (AttackTurn) this.getCurrentTurn();
+        turn.setEnemyNumberToAttack(enemyIndex);
     }
 
 
@@ -570,7 +602,9 @@ public class GameController implements InterController {
         this.currentBattle = currentBattle;
     }
 
-    public Phase getCurrentPhase() {
+    public InterPhase getCurrentPhase() {
         return phase;
     }
+
+
 }

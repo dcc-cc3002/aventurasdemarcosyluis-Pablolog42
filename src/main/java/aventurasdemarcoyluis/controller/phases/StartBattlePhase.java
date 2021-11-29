@@ -2,6 +2,8 @@ package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.items.ItemType;
 
 public class StartBattlePhase extends Phase{
 
@@ -14,6 +16,7 @@ public class StartBattlePhase extends Phase{
         super(controller);
         // the setup routine is automatically executed
         battleSetUpRoutine();
+
     }
 
     /**
@@ -57,10 +60,23 @@ public class StartBattlePhase extends Phase{
         return this.phaseType;
     }
 
-
+    @Override
     public void battleSetUpRoutine(){
         controller.createAndSetNewBattle();
         isBattleSetup = true;
     }
+
+
+    // Useless methods
+
+    @Override
+    public void selectTurnKind(TurnType selection) {}
+
+    @Override
+    public void toSelectedTurnPhase() {}
+
+    @Override
+    public void selectItem(ItemType type) {}
+
 
 }

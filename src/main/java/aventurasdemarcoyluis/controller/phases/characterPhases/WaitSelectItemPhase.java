@@ -6,6 +6,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.InterItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 
@@ -13,7 +14,7 @@ public class WaitSelectItemPhase extends Phase {
 
     PhaseType phaseType = PhaseType.WAITSELECTITEMPHASE;
 
-    InterItem selectedItem = null;
+    ItemType selectedItem = null;
 
     public boolean itemSelected = false;
 
@@ -53,7 +54,7 @@ public class WaitSelectItemPhase extends Phase {
 
     public void selectItem(ItemType type){
         try{
-            this.selectedItem = controller.retrieveItemFromPlayerVault(type);
+            this.selectedItem = controller.retrieveItemFromPlayerVault(type).getType();
         } catch (InvalidSelectionException e){
             e.printStackTrace();
             return;
@@ -61,6 +62,14 @@ public class WaitSelectItemPhase extends Phase {
         toNextPhase(new UseItemPhase(controller, this.selectedItem));
     }
 
+
+
+
+
+    @Override
+    public void selectAttackTypePhase(AttackType attackType) {
+
+    }
 
 
     /**
