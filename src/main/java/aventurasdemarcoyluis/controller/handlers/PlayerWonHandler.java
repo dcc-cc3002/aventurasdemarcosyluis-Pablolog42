@@ -3,8 +3,9 @@ package aventurasdemarcoyluis.controller.handlers;
 import aventurasdemarcoyluis.controller.GameController;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class PlayerWonHandler implements Handler{
+public class PlayerWonHandler implements PropertyChangeListener {
 
     private final GameController controller;
 

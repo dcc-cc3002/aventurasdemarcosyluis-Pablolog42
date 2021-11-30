@@ -4,10 +4,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTurnException;
 import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
-import aventurasdemarcoyluis.controller.phases.InterPhase;
-import aventurasdemarcoyluis.controller.phases.Phase;
-import aventurasdemarcoyluis.controller.phases.PhaseType;
-import aventurasdemarcoyluis.controller.phases.StartBattlePhase;
+import aventurasdemarcoyluis.controller.phases.*;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.AttackType;
@@ -21,6 +18,7 @@ import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +44,7 @@ public class GameController implements InterController {
 //    private final ArrayList<InterMainCharacter> activeMainCharacterList;
 
 
-    private final ActiveMainCharacterList activeMainCharacterList;
+    private final ActiveMainCharacterList activeMainCharacterList = new ActiveMainCharacterList(this);;
 
     private final EnemyList enemyList;
 
@@ -54,11 +52,6 @@ public class GameController implements InterController {
     private boolean gameFinished;
 
     private InterPhase phase;
-
-
-    private final EntityKoHandler entityKoNotification = new EntityKoHandler(this);
-
-    private PropertyChangeSupport playerHasWonBattle = new PropertyChangeSupport(this);
 
 
     /**
@@ -76,27 +69,23 @@ public class GameController implements InterController {
         // The player's mario always plays first
         this.currentTurnOwner = TurnOwner.MARCO;
         // This should be luis
-        this.nextTurnOwner = calculateNextTurnOwner();
+        this.nextTurnOwner = calculateNextTurnOwner(getCurrentTurnOwner());
 
         this.mainPlayer = new Player("J1");
 
         this.mainCharacterList = new ArrayList<>();
 
-        this.activeMainCharacterList = new ActiveMainCharacterList(this);
+
         activeMainCharacterList.initialSetup();
 
 
         mainCharacterList.add(mainPlayer.getMarco());
         mainCharacterList.add(mainPlayer.getLuis());
 
-
-
         this.enemyList = new EnemyList();
 
         this.playerWon = false;
         this.gameFinished = false;
-
-
 
         this.phase = new StartBattlePhase(this);
 
@@ -231,6 +220,9 @@ public class GameController implements InterController {
      *                  any other: doesn't do anything.
      */
     public void tryToSelectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException {
+
+        setUpInvolvedMainCharacter();
+
         switch (selection) {
             case ATTACK -> {
                 InterTurn attackTurn = new AttackTurn(this);
@@ -281,12 +273,12 @@ public class GameController implements InterController {
      * Something analogous happens when the player has lost.
      */
     @Override
-    public void finishTurn() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
+    public void finishTurn() {
 
         // This handles the finish game logic.
         // check if the player is KO after the turn.
         // TODO: this should be handled by the isKO method in battle class
-        if (this.getPlayer().isPlayerKO()) {
+        if (this.activeMainCharacterList.getActiveMainCharacterList().isEmpty()) {
             this.setGameFinished(true);
             // TODO: This should be implemented by an observer.
             this.playerLosingSequence();
@@ -298,22 +290,6 @@ public class GameController implements InterController {
             return;
         }
 
-        // Si el turno que se está terminando es de Luis,
-        //  el siguiente será del enemigo.
-        if(this.getCurrentTurnOwner() == TurnOwner.LUIS){
-            // Se setea el turno siguiente a que sea del enemigo.
-
-            this.setCurrentTurnOwner(TurnOwner.ENEMY);
-            this.setNextTurnOwner(calculateNextTurnOwner());
-
-            this.setCurrentTurn(new EnemyTurn(this));
-
-            // The enemies turn should be started immediately after the player's
-            // last main character has finished their turn.
-            this.startCurrentTurn();
-            return;
-        }
-
 
         assert (this.getNextTurnOwner() != TurnOwner.ENEMY);
 
@@ -321,18 +297,29 @@ public class GameController implements InterController {
         // turn kind they want to perform next, we set it to null.
         this.setCurrentTurn(null);
 
+        TurnOwner nextOwner = calculateNextTurnOwner(getCurrentTurnOwner());
+
         // Set's the next turn's owner according to what is specified
-        this.setCurrentTurnOwner(getNextTurnOwner());
+        this.setCurrentTurnOwner(nextOwner);
         // As the current turn owner has been updated, also update the new next turn owner
-        this.setNextTurnOwner(calculateNextTurnOwner());
+        this.setNextTurnOwner(calculateNextTurnOwner(nextOwner));
 
 
     }
 
 
-    private void setInvolvedMainCharacter(InterMainCharacter playerMainCharacter) {
-
+    /**
+     * Sets up the current involved main character by looking up the TurnOwner
+     */
+    private void setUpInvolvedMainCharacter() {
+        try {
+            this.currentInvolvedMainCharacter = activeMainCharacterList.retrieveMainCharacter(convertTurnOwnerToEntityType(this.currentTurnOwner));
+        }catch (InvalidSelectionException e){
+            e.printStackTrace();
+        }
     }
+
+
 
     public InterMainCharacter getCurrentTurnMainCharacter(){
         TurnOwner turnOwner = getCurrentTurnOwner();
@@ -346,7 +333,7 @@ public class GameController implements InterController {
 
     public InterMainCharacter getRandomMainCharacterFromActiveList(){
         Random randomizer = new Random();
-        return activeMainCharacterList.get(randomizer.nextInt(activeMainCharacterList.size()));
+        return activeMainCharacterList.getActiveMainCharacterList().get(randomizer.nextInt(activeMainCharacterList.getActiveMainCharacterList().size()));
     }
 
 
@@ -380,6 +367,10 @@ public class GameController implements InterController {
         this.setPlayerWon(false);
         System.out.println("Sorry, " + this.getPlayer().getPlayerName() + ". You have lost the game :(");
 
+        try {
+            tryToChangePhase(new FinishGamePhase(this));
+        }catch (Exception ignored){}
+
     }
 
 
@@ -400,12 +391,9 @@ public class GameController implements InterController {
         if(enemyList.getList().isEmpty()){
 //            fireProperychange(THEBATTLEHAS BEEN WON BY THE PLAYER)
         }
-
-        if(activeMainCharacterList.isEmpty()){
-            playerHasWonBattle.firePropertyChange("BattleWonByPlayer",false,true);
+        if(activeMainCharacterList.getActiveMainCharacterList().isEmpty()){
+//            playerHasWonBattle.firePropertyChange("BattleWonByPlayer",false,true);
         }
-
-
 
     }
 
@@ -414,7 +402,7 @@ public class GameController implements InterController {
     }
 
     private void removeKoMainCharactersFromList() {
-        activeMainCharacterList.removeIf(InterMainCharacter::isKO);
+        activeMainCharacterList.getActiveMainCharacterList().removeIf(InterMainCharacter::isKO);
     }
 
     public void playerWonBattleSequence() {
@@ -430,9 +418,6 @@ public class GameController implements InterController {
     }
 
 
-    public void tryToAttack(){
-
-    }
 
 
     public void tryToSelectAttack(AttackType attackType) throws InvalidAttackException {
@@ -468,7 +453,7 @@ public class GameController implements InterController {
      */
     public InterMainCharacter getPlayerMainCharacter(EntityType type) {
 
-        for(InterMainCharacter character : activeMainCharacterList){
+        for(InterMainCharacter character : activeMainCharacterList.getActiveMainCharacterList()){
             if(character.getType() == type) return character;
         }
         // TODO: add exception
@@ -508,20 +493,52 @@ public class GameController implements InterController {
      *
      * @return The TurnOwner type of the next turn.
      */
-    public TurnOwner calculateNextTurnOwner() {
-        int currentId = getCurrentTurnOwner().ordinal();
+    public TurnOwner calculateNextTurnOwner(TurnOwner aCurrentTurnOwner) {
 
-        if(currentId == 2){
-            // Marco
-            return TurnOwner.getTurnOwnerFromId(0);
+        TurnOwner expectedNextOwner;
+
+        int currentId = aCurrentTurnOwner.ordinal();
+
+        // If the index is 3, i have overshoot and should return to the begining.
+        try {
+            expectedNextOwner = TurnOwner.getTurnOwnerFromId(currentId + 1);
+        }catch (Exception e){
+            expectedNextOwner = TurnOwner.getTurnOwnerFromId(0);
         }
 
+
+        // if there is a KO character in the current battle
+        if(activeMainCharacterList.getActiveMainCharacterList().size() == 1){
+            // no se si get(0) funciona. no se si los indices se reordenan o no. Si no, se puede hacer con un try y despues get 1 xddd
+            EntityType notKoCharacter = activeMainCharacterList.getActiveMainCharacterList().get(0).getType();
+            EntityType koCharacter = notKoCharacter==EntityType.MARCO? EntityType.LUIS : EntityType.MARCO;
+
+            EntityType expectedNextOwnerEntity = convertTurnOwnerToEntityType(expectedNextOwner);
+
+            // Si el turno del personaje que se esperaba, es del personaje que está KO, saltarlo.
+            if (expectedNextOwnerEntity==koCharacter){
+                switch (koCharacter){
+                    // Si el personaje KO es luis, me lo salto y paso directo de marco -> Enemy
+                    case LUIS -> {return TurnOwner.ENEMY;}
+                    // Si el Personaje KO es marco, me lo salto y paso directo desde Enemy -> Luis
+                    case MARCO -> {return TurnOwner.LUIS;}
+                }
+            }
+        }
         // Adds 1 to the current turn owner's id, and asks for .
-        return TurnOwner.getTurnOwnerFromId(currentId+1);
+        return expectedNextOwner;
     }
 
     public TurnOwner getNextTurnOwner() {
         return nextTurnOwner;
+    }
+
+    public EntityType convertTurnOwnerToEntityType(TurnOwner turnOwner){
+        switch (turnOwner){
+            case MARCO -> {return EntityType.MARCO;}
+            case LUIS -> {return EntityType.LUIS;}
+        }
+        return null;
     }
 
     /**
@@ -627,4 +644,7 @@ public class GameController implements InterController {
         return this.phase.getType();
     }
 
+    public ActiveMainCharacterList getActiveMainCharacterList() {
+        return activeMainCharacterList;
+    }
 }

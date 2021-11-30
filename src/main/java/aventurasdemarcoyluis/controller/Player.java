@@ -8,7 +8,8 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 
-import java.util.ArrayList;
+
+
 
 /**
  * Representation of a real-life player.
@@ -18,9 +19,6 @@ public class Player {
 
     private final String playerName;
     private final ItemVault playerVault;
-
-
-
 
 
     private final Marco playerMarco;
@@ -141,6 +139,9 @@ public class Player {
         this.getLuis().lvlUp();
         this.getMarco().lvlUp();
     }
+
+
+
 
     // Getters and setters //
 

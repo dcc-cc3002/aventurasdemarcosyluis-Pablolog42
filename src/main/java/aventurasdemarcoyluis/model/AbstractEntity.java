@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.model;
 import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /*
@@ -18,8 +19,6 @@ public abstract class AbstractEntity implements InterEntity {
     private int lvl;
     private boolean isKO;
     private final EntityType type;
-
-    private final PropertyChangeSupport entityKoNotifier = new PropertyChangeSupport(this);
 
 
     /**
@@ -62,7 +61,6 @@ public abstract class AbstractEntity implements InterEntity {
             // a dead enemy has 0 HP
             this.hp = 0;
             this.isKO = true;
-            entityKoNotifier.firePropertyChange("EntityIsNowKO",this,this);
             return;
         }
         System.out.println(this.type.toString() + " has received " + damage + " damage points!");
@@ -85,15 +83,6 @@ public abstract class AbstractEntity implements InterEntity {
             return;
         }
         this.setHp(targetHP);
-
-//        DEPRECATED
-//        // Implementation Note: the only way to increase the hp of a character should be using this method.
-//        // This is because this method allows to change the "isKO" property (lets an incapacitated player play again if they heal)
-//        if(0<this.hp){
-//            System.out.println(this.getName() + " has revived!");
-//            this.setKO(false);
-//        }
-
     }
 
 

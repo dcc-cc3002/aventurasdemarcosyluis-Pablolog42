@@ -8,6 +8,7 @@ import aventurasdemarcoyluis.model.items.ItemType;
 
 public class FinishTurnPhase extends Phase{
 
+
     PhaseType phaseType = PhaseType.FINISHTURNPHASE;
 
     public FinishTurnPhase(GameController controller) {
@@ -42,8 +43,11 @@ public class FinishTurnPhase extends Phase{
         // In case there is another main character before the enemy, change to the maincharacterSelectTurnType phase.
         boolean r2 = phaseToBeChanged.getType() == PhaseType.WAITSELECTTURNTYPEPHASE;
 
-        return r1 || r2;
+        return (r1 || r2);
     }
+
+
+
 
     /**
      * Gets the type oh the current phase.

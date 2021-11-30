@@ -36,12 +36,8 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
         this.involvedMainCharacter = selectCharacter();
         InterEnemy attackingEnemy = this.controller.getEnemyList().retrieveRandomEnemy();
 
-        System.out.println("::::::::::::::: Enemy Turn :::::::::::::::");
-        System.out.println("Randomly, " + attackingEnemy + " attacks " + this.involvedMainCharacter.getType());
         // Fight! https://pbs.twimg.com/media/DTMfiQOU0AEWIYA.jpg
         attackingEnemy.attack(this.involvedMainCharacter);
-        System.out.println("::::::::::::::: End of Enemy Turn ::::::::");
-
         controller.finishTurn();
     }
 

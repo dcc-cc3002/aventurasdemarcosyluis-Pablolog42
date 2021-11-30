@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ActiveMainCharacterList {
 
     private final ArrayList<InterMainCharacter> activeMainCharacterList;
+
     private final GameController controller;
 
     public ActiveMainCharacterList(GameController controller){
@@ -35,7 +36,7 @@ public class ActiveMainCharacterList {
             }
         }
         // If the character isn't in the list
-        throw new InvalidSelectionException("The character you want to retrieve from the list is K.O.");
+        throw new InvalidSelectionException("The character you want to retrieve from the list is K.O. or Invalid.");
     }
 
 
@@ -54,4 +55,5 @@ public class ActiveMainCharacterList {
     public ArrayList<InterMainCharacter> getActiveMainCharacterList() {
         return activeMainCharacterList;
     }
+
 }

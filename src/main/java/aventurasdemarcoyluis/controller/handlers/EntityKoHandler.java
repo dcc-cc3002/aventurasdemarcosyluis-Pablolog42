@@ -2,10 +2,12 @@ package aventurasdemarcoyluis.controller.handlers;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.model.InterEntity;
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class EntityKoHandler implements Handler{
+public class EntityKoHandler implements PropertyChangeListener {
 
     private GameController controller;
 
@@ -21,6 +23,7 @@ public class EntityKoHandler implements Handler{
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        controller.updateEntityKoStatus((InterEntity) evt.getNewValue());
+        InterMainCharacter characterNowKo = (InterMainCharacter) evt.getNewValue();
+        System.out.println(characterNowKo + "IS KO!");
     }
 }
