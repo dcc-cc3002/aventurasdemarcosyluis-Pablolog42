@@ -6,6 +6,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidTurnException;
 import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
 import aventurasdemarcoyluis.controller.phases.InterPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
+import aventurasdemarcoyluis.controller.phases.PhaseType;
 import aventurasdemarcoyluis.controller.phases.StartBattlePhase;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
@@ -42,7 +43,10 @@ public class GameController implements InterController {
     private Battle currentBattle = null;
 
     private final ArrayList<InterMainCharacter> mainCharacterList;
-    private final ArrayList<InterMainCharacter> activeMainCharacterList;
+//    private final ArrayList<InterMainCharacter> activeMainCharacterList;
+
+
+    private final ActiveMainCharacterList activeMainCharacterList;
 
     private final EnemyList enemyList;
 
@@ -76,20 +80,26 @@ public class GameController implements InterController {
 
         this.mainPlayer = new Player("J1");
 
-        this.activeMainCharacterList = new ArrayList<>();
         this.mainCharacterList = new ArrayList<>();
+
+        this.activeMainCharacterList = new ActiveMainCharacterList(this);
+        activeMainCharacterList.initialSetup();
+
 
         mainCharacterList.add(mainPlayer.getMarco());
         mainCharacterList.add(mainPlayer.getLuis());
-        activeMainCharacterList.add(mainPlayer.getMarco());
-        activeMainCharacterList.add(mainPlayer.getLuis());
+
+
 
         this.enemyList = new EnemyList();
 
         this.playerWon = false;
         this.gameFinished = false;
 
+
+
         this.phase = new StartBattlePhase(this);
+
     }
 
 
@@ -174,20 +184,20 @@ public class GameController implements InterController {
 
         this.mainPlayer.increaseBattleNumber();
 
-        // Restore the player's character's fp and hp to the max
-        for(InterMainCharacter character : activeMainCharacterList){
-            character.restoreHP(character.getMaxHP());
-            character.restoreFP(character.getMaxFP());
+        // The lvlUp routine changes the player's main character stats accordingly
+        //  **Implementation Note** and "revives" a mainCharacter in case they got KO in the previous battle.
+        if (this.mainPlayer.getBattleNumber() > 1) {
+            this.playerLvlUp();
         }
+
+        // After the levelup routine, the player's characters will be updated, but not the active main characters yet.
+        this.activeMainCharacterList.restoreList(getPlayer().getMarco(),getPlayer().getLuis());
 
 
         currentBattle.setRandomEnemyList();
         currentBattle.addInitialItems();
 
-        if (this.mainPlayer.getBattleNumber() > 1) {
-            this.getPlayer().setPlayerLvl(getPlayer().getPlayerLvl() + 1);
-            this.playerLvlUp();
-        }
+
 
     }
 
@@ -202,6 +212,7 @@ public class GameController implements InterController {
             //do nothing
             return;
         }
+        this.getPlayer().setPlayerLvl(getPlayer().getPlayerLvl() + 1);
         this.mainPlayer.lvlUp();
     }
 
@@ -612,5 +623,8 @@ public class GameController implements InterController {
     }
 
 
+    public PhaseType getCurrentPhaseType(){
+        return this.phase.getType();
+    }
 
 }

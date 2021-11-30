@@ -179,6 +179,7 @@ public abstract class AbstractEntity implements InterEntity {
     /**
      * Sets the current HP of an entity
      **/
+    @Override
     public void setHp(double hp) {
         this.hp = hp;
     }
@@ -186,6 +187,7 @@ public abstract class AbstractEntity implements InterEntity {
     /**
      * Sets the KO status of an entity
      **/
+    @Override
     public void setKO(boolean KO) {
         isKO = KO;
     }
@@ -217,6 +219,7 @@ public abstract class AbstractEntity implements InterEntity {
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
+
 
 
 }

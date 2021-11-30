@@ -211,6 +211,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
     /**
      * Executes the lvlUp routine for the MainCharacter, increasing all stats according to the given level.
+     * And "
      */
     public void lvlUp() {
         // Level Up!
@@ -221,6 +222,10 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
         this.setAtk((115.0 / 100) * this.getAtk());
         this.setDef((115.0 / 100) * this.getDef());
 
+        // Directly sets the fp and hp to the new maximums, and "revives the character" if it is KO.
+        this.setHp(getMaxHP());
+        this.setFp(getMaxFP());
+        this.setKO(false);
     }
 
     // Setters and getters
@@ -254,6 +259,8 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
     public void setMaxFP(int maxFP) {
         this.maxFP = maxFP;
     }
+
+
 
 
     /**

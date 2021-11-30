@@ -6,6 +6,9 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.InterPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
+import aventurasdemarcoyluis.controller.phases.characterPhases.AttackPhase;
+import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.controller.turns.TurnType;
 
 public class Example {
 
@@ -18,7 +21,20 @@ public class Example {
         controller.setPlayer("Pablo");
 
 
-        InterPhase currentPhase = controller.getCurrentPhase();
+        System.out.println(controller.getCurrentPhaseType());
+
+        controller.getCurrentPhase().battleSetUpRoutine();
+
+        controller.getCurrentPhase().toNextPhase(new WaitSelectTurnTypePhase(controller));
+
+        controller.getCurrentPhase().selectTurnKind(TurnType.ITEM);
+
+//        controller.getCurrentPhase().toNextPhase(new AttackPhase(controller));
+
+        System.out.println(controller.getCurrentPhaseType());
+
+
+
 
 
 

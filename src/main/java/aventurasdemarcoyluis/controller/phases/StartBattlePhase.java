@@ -15,9 +15,6 @@ public class StartBattlePhase extends Phase{
 
     public StartBattlePhase(GameController controller){
         super(controller);
-        // the setup routine is automatically executed
-        battleSetUpRoutine();
-
     }
 
     /**
@@ -45,7 +42,6 @@ public class StartBattlePhase extends Phase{
     public boolean validatePhaseChange(Phase phaseToBeChanged) {
         // One prerequisite is to check if the battle is setup.
         boolean r1 = isBattleSetup;
-
         boolean r2 = phaseToBeChanged.getType() == PhaseType.WAITSELECTTURNTYPEPHASE;
 
         return r1&&r2;

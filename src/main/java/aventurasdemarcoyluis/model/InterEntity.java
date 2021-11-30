@@ -76,4 +76,16 @@ public interface InterEntity {
      * Gets the hp of an entity
      **/
     double getHp();
+
+    /**
+     * Directly Sets the hp of an entity.
+     * @param hpToBeSet the hp to be set.
+     */
+    void setHp(double hpToBeSet);
+
+    /**
+     * Directly sets the KO status of an entitiy
+     * @param KO the status to be set (indicated as a boolean)
+     */
+    void setKO(boolean KO);
 }
