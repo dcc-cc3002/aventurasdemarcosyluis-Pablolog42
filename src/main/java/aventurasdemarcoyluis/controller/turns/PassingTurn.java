@@ -37,7 +37,6 @@ public class PassingTurn extends AbstractTurn implements InterTurn {
         System.out.println(this.controller.getPlayer().getPlayerName() + " has passed this turn. It's now the enemy's turn.");
         System.out.println();
 
-        controller.finishTurn();
     }
 
 

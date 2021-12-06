@@ -4,11 +4,11 @@ import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
-import aventurasdemarcoyluis.controller.phases.InterPhase;
-import aventurasdemarcoyluis.controller.phases.Phase;
-import aventurasdemarcoyluis.controller.phases.characterPhases.AttackPhase;
+import aventurasdemarcoyluis.controller.phases.FinishTurnPhase;
+import aventurasdemarcoyluis.controller.phases.characterPhases.StartPassingTurnPhase;
 import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
 import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.model.AttackType;
 
 public class Example {
 
@@ -21,23 +21,42 @@ public class Example {
         controller.setPlayer("Pablo");
 
 
-        System.out.println(controller.getCurrentPhaseType());
 
-        controller.getCurrentPhase().battleSetUpRoutine();
+        System.out.println(controller.getCurrentPhase().getType());
+
+        controller.toNextPhase(new WaitSelectTurnTypePhase(controller));
+
+        System.out.println(controller.getCurrentPhase().getType());
+
+        controller.getCurrentPhase().selectTurnKind(TurnType.PASSING);
+
+        controller.getCurrentPhase().toNextPhase(new StartPassingTurnPhase(controller));
+
+        System.out.println(controller.getCurrentPhase().getType());
+//        System.out.print(controller.getCurrentTurn().toString());
+
+        controller.getCurrentPhase().toNextPhase(new FinishTurnPhase(controller));
+
+        System.out.println(controller.getCurrentPhase().getType());
 
         controller.getCurrentPhase().toNextPhase(new WaitSelectTurnTypePhase(controller));
 
-        controller.getCurrentPhase().selectTurnKind(TurnType.ITEM);
+        System.out.println(controller.getCurrentPhase().getType());
 
-//        controller.getCurrentPhase().toNextPhase(new AttackPhase(controller));
+        controller.getCurrentPhase().selectTurnKind(TurnType.ATTACK);
 
-        System.out.println(controller.getCurrentPhaseType());
+        controller.getCurrentPhase().selectAttackType(AttackType.JUMP);
 
+        controller.getCurrentPhase().selectEnemyToBeAttacked(1);
 
+        // The attack is performed intermediately after selecting validly an attack type, and which enemy to attack.
+        System.out.println(controller.getCurrentPhase().getType());
 
+        controller.getCurrentPhase().toNextPhase(new FinishTurnPhase(controller));
 
+        System.out.println(controller.getCurrentPhase().getType());
 
-
+        controller.getCurrentPhase().toNextPhase();
 
 
 

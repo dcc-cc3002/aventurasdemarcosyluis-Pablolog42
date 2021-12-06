@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.model;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,6 +13,7 @@ import java.beans.PropertyChangeSupport;
  */
 public abstract class AbstractEntity implements InterEntity {
 
+    private GameController controller;
     private double atk;
     private double def;
     private double hp;
@@ -20,6 +22,8 @@ public abstract class AbstractEntity implements InterEntity {
     private boolean isKO;
     private final EntityType type;
 
+    private EntityKoHandler entityKoHandler;
+    private PropertyChangeSupport entityKoHandlerSupport;
 
     /**
      * Creates a new AbstractEnemy
@@ -42,6 +46,26 @@ public abstract class AbstractEntity implements InterEntity {
         isKO = false;
     }
 
+    public AbstractEntity(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE, GameController controller) {
+        this.atk = ATK;
+        def = DEF;
+        hp = HP;
+        maxHP = MAXHP;
+        lvl = LVL;
+        type = TYPE;
+        // By default, every entity is not KO
+        isKO = false;
+        this.controller = controller;
+
+        entityKoHandler = new EntityKoHandler(controller);
+        entityKoHandlerSupport = new PropertyChangeSupport(this);
+
+
+        // we subscribe to the entity KO listener in case a controller has been specified.
+        entityKoHandlerSupport.addPropertyChangeListener(entityKoHandler);
+    }
+
+
     /**
      * Infringes a certain amount of damage to an entity
      * In case the damage inflicted renders the unit K.O. (targetHp <= 0),
@@ -61,6 +85,7 @@ public abstract class AbstractEntity implements InterEntity {
             // a dead enemy has 0 HP
             this.hp = 0;
             this.isKO = true;
+            entityKoHandlerSupport.firePropertyChange("entityKO", this,this);
             return;
         }
         System.out.println(this.type.toString() + " has received " + damage + " damage points!");
@@ -97,6 +122,9 @@ public abstract class AbstractEntity implements InterEntity {
     public double computeDmg(double k, @NotNull InterEntity attacker) {
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
     }
+
+
+
 
 
     // Setters and getters

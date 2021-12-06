@@ -1,10 +1,13 @@
 package aventurasdemarcoyluis.controller.phases.characterPhases;
 
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.FinishTurnPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
+import aventurasdemarcoyluis.controller.turns.PassingTurn;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.ItemType;
@@ -15,6 +18,7 @@ public class StartPassingTurnPhase extends Phase {
 
     public StartPassingTurnPhase(GameController controller) {
         super(controller);
+        executePassingTurn();
     }
 
     @Override
@@ -48,6 +52,16 @@ public class StartPassingTurnPhase extends Phase {
         return phaseToBeChanged.getType() == PhaseType.FINISHTURNPHASE;
     }
 
+    private void executePassingTurn(){
+        PassingTurn turn = (PassingTurn) controller.getCurrentTurn();
+        try {
+            turn.main();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * Gets the type oh the current phase.
      *
@@ -59,42 +73,5 @@ public class StartPassingTurnPhase extends Phase {
     }
 
 
-    @Override
-    public void battleSetUpRoutine() {
 
-    }
-    @Override
-    public void selectTurnKind(TurnType selection) {
-
-    }
-    @Override
-    public void toSelectedTurnPhase() {
-
-    }
-    @Override
-    public void selectItem(ItemType type) {
-
-    }
-    @Override
-    public void useSelectedItem() {
-
-    }
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {
-
-    }
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
-
-    @Override
-    public void selectRandomEnemyToMakeAttack() {
-
-    }
-
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {
-
-    }
 }

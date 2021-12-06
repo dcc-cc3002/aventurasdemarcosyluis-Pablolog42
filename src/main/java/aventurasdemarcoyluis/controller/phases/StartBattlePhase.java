@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.items.ItemType;
@@ -15,6 +16,7 @@ public class StartBattlePhase extends Phase{
 
     public StartBattlePhase(GameController controller){
         super(controller);
+        battleSetUpRoutine();
     }
 
     /**
@@ -57,6 +59,11 @@ public class StartBattlePhase extends Phase{
         return this.phaseType;
     }
 
+
+    /*
+    As per the state pattern indications, we override the used methods in this phase.
+     */
+
     @Override
     public void battleSetUpRoutine(){
         controller.createAndSetNewBattle();
@@ -64,24 +71,7 @@ public class StartBattlePhase extends Phase{
     }
 
 
-    // Useless methods
 
-    @Override
-    public void selectTurnKind(TurnType selection) {}
-    @Override
-    public void toSelectedTurnPhase() {}
-    @Override
-    public void selectItem(ItemType type) {}
-    @Override
-    public void useSelectedItem() {}
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {}
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {}
-    @Override
-    public void selectRandomEnemyToMakeAttack() {}
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {}
 
 
 }

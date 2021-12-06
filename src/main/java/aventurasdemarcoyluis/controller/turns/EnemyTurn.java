@@ -38,7 +38,6 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
 
         // Fight! https://pbs.twimg.com/media/DTMfiQOU0AEWIYA.jpg
         attackingEnemy.attack(this.involvedMainCharacter);
-        controller.finishTurn();
     }
 
 

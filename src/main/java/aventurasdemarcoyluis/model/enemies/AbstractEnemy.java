@@ -1,6 +1,7 @@
 package aventurasdemarcoyluis.model.enemies;
 
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.model.AbstractEntity;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.InterEntity;
@@ -18,16 +19,16 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
     /**
      * Creates a new AbstractEnemy
      * enemies don't have FP.
-     *
-     * @param ATK   jumpAttack points
+     *  @param ATK   jumpAttack points
      * @param DEF   defense points
      * @param HP    health points
      * @param MAXHP Maximum HP of the unit
      * @param LVL   level of the Unit
      * @param TYPE  type of the enemy (see enum "EnemyType")
+     * @param controller
      */
-    public AbstractEnemy(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE) {
-        super(ATK, DEF, HP, MAXHP, LVL, TYPE);
+    public AbstractEnemy(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE, GameController controller) {
+        super(ATK, DEF, HP, MAXHP, LVL, TYPE, controller);
     }
 
     /**

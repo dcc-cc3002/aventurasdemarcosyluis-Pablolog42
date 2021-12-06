@@ -1,7 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
-import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.items.AbstractItem;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
@@ -20,6 +19,7 @@ public class Player {
     private final String playerName;
     private final ItemVault playerVault;
 
+    private final GameController controller;
 
     private final Marco playerMarco;
     private final Luis playerLuis;
@@ -34,12 +34,12 @@ public class Player {
      * @param marco The Given initial marco to be assigned to the player.
      * @param luis  The Given initial luis to be assigned to the player.
      */
-    public Player(String name, Marco marco, Luis luis) {
+    public Player(String name, Marco marco, Luis luis, GameController controller) {
         this.playerLuis = luis;
         this.playerMarco = marco;
         this.playerName = name;
         this.playerLvl = 1;
-
+        this.controller = controller;
 
         this.playerVault = new ItemVault();
         this.battleNumber = 0;
@@ -51,9 +51,10 @@ public class Player {
      *
      * @param name The name of the player to be created.
      */
-    public Player(String name) {
-        this.playerLuis = new Luis(10, 10, 10, 20, 10, 20, 1);
-        this.playerMarco = new Marco(10, 10, 10, 20, 10, 20, 1);
+    public Player(String name, GameController controller) {
+        this.controller = controller;
+        this.playerLuis = new Luis(10, 10, 10, 20, 10, 20, 1, this.controller);
+        this.playerMarco = new Marco(10, 10, 10, 20, 10, 20, 1, this.controller);
         this.playerLvl = 1;
 
         this.playerName = name;

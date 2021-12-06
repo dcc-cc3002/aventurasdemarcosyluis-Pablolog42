@@ -2,14 +2,11 @@ package aventurasdemarcoyluis.controller.phases.characterPhases;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
-import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
-import aventurasdemarcoyluis.controller.phases.enemyPhases.EnemyAttackPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
-import aventurasdemarcoyluis.controller.turns.TurnType;
+import aventurasdemarcoyluis.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.model.AttackType;
-import aventurasdemarcoyluis.model.items.ItemType;
 
 public class WaitSelectAttackTypePhase extends Phase {
 
@@ -17,6 +14,8 @@ public class WaitSelectAttackTypePhase extends Phase {
     PhaseType phaseType = PhaseType.WAITSELECTATTACKTYPEPHASE;
 
     boolean attackSelected = false;
+
+
 
     public WaitSelectAttackTypePhase(GameController controller) {
         super(controller);
@@ -49,9 +48,10 @@ public class WaitSelectAttackTypePhase extends Phase {
     }
 
 
-    public void selectAttackTypePhase(AttackType attackType){
+    @Override
+    public void selectAttackType(AttackType attackType){
         try{
-            controller.tryToSelectAttack(attackType);
+            tryToSelectAttack(attackType);
         }catch (InvalidAttackException e){
             e.printStackTrace();
             return;
@@ -62,6 +62,14 @@ public class WaitSelectAttackTypePhase extends Phase {
     }
 
 
+    private void tryToSelectAttack(AttackType attackType) throws InvalidAttackException {
+        // throws exceptions if no FP left. or if character KO.
+        controller.getCurrentTurnMainCharacter().validateAttack(attackType);
+
+        AttackTurn turn = (AttackTurn) controller.getCurrentTurn();
+        turn.setAttackType(attackType);
+
+    }
 
 
     /**
@@ -74,43 +82,6 @@ public class WaitSelectAttackTypePhase extends Phase {
         return phaseType;
     }
 
-
-    // Useless Methods ////////////////////////////////////////
-
-    @Override
-    public void battleSetUpRoutine() {
-
-    }
-    @Override
-    public void selectTurnKind(TurnType selection) {
-
-    }
-    @Override
-    public void toSelectedTurnPhase() {
-
-    }
-    @Override
-    public void selectItem(ItemType type) {
-
-    }
-
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
-
-    @Override
-    public void selectRandomEnemyToMakeAttack() {
-
-    }
-
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {
-
-    }
-
-    @Override
-    public void useSelectedItem() {}
 
 
     @Override

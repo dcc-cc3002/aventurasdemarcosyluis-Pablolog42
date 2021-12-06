@@ -7,9 +7,10 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class EntityKoHandler implements PropertyChangeListener {
+public class EntityKoHandler implements Handler {
 
-    private GameController controller;
+
+    private final GameController controller;
 
     public EntityKoHandler(GameController controller){
         this.controller = controller;
@@ -24,6 +25,6 @@ public class EntityKoHandler implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         InterMainCharacter characterNowKo = (InterMainCharacter) evt.getNewValue();
-        System.out.println(characterNowKo + "IS KO!");
+        System.out.println("HANDLER: " + characterNowKo + "IS KO!");
     }
 }

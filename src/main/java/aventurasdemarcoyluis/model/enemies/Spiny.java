@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.model.enemies;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
@@ -11,15 +12,15 @@ public class Spiny extends AbstractEnemy {
 
     /**
      * Creates a new Spiny
-     *
-     * @param ATK   jumpAttack points
+     *  @param ATK   jumpAttack points
      * @param DEF   defense points
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
+     * @param controller
      */
-    public Spiny(double ATK, double DEF, double HP, double MAXHP, int LVL) {
-        super(ATK, DEF, HP, MAXHP, LVL, EntityType.SPINY);
+    public Spiny(double ATK, double DEF, double HP, double MAXHP, int LVL, GameController controller) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.SPINY, controller);
     }
 
     /**

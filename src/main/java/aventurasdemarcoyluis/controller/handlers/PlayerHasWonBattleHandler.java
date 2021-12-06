@@ -5,7 +5,7 @@ import aventurasdemarcoyluis.controller.GameController;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class PlayerHasWonBattleHandler implements PropertyChangeListener {
+public class PlayerHasWonBattleHandler implements Handler {
 
     private final GameController controller;
 

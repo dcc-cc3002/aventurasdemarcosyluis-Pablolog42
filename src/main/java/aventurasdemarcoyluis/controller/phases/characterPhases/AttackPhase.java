@@ -5,18 +5,39 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.FinishTurnPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
+import aventurasdemarcoyluis.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.model.AttackType;
+import aventurasdemarcoyluis.model.InterEntity;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
 public class AttackPhase extends Phase {
 
     PhaseType phaseType = PhaseType.ATTACKPHASE;
 
+    InterEnemy enemyToABeAttacked;
+    InterMainCharacter mainCharacterToAttack;
+
     boolean attackCompleted = false;
 
-    public AttackPhase(GameController controller) {
+    public AttackPhase(InterMainCharacter mainCharacterToAttack, GameController controller) {
         super(controller);
+        this.mainCharacterToAttack=mainCharacterToAttack;
+
+        // Automatically attacks the selected enemy, with the selected attack.
+        performAttack();
+
+        toNextPhase(evaluateNextPhase());
+    }
+
+    /**
+     * Evalua a que fase se deberia cambiar, acorde a los estados KO de los enemigos y aliados.
+     * @return
+     */
+    private Phase evaluateNextPhase() {
+        return new FinishTurnPhase(controller);
     }
 
     @Override
@@ -53,6 +74,18 @@ public class AttackPhase extends Phase {
         return attackCompleted && (r1 || r2);
     }
 
+
+    public void performAttack(){
+        AttackTurn turn = (AttackTurn) controller.getCurrentTurn();
+        try {
+            turn.main();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        attackCompleted = true;
+    }
+
+
     /**
      * Gets the type oh the current phase.
      *
@@ -63,48 +96,5 @@ public class AttackPhase extends Phase {
         return phaseType;
     }
 
-    @Override
-    public void battleSetUpRoutine() {
 
-    }
-
-    @Override
-    public void selectTurnKind(TurnType selection) {
-
-    }
-
-    @Override
-    public void toSelectedTurnPhase() {
-
-    }
-
-    @Override
-    public void selectItem(ItemType type) {
-
-    }
-
-    @Override
-    public void useSelectedItem() {
-
-    }
-
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {
-
-    }
-
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
-
-    @Override
-    public void selectRandomEnemyToMakeAttack() {
-
-    }
-
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {
-
-    }
 }

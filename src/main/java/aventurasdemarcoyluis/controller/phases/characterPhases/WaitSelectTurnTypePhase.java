@@ -54,18 +54,23 @@ public class WaitSelectTurnTypePhase extends Phase {
     public void selectTurnKind(TurnType selection){
         try {
             controller.tryToSelectNewTurnKind(selection);
+            // As a turn has been successfully selected, this prerequisite is accomplished.
+            isTurnTypeSelected = true;
+            toSelectedTurnPhase();
+
         }catch (Exception e){
             e.printStackTrace();
-            return;
         }
-        // As a turn has been successfully selected, this prerequisite is accomplished.
-        isTurnTypeSelected = true;
+
     }
 
     // Checks if the transition requirements are achieved, then transitions the phase of the game.
     public void toSelectedTurnPhase(){
+
+        assert isTurnTypeSelected;
+
         switch (controller.getCurrentTurn().getType()){
-            case ITEM -> this.toNextPhase(new WaitSelectItemPhase(controller));
+            case ITEM -> {this.toNextPhase(new WaitSelectItemPhase(controller));}
             case ATTACK -> this.toNextPhase(new WaitSelectAttackTypePhase(controller));
             case ENEMY ->  this.toNextPhase(new StartPassingTurnPhase(controller));
         }
@@ -84,25 +89,10 @@ public class WaitSelectTurnTypePhase extends Phase {
 
     @Override
     public String toString() {
-        return "SelectAttackTurnPhase";
+        return "WaitSelectTurnTypePhase";
     }
 
 
 
-    // Useless Methods (State design patter says that in this phase, they should do nothing.)
-    @Override
-    public void battleSetUpRoutine() {}
-    @Override
-    public void selectItem(ItemType type) {}
-    @Override
-    public void useSelectedItem() {}
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {}
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {}
-    @Override
-    public void selectRandomEnemyToMakeAttack() {}
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {}
 
 }

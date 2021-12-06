@@ -28,7 +28,8 @@ import java.util.Random;
  * Main Class of the controller Module.
  * Handles all the controller logic, integrating Turns, Battles, Vaults and the player.
  */
-public class GameController implements InterController {
+public class
+GameController implements InterController {
 
     private Player mainPlayer;
     private InterTurn currentTurn = null;
@@ -51,7 +52,7 @@ public class GameController implements InterController {
     private boolean playerWon;
     private boolean gameFinished;
 
-    private InterPhase phase;
+    private Phase phase;
 
 
     /**
@@ -71,7 +72,7 @@ public class GameController implements InterController {
         // This should be luis
         this.nextTurnOwner = calculateNextTurnOwner(getCurrentTurnOwner());
 
-        this.mainPlayer = new Player("J1");
+        this.mainPlayer = new Player("J1", this);
 
         this.mainCharacterList = new ArrayList<>();
 
@@ -82,7 +83,7 @@ public class GameController implements InterController {
         mainCharacterList.add(mainPlayer.getMarco());
         mainCharacterList.add(mainPlayer.getLuis());
 
-        this.enemyList = new EnemyList();
+        this.enemyList = new EnemyList(this);
 
         this.playerWon = false;
         this.gameFinished = false;
@@ -109,10 +110,10 @@ public class GameController implements InterController {
     public InterMainCharacter createMainCharacter(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int fp, int maxFP, int lvl) {
         switch (type) {
             case MARCO -> {
-                return new Marco(atk, def, fp, maxFP, hp, maxHP, lvl);
+                return new Marco(atk, def, fp, maxFP, hp, maxHP, lvl, this);
             }
             case LUIS -> {
-                return new Luis(atk, def, fp, maxFP, hp, maxHP, lvl);
+                return new Luis(atk, def, fp, maxFP, hp, maxHP, lvl, this);
             }
         }
         return null;
@@ -133,13 +134,13 @@ public class GameController implements InterController {
     public AbstractEnemy createEnemy(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int lvl) {
         switch (type) {
             case GOOMBA -> {
-                return new Goomba(atk, def, hp, maxHP, lvl);
+                return new Goomba(atk, def, hp, maxHP, lvl, this);
             }
             case BOO -> {
-                return new Boo(atk, def, hp, maxHP, lvl);
+                return new Boo(atk, def, hp, maxHP, lvl, this);
             }
             case SPINY -> {
-                return new Spiny(atk, def, hp, maxHP, lvl);
+                return new Spiny(atk, def, hp, maxHP, lvl, this);
             }
         }
         return null;
@@ -339,6 +340,13 @@ public class GameController implements InterController {
 
 
     public void tryToChangePhase(Phase phaseToChangeTo) throws InvalidTransitionException {
+        // In case this is the first battle played
+        if(this.phase == null && this.mainPlayer.getBattleNumber() == 1){
+            this.setPhase(phaseToChangeTo);
+            return;
+        }
+
+
         // If the phase transition is illegal
         if(!this.phase.validatePhaseChange(phaseToChangeTo)){
             throw new InvalidTransitionException("You can't Transition phase at this time!");
@@ -420,27 +428,16 @@ public class GameController implements InterController {
 
 
 
-    public void tryToSelectAttack(AttackType attackType) throws InvalidAttackException {
-        // throws exceptions if no FP left. or if character KO.
-        this.getCurrentTurnMainCharacter().validateAttack(attackType);
-
-        AttackTurn turn = (AttackTurn) this.getCurrentTurn();
-
-        turn.setAttackType(attackType);
-
-    }
-
-    public void tryToSelectEnemyToBeAttacked(int enemyIndex) throws InvalidTurnException {
-        if(!(this.getCurrentTurn().getType() == TurnType.ATTACK)) throw new InvalidTurnException("Can't select enemy in the current turn state");
-        AttackTurn turn = (AttackTurn) this.getCurrentTurn();
-        turn.setEnemyNumberToAttack(enemyIndex);
-    }
 
 
     public void finishGameRoutine() {
 
     }
 
+
+    public void toNextPhase(Phase phase){
+        this.phase.toNextPhase(phase);
+    }
 
 
     /* Getters and setters */
@@ -623,7 +620,7 @@ public class GameController implements InterController {
      * @param playerName the name of the player to be created and set.
      */
     public void setPlayer(String playerName) {
-        this.mainPlayer = new Player(playerName);
+        this.mainPlayer = new Player(playerName, this);
     }
 
     public void setCurrentTurnOwner(TurnOwner currentTurnOwner) {
@@ -635,7 +632,7 @@ public class GameController implements InterController {
         this.currentBattle = currentBattle;
     }
 
-    public InterPhase getCurrentPhase() {
+    public Phase getCurrentPhase() {
         return phase;
     }
 

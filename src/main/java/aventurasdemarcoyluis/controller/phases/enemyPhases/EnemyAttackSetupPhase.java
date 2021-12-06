@@ -81,34 +81,5 @@ public class EnemyAttackSetupPhase extends Phase {
         return phaseType;
     }
 
-    // Ignored Methods.
 
-    @Override
-    public void battleSetUpRoutine() {
-
-    }
-    @Override
-    public void selectTurnKind(TurnType selection) {
-
-    }
-    @Override
-    public void toSelectedTurnPhase() {
-
-    }
-    @Override
-    public void selectItem(ItemType type) {
-
-    }
-    @Override
-    public void useSelectedItem() {
-
-    }
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {
-
-    }
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
 }

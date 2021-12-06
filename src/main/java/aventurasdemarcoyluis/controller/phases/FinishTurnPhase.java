@@ -24,6 +24,7 @@ public class FinishTurnPhase extends Phase{
     @Override
     public void toNextPhase(Phase phase) {
         try {
+            controller.finishTurn();
             controller.tryToChangePhase(phase);
         } catch (InvalidTransitionException e){
             e.printStackTrace();
@@ -59,48 +60,7 @@ public class FinishTurnPhase extends Phase{
         return phaseType;
     }
 
-    @Override
-    public void battleSetUpRoutine() {
-
-    }
-    @Override
-    public void selectTurnKind(TurnType selection) {
-
-    }
-    @Override
-    public void toSelectedTurnPhase() {
-
-    }
-    @Override
-    public void selectItem(ItemType type) {
-    }
-    @Override
-    public void useSelectedItem() {
-
-    }
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {
-    }
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
-
-    @Override
-    public void selectRandomEnemyToMakeAttack() {
-
-    }
-
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {
-
-    }
 
 
-//    public void toEnemyTurnPhase(){
-//        controller.tryToChangePhase(new StartEnemyTurnPhase());
-//    }
-//    public void toNewMainCharacterPhase(){
-//        controller.tryToChangePhase(new WaitSelectTurnTypePhase());
-//    }
+
 }

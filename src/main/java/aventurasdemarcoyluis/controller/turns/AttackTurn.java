@@ -65,9 +65,6 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
         System.out.println("########### End of attack turn ###########");
 
-        controller.finishTurn();
-
-
     }
 
     @Override

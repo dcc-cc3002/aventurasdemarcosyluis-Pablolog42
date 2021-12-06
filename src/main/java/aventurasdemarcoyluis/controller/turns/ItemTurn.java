@@ -84,7 +84,7 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
         System.out.println(involvedMainCharacter.getType() + "'s new stats are:");
         System.out.println(involvedMainCharacter + "\n");
 
-        controller.finishTurn();
+
 
     }
 

@@ -9,7 +9,7 @@ public class Example2 {
 
         controller.getPlayerMainCharacter(EntityType.LUIS).setKO(true);
 
-        controller.checkForKoCharactersInPlayerList();
+//        controller.checkForKoCharactersInPlayerList();
 
     }
 }

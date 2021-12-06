@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.model.enemies;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
@@ -12,15 +13,15 @@ public class Boo extends AbstractEnemy {
 
     /**
      * Creates a new Boo
-     *
-     * @param ATK   jumpAttack points
+     *  @param ATK   jumpAttack points
      * @param DEF   defense points
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
+     * @param controller
      */
-    public Boo(double ATK, double DEF, double HP, double MAXHP, int LVL) {
-        super(ATK, DEF, HP, MAXHP, LVL, EntityType.BOO);
+    public Boo(double ATK, double DEF, double HP, double MAXHP, int LVL, GameController controller) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.BOO, controller);
     }
 
     /**

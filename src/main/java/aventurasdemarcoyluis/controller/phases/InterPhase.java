@@ -30,37 +30,7 @@ public interface InterPhase {
      */
     PhaseType getType();
 
-    ////////////////////////////////////////////////////
 
-
-
-    // Start Battle Phase
-    void battleSetUpRoutine();
-
-
-    // WaitSelectTurnTypePhase
-    void selectTurnKind(TurnType selection);
-    void toSelectedTurnPhase();
-
-
-    // Item Turn
-        // WaitSelectItemPhase
-        void selectItem(ItemType type);
-            // UseItemPhase
-            void useSelectedItem();
-
-    // Attack Turn
-    void selectAttackTypePhase(AttackType attackType);
-    void selectEnemyToBeAttacked(int enemyNumber);
-
-
-
-    // finish main character Turn
-
-
-    // Enemy Turn
-    void selectRandomEnemyToMakeAttack();
-    void selectRandomMainCharacterToBeAttacked();
 
     // Battle won
 

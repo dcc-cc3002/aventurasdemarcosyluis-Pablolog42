@@ -5,7 +5,7 @@ import aventurasdemarcoyluis.controller.GameController;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class EnemyWonHandler implements PropertyChangeListener {
+public class EnemyWonHandler implements Handler {
 
     private final GameController controller;
 

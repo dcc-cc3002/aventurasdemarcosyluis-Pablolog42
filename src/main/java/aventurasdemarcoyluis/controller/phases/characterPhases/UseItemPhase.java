@@ -85,44 +85,4 @@ public class UseItemPhase extends Phase {
     }
 
 
-    // Useless methods
-    @Override
-    public void battleSetUpRoutine() {
-
-    }
-
-    @Override
-    public void selectTurnKind(TurnType selection) {
-
-    }
-
-    @Override
-    public void toSelectedTurnPhase() {
-
-    }
-
-    @Override
-    public void selectItem(ItemType type) {
-
-    }
-
-    @Override
-    public void selectAttackTypePhase(AttackType attackType) {
-
-    }
-
-    @Override
-    public void selectEnemyToBeAttacked(int enemyNumber) {
-
-    }
-
-    @Override
-    public void selectRandomEnemyToMakeAttack() {
-
-    }
-
-    @Override
-    public void selectRandomMainCharacterToBeAttacked() {
-
-    }
 }

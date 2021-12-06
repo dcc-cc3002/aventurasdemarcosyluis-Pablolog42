@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.model.maincharacters;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.AbstractEntity;
 import aventurasdemarcoyluis.model.AttackType;
@@ -21,8 +22,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
 
     /**
      * Creates a new AbstractEntity
-     *
-     * @param ATK   Attack points
+     *  @param ATK   Attack points
      * @param DEF   defense points
      * @param FP    FP
      * @param MAXFP Maximum FP points for the unit
@@ -30,9 +30,10 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
      * @param TYPE  type of the enemy (see enum "EnemyType")
+     * @param controller
      */
-    public AbstractMainCharacter(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE) {
-        super(ATK, DEF, HP, MAXHP, LVL, TYPE);
+    public AbstractMainCharacter(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE, GameController controller) {
+        super(ATK, DEF, HP, MAXHP, LVL, TYPE, controller);
         this.fp = FP;
         this.maxFP = MAXFP;
     }

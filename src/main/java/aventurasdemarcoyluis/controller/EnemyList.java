@@ -14,14 +14,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class EnemyList {
 
 
-    final ArrayList<InterEnemy> list;
+    private final ArrayList<InterEnemy> list;
+
+    private GameController controller;
 
     /**
      * EnemyList Constructor.
      * Every EnemyList starts as an empty Arraylist.
      **/
-    public EnemyList() {
+    public EnemyList(GameController controller) {
         this.list = new ArrayList<>();
+        this.controller = controller;
     }
 
     /**
@@ -87,13 +90,13 @@ public class EnemyList {
         switch (type) {
             // Note: MAXHP has to be grater than hp, and hp has to be grater than 1
             case GOOMBA -> {
-                return new Goomba(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);
+                return new Goomba(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3], this.controller);
             }
             case BOO -> {
-                return new Boo(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);
+                return new Boo(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3], this.controller);
             }
             case SPINY -> {
-                return new Spiny(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);
+                return new Spiny(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3], this.controller);
             }
         }
         return null;
