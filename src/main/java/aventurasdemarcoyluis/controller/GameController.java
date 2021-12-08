@@ -2,14 +2,13 @@ package aventurasdemarcoyluis.controller;
 
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
-import aventurasdemarcoyluis.controller.exeptions.InvalidTurnException;
-import aventurasdemarcoyluis.controller.handlers.EntityKoHandler;
 import aventurasdemarcoyluis.controller.phases.*;
 import aventurasdemarcoyluis.controller.turns.*;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.AttackType;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.InterEntity;
+import aventurasdemarcoyluis.model.Player;
 import aventurasdemarcoyluis.model.enemies.*;
 import aventurasdemarcoyluis.model.items.InterItem;
 import aventurasdemarcoyluis.model.items.ItemType;
@@ -18,8 +17,6 @@ import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.jetbrains.annotations.NotNull;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -110,10 +107,14 @@ GameController implements InterController {
     public InterMainCharacter createMainCharacter(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int fp, int maxFP, int lvl) {
         switch (type) {
             case MARCO -> {
-                return new Marco(atk, def, fp, maxFP, hp, maxHP, lvl, this);
+                Marco returnCharacter = new Marco(atk, def, fp, maxFP, hp, maxHP, lvl);
+                returnCharacter.setControllerToEntityHandler(this);
+                return returnCharacter;
             }
             case LUIS -> {
-                return new Luis(atk, def, fp, maxFP, hp, maxHP, lvl, this);
+                Luis returnCharacter = new Luis(atk, def, fp, maxFP, hp, maxHP, lvl);
+                returnCharacter.setControllerToEntityHandler(this);
+                return returnCharacter;
             }
         }
         return null;
@@ -131,16 +132,22 @@ GameController implements InterController {
      * @return The InterMainCharacter created
      */
     @Override
-    public AbstractEnemy createEnemy(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int lvl) {
+    public InterEnemy createEnemy(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int lvl) {
         switch (type) {
             case GOOMBA -> {
-                return new Goomba(atk, def, hp, maxHP, lvl, this);
+                InterEnemy returnEnemy = new Goomba(atk, def, hp, maxHP, lvl);
+                returnEnemy.setControllerToEntityHandler(this);
+                return returnEnemy;
             }
             case BOO -> {
-                return new Boo(atk, def, hp, maxHP, lvl, this);
+                InterEnemy returnEnemy = new Boo(atk, def, hp, maxHP, lvl);
+                returnEnemy.setControllerToEntityHandler(this);
+                return returnEnemy;
             }
             case SPINY -> {
-                return new Spiny(atk, def, hp, maxHP, lvl, this);
+                InterEnemy returnEnemy = new Spiny(atk, def, hp, maxHP, lvl);
+                returnEnemy.setControllerToEntityHandler(this);
+                return returnEnemy;
             }
         }
         return null;
@@ -643,5 +650,34 @@ GameController implements InterController {
 
     public ActiveMainCharacterList getActiveMainCharacterList() {
         return activeMainCharacterList;
+    }
+
+    public void tryToMakeCharacterAttack(AttackType attackSelection, InterMainCharacter attackingMainCharacter, InterEnemy attackedEnemy) throws InvalidAttackException {
+        if(attackingMainCharacter.getType() == EntityType.LUIS && attackedEnemy.getType() == EntityType.BOO){
+            throw new InvalidAttackException("Luis can't attack boo");
+        }
+        switch (attackSelection){
+            case JUMP -> {
+                if(attackingMainCharacter.getType() == EntityType.LUIS){
+                    Luis luisAttackingMainCharacter  = (Luis) attackingMainCharacter;
+                    luisAttackingMainCharacter.jumpAttack((InterGoombaSpiny) attackedEnemy);
+                }
+                if(attackingMainCharacter.getType() == EntityType.MARCO){
+                    Marco luisAttackingMainCharacter  = (Marco) attackingMainCharacter;
+                    luisAttackingMainCharacter.jumpAttack((attackedEnemy));
+                }
+            }
+            case HAMMER -> {
+                if(attackingMainCharacter.getType() == EntityType.LUIS){
+                    Luis luisAttackingMainCharacter  = (Luis) attackingMainCharacter;
+                    luisAttackingMainCharacter.hammerAttack((InterGoombaSpiny) attackedEnemy);
+                }
+                if(attackingMainCharacter.getType() == EntityType.MARCO){
+                    Marco luisAttackingMainCharacter  = (Marco) attackingMainCharacter;
+                    luisAttackingMainCharacter.hammerAttack((attackedEnemy));
+                }
+            }
+        }
+
     }
 }

@@ -1,14 +1,16 @@
 package aventurasdemarcoyluis.model.enemies;
 
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.model.maincharacters.InterLuis;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-/*
+/**
     Boo enemy Class
  */
-public class Boo extends AbstractEnemy {
+public class Boo extends AbstractEnemy implements InterBoo {
 
 
     /**
@@ -18,22 +20,24 @@ public class Boo extends AbstractEnemy {
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
-     * @param controller
      */
-    public Boo(double ATK, double DEF, double HP, double MAXHP, int LVL, GameController controller) {
-        super(ATK, DEF, HP, MAXHP, LVL, EntityType.BOO, controller);
+    public Boo(double ATK, double DEF, double HP, double MAXHP, int LVL) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.BOO);
     }
 
     /**
      * Sends the double dispatch attack message to a player.
+     * Boo can only attack Luis
      *
      * @param player The player being attacked.
      *               Note: In this case, Boo can only attack "Luis" Main Character.
      **/
     @Override
-    public void attack(@NotNull InterMainCharacter player) {
+    public void attack(@NotNull InterLuis player) {
         player.enemyAttacking(this);
     }
+
+
 
     // Boo dodges hammer attack
 
@@ -44,8 +48,16 @@ public class Boo extends AbstractEnemy {
      * @param player The player sending the Hammer-attack Message
      **/
     @Override
-    public void playerHammerAttacking(@NotNull InterMainCharacter player) {
-        System.out.println(this.getName() + " has dodged " + player.getName() + "'s attack!");
+    public void playerHammerAttacking(@NotNull InterMainCharacter player) throws InvalidAttackException {
+        throw new InvalidAttackException(this.getName() + " has dodged " + player.getName() + "'s attack!");
+    }
+
+    @Override
+    public void attack(InterMainCharacter involvedMainCharacter) throws InvalidAttackException {
+        if(involvedMainCharacter.getType()==EntityType.MARCO){
+            throw new InvalidAttackException("Boo can't attack marco!");
+        }
+        attack((InterLuis) involvedMainCharacter);
     }
 
 

@@ -1,8 +1,10 @@
-package aventurasdemarcoyluis.controller;
+package aventurasdemarcoyluis.model;
 
+import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.items.AbstractItem;
 import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.model.items.ItemVault;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import aventurasdemarcoyluis.model.maincharacters.Luis;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
@@ -53,8 +55,8 @@ public class Player {
      */
     public Player(String name, GameController controller) {
         this.controller = controller;
-        this.playerLuis = new Luis(10, 10, 10, 20, 10, 20, 1, this.controller);
-        this.playerMarco = new Marco(10, 10, 10, 20, 10, 20, 1, this.controller);
+        this.playerLuis = (Luis) controller.createMainCharacter(EntityType.LUIS,10,10,10,20,10,20,1);
+        this.playerMarco = (Marco) controller.createMainCharacter(EntityType.MARCO,10,10,10,20,10,20,1);
         this.playerLvl = 1;
 
         this.playerName = name;

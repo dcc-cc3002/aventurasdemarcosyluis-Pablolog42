@@ -56,7 +56,6 @@ public class Example {
 
         System.out.println(controller.getCurrentPhase().getType());
 
-        controller.getCurrentPhase().toNextPhase();
 
 
 

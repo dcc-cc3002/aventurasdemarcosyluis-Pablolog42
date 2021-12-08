@@ -10,11 +10,13 @@ import java.beans.PropertyChangeListener;
 public class EntityKoHandler implements Handler {
 
 
-    private final GameController controller;
+    private GameController controller = null;
 
-    public EntityKoHandler(GameController controller){
+
+    public void setController(GameController controller){
         this.controller = controller;
     }
+
 
     /**
      * This method gets called when a bound property is changed.

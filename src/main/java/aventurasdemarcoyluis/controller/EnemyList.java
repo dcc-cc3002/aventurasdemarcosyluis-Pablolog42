@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.enemies.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -90,13 +91,13 @@ public class EnemyList {
         switch (type) {
             // Note: MAXHP has to be grater than hp, and hp has to be grater than 1
             case GOOMBA -> {
-                return new Goomba(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3], this.controller);
+                return controller.createEnemy(EntityType.GOOMBA, stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);//new Goomba(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);
             }
             case BOO -> {
-                return new Boo(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3], this.controller);
+                return controller.createEnemy(EntityType.BOO,stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]); //new Boo(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);
             }
             case SPINY -> {
-                return new Spiny(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3], this.controller);
+                return controller.createEnemy(EntityType.SPINY,stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);//new Spiny(stats[0], stats[1], stats[2] + 1, stats[2] + 2, stats[3]);
             }
         }
         return null;

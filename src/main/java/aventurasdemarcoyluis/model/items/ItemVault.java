@@ -1,9 +1,5 @@
-package aventurasdemarcoyluis.controller;
+package aventurasdemarcoyluis.model.items;
 
-import aventurasdemarcoyluis.model.items.AbstractItem;
-import aventurasdemarcoyluis.model.items.HoneySyrup;
-import aventurasdemarcoyluis.model.items.ItemType;
-import aventurasdemarcoyluis.model.items.RedMushroom;
 import org.jetbrains.annotations.NotNull;
 
 /**

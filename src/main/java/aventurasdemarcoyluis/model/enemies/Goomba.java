@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /*
     Goomba enemy Class
  */
-public class Goomba extends AbstractEnemy {
+public class Goomba extends AbstractEnemy implements InterGoombaSpiny {
 
     /**
      * Creates a new Goomba
@@ -19,8 +19,8 @@ public class Goomba extends AbstractEnemy {
      * @param LVL   level of the Unit
      * @param controller
      */
-    public Goomba(double ATK, double DEF, double HP, double MAXHP, int LVL, GameController controller) {
-        super(ATK, DEF, HP, MAXHP, LVL, EntityType.GOOMBA, controller);
+    public Goomba(double ATK, double DEF, double HP, double MAXHP, int LVL) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.GOOMBA);
     }
 
     /**
@@ -28,7 +28,6 @@ public class Goomba extends AbstractEnemy {
      *
      * @param player The player being attacked.
      **/
-    @Override
     public void attack(@NotNull InterMainCharacter player) {
         player.enemyAttacking(this);
     }

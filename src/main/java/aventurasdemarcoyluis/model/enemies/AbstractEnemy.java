@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.model.enemies;
 
 
 import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.model.AbstractEntity;
 import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.InterEntity;
@@ -9,10 +10,10 @@ import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
 
-/*
+/**
     Abstract representation of an Enemy.
     An enemy is a specific kind of Entity.
- */
+ **/
 public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy {
 
 
@@ -27,8 +28,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
      * @param TYPE  type of the enemy (see enum "EnemyType")
      * @param controller
      */
-    public AbstractEnemy(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE, GameController controller) {
-        super(ATK, DEF, HP, MAXHP, LVL, TYPE, controller);
+    public AbstractEnemy(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE) {
+        super(ATK, DEF, HP, MAXHP, LVL, TYPE);
     }
 
     /**
@@ -50,7 +51,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
      * @param player The player sending the attack Message
      **/
     @Override
-    public void playerHammerAttacking(InterMainCharacter player) {
+    public void playerHammerAttacking(InterMainCharacter player) throws InvalidAttackException {
         this.receiveDamage(this.computeDmg(1.5, player));
     }
 
@@ -61,7 +62,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
      * @param player The player sending the attack Message
      **/
     @Override
-    public void playerJumpAttacking(InterMainCharacter player) {
+    public void playerJumpAttacking(InterMainCharacter player) throws InvalidAttackException {
         this.receiveDamage(this.computeDmg(1, player));
     }
 

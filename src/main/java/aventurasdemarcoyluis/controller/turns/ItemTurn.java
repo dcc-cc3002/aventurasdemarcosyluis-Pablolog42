@@ -1,8 +1,8 @@
 package aventurasdemarcoyluis.controller.turns;
 
 import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.ItemVault;
-import aventurasdemarcoyluis.controller.Player;
+import aventurasdemarcoyluis.model.items.ItemVault;
+import aventurasdemarcoyluis.model.Player;
 import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;

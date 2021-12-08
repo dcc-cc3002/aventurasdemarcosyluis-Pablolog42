@@ -22,8 +22,8 @@ public abstract class AbstractEntity implements InterEntity {
     private boolean isKO;
     private final EntityType type;
 
-    private EntityKoHandler entityKoHandler;
-    private PropertyChangeSupport entityKoHandlerSupport;
+    private final EntityKoHandler entityKoHandler;
+    private final PropertyChangeSupport entityKoHandlerSupport;
 
     /**
      * Creates a new AbstractEnemy
@@ -44,26 +44,16 @@ public abstract class AbstractEntity implements InterEntity {
         type = TYPE;
         // By default, every entity is not KO
         isKO = false;
-    }
 
-    public AbstractEntity(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE, GameController controller) {
-        this.atk = ATK;
-        def = DEF;
-        hp = HP;
-        maxHP = MAXHP;
-        lvl = LVL;
-        type = TYPE;
-        // By default, every entity is not KO
-        isKO = false;
-        this.controller = controller;
-
-        entityKoHandler = new EntityKoHandler(controller);
+        // By default, we add a KO handler with no contoller.
+        entityKoHandler = new EntityKoHandler();
         entityKoHandlerSupport = new PropertyChangeSupport(this);
-
 
         // we subscribe to the entity KO listener in case a controller has been specified.
         entityKoHandlerSupport.addPropertyChangeListener(entityKoHandler);
     }
+
+
 
 
     /**
@@ -121,6 +111,17 @@ public abstract class AbstractEntity implements InterEntity {
     @Override
     public double computeDmg(double k, @NotNull InterEntity attacker) {
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
+    }
+
+    /**
+     * Sets the controller to the entities KO handler.
+     * If this method isn't called when creating an entity, the checkForKO observer
+     * won't work.
+     *
+     * @param controller the controller to be added th the KO handler.
+     */
+    public void setControllerToEntityHandler(GameController controller){
+        this.entityKoHandler.setController(controller);
     }
 
 

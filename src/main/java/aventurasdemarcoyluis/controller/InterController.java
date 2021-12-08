@@ -6,7 +6,7 @@ import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.turns.TurnType;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.AbstractEnemy;
+import aventurasdemarcoyluis.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.model.items.ItemType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +43,7 @@ public interface InterController {
      * @param lvl   The level of the unit to create.
      * @return The InterMainCharacter created
      */
-    AbstractEnemy createEnemy(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int lvl);
+    InterEnemy createEnemy(@NotNull EntityType type, double atk, double def, double hp, double maxHP, int lvl);
 
     /**
      * Adds an amount of 1 item of a given type to the controler player's vault.

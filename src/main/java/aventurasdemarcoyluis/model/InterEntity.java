@@ -1,6 +1,8 @@
 package aventurasdemarcoyluis.model;
 
+import aventurasdemarcoyluis.controller.GameController;
 
+//TODO documentar
 public interface InterEntity {
     /**
      * Infringes a certain amount of damage to an entity
@@ -36,6 +38,9 @@ public interface InterEntity {
      * @param player The AbstractEntity currently attacking
      */
     double computeDmg(double k, InterEntity player);
+
+
+    void setControllerToEntityHandler(GameController controller);
 
     /**
      * Gets the attack of an entity

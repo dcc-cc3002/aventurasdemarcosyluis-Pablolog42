@@ -1,5 +1,6 @@
 package aventurasdemarcoyluis.controller;
 
+import aventurasdemarcoyluis.model.Player;
 import aventurasdemarcoyluis.model.items.ItemType;
 
 /**

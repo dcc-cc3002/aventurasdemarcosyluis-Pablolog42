@@ -5,10 +5,10 @@ import aventurasdemarcoyluis.model.EntityType;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-/*
+/**
     Spiny enemy Class
  */
-public class Spiny extends AbstractEnemy {
+public class Spiny extends AbstractEnemy implements InterGoombaSpiny {
 
     /**
      * Creates a new Spiny
@@ -17,10 +17,9 @@ public class Spiny extends AbstractEnemy {
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
-     * @param controller
      */
-    public Spiny(double ATK, double DEF, double HP, double MAXHP, int LVL, GameController controller) {
-        super(ATK, DEF, HP, MAXHP, LVL, EntityType.SPINY, controller);
+    public Spiny(double ATK, double DEF, double HP, double MAXHP, int LVL) {
+        super(ATK, DEF, HP, MAXHP, LVL, EntityType.SPINY);
     }
 
     /**
@@ -28,7 +27,7 @@ public class Spiny extends AbstractEnemy {
      *
      * @param player The player being attacked.
      **/
-    @Override
+
     public void attack(@NotNull InterMainCharacter player) {
         player.enemyAttacking(this);
     }

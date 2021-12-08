@@ -5,6 +5,7 @@ import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.model.enemies.InterEnemy;
+import aventurasdemarcoyluis.model.enemies.InterGoombaSpiny;
 import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
 
 /**
@@ -37,7 +38,21 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
         InterEnemy attackingEnemy = this.controller.getEnemyList().retrieveRandomEnemy();
 
         // Fight! https://pbs.twimg.com/media/DTMfiQOU0AEWIYA.jpg
-        attackingEnemy.attack(this.involvedMainCharacter);
+
+        switch (involvedMainCharacter.getType()){
+            case MARCO -> {
+                try {
+                    InterGoombaSpiny enemy = (InterGoombaSpiny) attackingEnemy;
+                    enemy.attack(involvedMainCharacter);
+                } // In case the casting fails
+                catch (Exception e){
+                    throw new InvalidAttackException("Boo can't attack Marco");
+                }
+            }
+            case LUIS -> {
+                attackingEnemy.attack(this.involvedMainCharacter);
+            }
+        }
     }
 
 

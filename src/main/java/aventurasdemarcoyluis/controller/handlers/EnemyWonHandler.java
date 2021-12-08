@@ -7,11 +7,9 @@ import java.beans.PropertyChangeListener;
 
 public class EnemyWonHandler implements Handler {
 
-    private final GameController controller;
+    private GameController controller=null;
 
-    public EnemyWonHandler(GameController controller){
-        this.controller=controller;
-    }
+
 
     /**
      * This method gets called when a bound property is changed.
@@ -22,5 +20,15 @@ public class EnemyWonHandler implements Handler {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    /**
+     * Sets the handlers' controller.
+     *
+     * @param controller The controller to set.
+     */
+    @Override
+    public void setController(GameController controller) {
+        this.controller=controller;
     }
 }

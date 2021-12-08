@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-/*
+/**
     Abstract representation of a MainCharacter.
     A player is a specific kind of Entity.
  */
@@ -30,10 +30,9 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
      * @param TYPE  type of the enemy (see enum "EnemyType")
-     * @param controller
      */
-    public AbstractMainCharacter(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE, GameController controller) {
-        super(ATK, DEF, HP, MAXHP, LVL, TYPE, controller);
+    public AbstractMainCharacter(double ATK, double DEF, int FP, int MAXFP, double HP, double MAXHP, int LVL, EntityType TYPE) {
+        super(ATK, DEF, HP, MAXHP, LVL, TYPE);
         this.fp = FP;
         this.maxFP = MAXFP;
     }
@@ -68,11 +67,11 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void jumpAttackAction(InterEnemy enemy) throws InvalidAttackException {
+    protected void jumpAttackAction(InterEnemy enemy) throws InvalidAttackException {
         int fpCost = 1;
         int targetFP = this.getFp() - fpCost;
-        // In case the attack is not a legal move, exit the method
 
+        // In case the attack is not a legal move, throw an exception.
         validateAttack(fpCost);
 
 
@@ -93,7 +92,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
      *
      * @param enemy The enemy to send the attack message to
      */
-    public void hammerAttackAction(InterEnemy enemy) throws InvalidAttackException {
+    protected void hammerAttackAction(InterEnemy enemy) throws InvalidAttackException {
         int fpCost = 2;
         int targetFP = this.getFp() - fpCost;
 
@@ -190,25 +189,7 @@ public abstract class AbstractMainCharacter extends AbstractEntity implements In
         item.useItem(this);
     }
 
-    /**
-     * Jump-Attacks a Goomba.
-     * Sends DD message to jumpAttack() method.
-     *
-     * @param enemy The enemy to send the attack message to
-     */
-    public void jumpAttack(InterEnemy enemy) throws InvalidAttackException {
-        this.jumpAttackAction(enemy);
-    }
 
-    /**
-     * Hammer-Attacks an enemy.
-     * Sends DD message to hammerAttack() method.
-     *
-     * @param enemy The enemy to send the attack message to
-     */
-    public void hammerAttack(InterEnemy enemy) throws InvalidAttackException {
-        this.hammerAttackAction(enemy);
-    }
 
     /**
      * Executes the lvlUp routine for the MainCharacter, increasing all stats according to the given level.

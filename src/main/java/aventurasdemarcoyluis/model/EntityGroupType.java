@@ -1,4 +1,4 @@
-package aventurasdemarcoyluis.controller;
+package aventurasdemarcoyluis.model;
 
 public enum EntityGroupType {
     PLAYERGROUP,ENEMYGROUP

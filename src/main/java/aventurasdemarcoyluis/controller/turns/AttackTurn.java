@@ -94,19 +94,8 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
      *                        2 -> Hammer Attack
      * @param attackedEnemy   Selects the enemy who receives the performed attack.
      */
-    public void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
-        switch (attackSelection) {
-            // TODO: integration with model
-            case JUMP -> involvedMainCharacter.jumpAttack(attackedEnemy);
-            case HAMMER -> involvedMainCharacter.hammerAttack(attackedEnemy);
-            default -> {
-                try {
-                    throw new InvalidSelectionException("No se ha seleccionado un tipo de ataque, o el tipo seleccionado no es válido");
-                }catch (InvalidSelectionException e){
-                    main();
-                }
-            }
-        }
+    public void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidAttackException {
+        controller.tryToMakeCharacterAttack(attackSelection, this.involvedMainCharacter, attackedEnemy);
     }
 
     /**
