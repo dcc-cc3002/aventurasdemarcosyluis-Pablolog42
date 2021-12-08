@@ -89,6 +89,34 @@ GameController implements InterController {
 
     }
 
+    public GameController(String playerName) {
+
+        // The player's mario always plays first
+        this.currentTurnOwner = TurnOwner.MARCO;
+        // This should be luis
+        this.nextTurnOwner = calculateNextTurnOwner(getCurrentTurnOwner());
+
+        this.mainPlayer = new Player(playerName, this);
+
+        this.mainCharacterList = new ArrayList<>();
+
+        mainCharacterList.add(mainPlayer.getMarco());
+        mainCharacterList.add(mainPlayer.getLuis());
+
+        activeMainCharacterList.initialSetup();
+
+        this.enemyList = new EnemyList(this);
+
+        this.playerWon = false;
+        this.gameFinished = false;
+
+
+    }
+
+    public void runFirstBattle() {
+        this.phase = new StartBattlePhase(this);
+    }
+
 
     /**
      * Lets the controller create a mainCharacter
@@ -187,12 +215,17 @@ GameController implements InterController {
             this.playerLvlUp();
         }
 
+//        currentBattle.addInitialItems();
+        this.getPlayer().addAnItem(ItemType.HONEYSYRUP,3);
+        this.getPlayer().addAnItem(ItemType.REDMUSHROOM,3);
+
+
         // After the levelup routine, the player's characters will be updated, but not the active main characters yet.
         this.activeMainCharacterList.restoreList(getPlayer().getMarco(),getPlayer().getLuis());
 
 
         currentBattle.setRandomEnemyList();
-        currentBattle.addInitialItems();
+
 
 
 

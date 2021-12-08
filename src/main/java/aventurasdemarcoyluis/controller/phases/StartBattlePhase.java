@@ -67,6 +67,7 @@ public class StartBattlePhase extends Phase{
     @Override
     public void battleSetUpRoutine(){
         controller.createAndSetNewBattle();
+
         isBattleSetup = true;
     }
 

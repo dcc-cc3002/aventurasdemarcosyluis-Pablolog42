@@ -61,6 +61,7 @@ public class Player {
 
         this.playerName = name;
         this.playerVault = new ItemVault();
+        this.battleNumber=0;
      }
 
 
