@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AventurasdeMarcoyLuis:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AventurasdeMarcoyLuis_jar</output-path>
+    <root id="archive" name="AventurasdeMarcoyLuis.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/aventurasdemarcosyluis/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="AventurasdeMarcoyLuis.main" />
+    </root>
+  </artifact>
+</component>

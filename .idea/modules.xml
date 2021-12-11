@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis-Pablolog42.iml" filepath="$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis-Pablolog42.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis/aventurasdemarcosyluis-Pablolog42.aventurasdemarcosyluis.iml" filepath="$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis/aventurasdemarcosyluis-Pablolog42.aventurasdemarcosyluis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis/aventurasdemarcosyluis-Pablolog42.aventurasdemarcosyluis.main.iml" filepath="$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis/aventurasdemarcosyluis-Pablolog42.aventurasdemarcosyluis.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis/aventurasdemarcosyluis-Pablolog42.aventurasdemarcosyluis.test.iml" filepath="$PROJECT_DIR$/.idea/modules/aventurasdemarcosyluis/aventurasdemarcosyluis-Pablolog42.aventurasdemarcosyluis.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AventurasDeMarcoYLuis2.iml" filepath="$PROJECT_DIR$/.idea/modules/AventurasDeMarcoYLuis2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AventurasDeMarcoYLuis2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AventurasDeMarcoYLuis2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AventurasDeMarcoYLuis2.test.iml" filepath="$PROJECT_DIR$/.idea/modules/AventurasDeMarcoYLuis2.test.iml" />
     </modules>
   </component>
 </project>
