@@ -70,7 +70,7 @@ public class WaitSelectTurnTypePhase extends Phase {
         assert isTurnTypeSelected;
 
         switch (controller.getCurrentTurn().getType()){
-            case ITEM -> {this.toNextPhase(new WaitSelectItemPhase(controller));}
+            case ITEM -> this.toNextPhase(new WaitSelectItemPhase(controller));
             case ATTACK -> this.toNextPhase(new WaitSelectAttackTypePhase(controller));
             case ENEMY ->  this.toNextPhase(new StartPassingTurnPhase(controller));
         }

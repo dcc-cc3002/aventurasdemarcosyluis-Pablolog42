@@ -55,10 +55,12 @@ public class WaitSelectItemPhase extends Phase {
     public void selectItem(ItemType type){
         try{
             this.selectedItem = controller.retrieveItemFromPlayerVault(type).getType();
+            itemSelected = true;
         } catch (InvalidSelectionException e){
             e.printStackTrace();
             return;
         }
+
         toNextPhase(new UseItemPhase(controller, this.selectedItem));
     }
 

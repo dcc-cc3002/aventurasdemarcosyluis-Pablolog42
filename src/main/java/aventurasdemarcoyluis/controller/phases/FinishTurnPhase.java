@@ -2,9 +2,6 @@ package aventurasdemarcoyluis.controller.phases;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
-import aventurasdemarcoyluis.controller.turns.TurnType;
-import aventurasdemarcoyluis.model.AttackType;
-import aventurasdemarcoyluis.model.items.ItemType;
 
 public class FinishTurnPhase extends Phase{
 
@@ -48,6 +45,10 @@ public class FinishTurnPhase extends Phase{
     }
 
 
+    @Override
+    public PhaseType calculateNextPhaseAfterTurnFinished(){
+        return null;
+    }
 
 
     /**

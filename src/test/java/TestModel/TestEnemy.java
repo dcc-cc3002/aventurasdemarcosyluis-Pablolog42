@@ -8,8 +8,8 @@ import aventurasdemarcoyluis.model.enemies.Spiny;
 import aventurasdemarcoyluis.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestEnemy {
@@ -41,10 +41,21 @@ public class TestEnemy {
         assertEquals(98, testBoo.getHp(), 0.001);
     }
 
+
+    @Test
+    public void booDodgesHammerAttackException() {
+        assertThrows(InvalidAttackException.class, () -> {
+            testBoo.playerHammerAttacking(testMarco); // Boo should dodge hammer Attack, and throw and exception by design
+        });
+
+        assertEquals(100, testBoo.getHp(), 0.001);
+    }
+
     @Test
     public void hammerAttackingTest() throws InvalidAttackException {
-        testBoo.playerHammerAttacking(testMarco); // Boo should dodge hammer Attack
-        assertEquals(100, testBoo.getHp(), 0.001);
+
+
+
 
         testGoomba.playerHammerAttacking(testMarco); // This attack should always deal dmg, as the fail logic is programed onto the first double dispatch call.
         boolean expectedFirstAttack = testGoomba.getHp() == 7.5; // hammerAttack can fail

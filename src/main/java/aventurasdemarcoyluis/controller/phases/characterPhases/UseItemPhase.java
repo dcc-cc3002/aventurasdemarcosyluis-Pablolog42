@@ -2,6 +2,7 @@ package aventurasdemarcoyluis.controller.phases.characterPhases;
 
 import aventurasdemarcoyluis.controller.GameController;
 import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.controller.phases.FinishTurnPhase;
 import aventurasdemarcoyluis.controller.phases.Phase;
 import aventurasdemarcoyluis.controller.phases.PhaseType;
@@ -27,8 +28,6 @@ public class UseItemPhase extends Phase {
         this.itemToBeUsed = selectedItem;
     }
 
-
-
     /**
      * Try to transition to next phase, according to the current
      * phase change prerequisites.
@@ -37,7 +36,11 @@ public class UseItemPhase extends Phase {
      */
     @Override
     public void toNextPhase(Phase phase) {
-
+        try {
+            controller.tryToChangePhase(phase);
+        } catch (InvalidTransitionException e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -49,7 +52,8 @@ public class UseItemPhase extends Phase {
      */
     @Override
     public boolean validatePhaseChange(Phase phaseToBeChanged) {
-        return false;
+        boolean r1 = phaseToBeChanged.getType() == PhaseType.FINISHTURNPHASE;
+        return r1 && hasItemBeenUsed;
     }
 
     // will use item and try to transition to finish phase
@@ -60,7 +64,10 @@ public class UseItemPhase extends Phase {
             e.printStackTrace();
             return;
         }
+
         hasItemBeenUsed = true;
+        toNextPhase(new FinishTurnPhase(controller));
+
     }
 
 

@@ -92,6 +92,11 @@ public abstract class Phase implements InterPhase{
     }
 
 
+    // Finish turn
+    public PhaseType calculateNextPhaseAfterTurnFinished() throws InvalidSelectionException{
+        throw new InvalidSelectionException("The next phase can't be calculated at the current " + phaseType + " phase.");
+    };
+
     public PhaseType getType() {
         return phaseType;
     }
