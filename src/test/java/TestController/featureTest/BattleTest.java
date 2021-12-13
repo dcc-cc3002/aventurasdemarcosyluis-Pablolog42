@@ -1,9 +1,9 @@
 package TestController.featureTest;//package TestController.featureTest;
 //
-//import aventurasdemarcoyluis.controller.GameController;
-//import aventurasdemarcoyluis.controller.Player;
-//import aventurasdemarcoyluis.model.maincharacters.Luis;
-//import aventurasdemarcoyluis.model.maincharacters.Marco;
+//import aventurasdemarcoyluis.backend.controller.GameController;
+//import aventurasdemarcoyluis.backend.controller.Player;
+//import aventurasdemarcoyluis.backend.model.maincharacters.Luis;
+//import aventurasdemarcoyluis.backend.model.maincharacters.Marco;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //

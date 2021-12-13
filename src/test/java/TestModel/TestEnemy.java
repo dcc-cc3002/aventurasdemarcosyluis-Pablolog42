@@ -1,11 +1,12 @@
 package TestModel;
 
-import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
-import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.Boo;
-import aventurasdemarcoyluis.model.enemies.Goomba;
-import aventurasdemarcoyluis.model.enemies.Spiny;
-import aventurasdemarcoyluis.model.maincharacters.Marco;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.backend.model.EntityType;
+import aventurasdemarcoyluis.backend.model.enemies.Boo;
+import aventurasdemarcoyluis.backend.model.enemies.Goomba;
+import aventurasdemarcoyluis.backend.model.enemies.Spiny;
+import aventurasdemarcoyluis.backend.model.maincharacters.Luis;
+import aventurasdemarcoyluis.backend.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ public class TestEnemy {
     private Boo testBoo;
     private Marco testMarco;
     private Spiny testSpiny;
+    private Luis testLuis;
 
     @BeforeEach
     public void setUp() {
@@ -27,6 +29,8 @@ public class TestEnemy {
         testMarco = new Marco(10,10,10,1000,10,10,2);
 
         testSpiny = new Spiny(10,1,1,100,1);
+
+        testLuis = new Luis(10,10,10,10,10,10,10);
     }
 
     @Test
@@ -71,5 +75,9 @@ public class TestEnemy {
         assertEquals(9.5,testMarco.getHp(),0.001); // Marco's HP should decrease by 0.5
     }
 
+    @Test
+    public void booAttackTest() throws InvalidAttackException {
+        testBoo.attack(testLuis);
+    }
 
 }

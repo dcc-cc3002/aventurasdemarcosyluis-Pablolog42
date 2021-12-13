@@ -5,20 +5,19 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="AventurasDeMarcoYLuis2.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:22.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.8.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:mac:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:win:17" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:17" level="project" />
-    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:mac:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:win:17" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:17" level="project" />
-    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:mac:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:17" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:17" level="project" />
-    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:mac:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:17" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apiguardian:apiguardian-api:1.1.2" level="project" />

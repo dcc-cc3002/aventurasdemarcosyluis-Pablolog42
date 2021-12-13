@@ -1,6 +1,6 @@
-import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.turns.TurnOwner;
-import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.turns.TurnOwner;
+import aventurasdemarcoyluis.backend.model.EntityType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

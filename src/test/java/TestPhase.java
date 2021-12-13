@@ -1,15 +1,16 @@
-import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
-import aventurasdemarcoyluis.controller.phases.PhaseType;
-import aventurasdemarcoyluis.controller.phases.characterPhases.UseItemPhase;
-import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectItemPhase;
-import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
-import aventurasdemarcoyluis.controller.turns.TurnType;
-import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.AttackPhase;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectAttackTypePhase;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.backend.controller.turns.TurnType;
+import aventurasdemarcoyluis.backend.model.AttackType;
+import aventurasdemarcoyluis.backend.model.items.ItemType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestPhase {
 
@@ -45,8 +46,49 @@ public class TestPhase {
 
     }
 
+
+    /**
+     * Requisito 1:
+     * Definir tests en los que se decida arbitrariamente usar un item
+     */
     @Test
-    public void invalidTransitionTest(){
+    public void arbitraryItemPhase() throws InvalidSelectionException {
+        controller.runFirstBattle();
+        assertTrue(currentPhaseEquals(PhaseType.STARTBATTLEPHASE));
+        controller.getCurrentPhase().toNextPhase(new WaitSelectTurnTypePhase(controller));
+        assertTrue(currentPhaseEquals(PhaseType.WAITSELECTTURNTYPEPHASE));
+        controller.getCurrentPhase().selectTurnKind(TurnType.ITEM);
+        assertTrue(currentPhaseEquals(PhaseType.WAITSELECTITEMPHASE));
+
+
+    }
+
+    @Test
+    public void arbitraryAttackPhase() throws InvalidSelectionException{
+        // Inicio de Turno
+        controller.runFirstBattle();
+
+        // The user arbitrarily selects an attack turn.
+        controller.getCurrentPhase().toNextPhase(new WaitSelectTurnTypePhase(controller));
+
+        controller.getCurrentPhase().selectTurnKind(TurnType.ATTACK);
+
+
+        // Once the user has selected the attack turn type, the controller will automatically
+        // select and deploy the waitSelectAttackTypePhase, and wil start to listen for which attack the user wants to perform.
+        controller.getCurrentPhase().selectAttackType(AttackType.JUMP);
+
+        // once the user has selected the attack, the controller will wait for
+        // the user to select wich enemy to attack.
+        assertEquals(PhaseType.WAITSELECTENEMYTOBEATTACKEDPHASE, controller.getCurrentPhase().getType());
+
+
+        // We attack the first enemy with marco.
+        controller.getCurrentPhase().selectEnemyToBeAttacked(1);
+
+        // The controller automatically performs the requested attack, and finishes the turn by setting the new phase.
+        // to a FinishTurnPhase()
+        assertEquals(PhaseType.FINISHTURNPHASE,controller.getCurrentPhase().getType());
 
     }
 

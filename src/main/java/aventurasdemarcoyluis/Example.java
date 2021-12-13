@@ -1,14 +1,14 @@
 package aventurasdemarcoyluis;
 
-import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
-import aventurasdemarcoyluis.controller.exeptions.InvalidSelectionException;
-import aventurasdemarcoyluis.controller.exeptions.InvalidTransitionException;
-import aventurasdemarcoyluis.controller.phases.FinishTurnPhase;
-import aventurasdemarcoyluis.controller.phases.characterPhases.StartPassingTurnPhase;
-import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
-import aventurasdemarcoyluis.controller.turns.TurnType;
-import aventurasdemarcoyluis.model.AttackType;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.backend.controller.phases.FinishTurnPhase;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.StartPassingTurnPhase;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.backend.controller.turns.TurnType;
+import aventurasdemarcoyluis.backend.model.AttackType;
 
 public class Example {
 
@@ -50,11 +50,9 @@ public class Example {
         controller.getCurrentPhase().selectEnemyToBeAttacked(1);
 
         // The attack is performed intermediately after selecting validly an attack type, and which enemy to attack.
+        // thus, this should be a finish turn phase.
         System.out.println(controller.getCurrentPhase().getType());
 
-        controller.getCurrentPhase().toNextPhase(new FinishTurnPhase(controller));
-
-        System.out.println(controller.getCurrentPhase().getType());
 
 
 

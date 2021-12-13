@@ -1,8 +1,12 @@
 package aventurasdemarcoyluis.view;
 
-import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.phases.characterPhases.WaitSelectTurnTypePhase;
-import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidSelectionException;
+import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectItemPhase;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.backend.controller.turns.TurnType;
+import aventurasdemarcoyluis.backend.model.EntityType;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -58,15 +62,15 @@ public class MainGUI extends Application {
         entradaNombre.setPromptText("Ingrese su nombre...");
 
 
-        Button button1 = new Button("Seleccionar");
+        Button selectButton = new Button("Seleccionar");
 
-        button1.setOnAction(event -> {
-            String playerName = entradaNombre.getText();
-            controller = new GameController(playerName);
+        selectButton.setOnAction(event -> {
+                    String playerName = entradaNombre.getText();
+                    controller = new GameController(playerName);
 
-            button1.setDisable(true);
-            startUpSequence();
-            }
+                    selectButton.setDisable(true);
+                    startUpSequence();
+                }
         );
 
 
@@ -84,11 +88,66 @@ public class MainGUI extends Application {
         mainTextArea = new TextArea();
 
 
-        Button button2 = new Button("1");
-        Button button3 = new Button("2");
-        Button button4 = new Button("3");
-        Button button5 = new Button("4");
-        Button button6 = new Button("5");
+        Button button1 = new Button("Boton 1");
+        Button button2 = new Button("Boton 2");
+        Button button3 = new Button("Boton 3");
+        Button button4 = new Button("Boton 4");
+        Button button5 = new Button("Boton 5");
+
+
+
+
+        // HANDLER DE BOTONES
+        // se hace el handling de lo presionado, acorde a la fase en la que se encuente el controlador.
+
+        button1.setOnAction(event -> {
+                    switch (controller.getCurrentPhase().getType()){
+                        case WAITSELECTTURNTYPEPHASE -> {
+                            // en este caso, el boton 1 selecciona el turno de item
+                            try {
+                                controller.tryToSelectNewTurnKind(TurnType.ITEM);
+                                mainTextArea.appendText("\n Item Turn Selected!");
+                                controller.getCurrentPhase().toNextPhase(new WaitSelectItemPhase(controller));
+                            } catch (InvalidSelectionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        case WAITSELECTITEMPHASE -> {
+
+                        }
+
+                        case WAITSELECTATTACKTYPEPHASE -> {
+
+                        }
+
+
+                        case WAITSELECTENEMYTOBEATTACKEDPHASE -> {
+
+                        }
+
+                        default -> {}
+
+
+                    }
+
+
+
+                }
+        );
+        button2.setOnAction(event -> {
+                }
+        );
+        button3.setOnAction(event -> {
+                }
+        );
+        button4.setOnAction(event -> {
+                }
+        );
+        button5.setOnAction(event -> {
+                }
+        );
+
 
 
 
@@ -97,17 +156,19 @@ public class MainGUI extends Application {
         int buttonBarHeight = 14;
 
         gridPane.add(entradaNombre,2,3,3,1);
-        gridPane.add(button1,5,3);
+        gridPane.add(selectButton,5,3);
 
         gridPane.add(mainTextArea, 1+dx, 4, 15, 10);
-        gridPane.add(button2, 1+dx, buttonBarHeight, 1, 1);
-        gridPane.add(button3, 2+dx, buttonBarHeight, 1, 1);
-        gridPane.add(button4, 3+dx, buttonBarHeight, 1, 1);
-        gridPane.add(button5, 4+dx, buttonBarHeight, 1, 1);
-        gridPane.add(button6, 5+dx, buttonBarHeight, 1, 1);
+        gridPane.add(button1, 1+dx, buttonBarHeight, 1, 1);
+        gridPane.add(button2, 2+dx, buttonBarHeight, 1, 1);
+        gridPane.add(button3, 3+dx, buttonBarHeight, 1, 1);
+        gridPane.add(button4, 4+dx, buttonBarHeight, 1, 1);
+        gridPane.add(button5, 5+dx, buttonBarHeight, 1, 1);
 
 
         root.getChildren().add(gridPane);
+
+
 
 
 
@@ -118,6 +179,7 @@ public class MainGUI extends Application {
     }
 
     private void startUpSequence() {
+
         controller.runFirstBattle();
 
         mainTextArea.appendText("Bienvenid@, " + controller.getPlayer().getPlayerName() + "!");
@@ -142,8 +204,19 @@ public class MainGUI extends Application {
     private void selectTurnTypeSequence() {
         String personajePrincipal = "Usted está jugando este turno con: " + controller.getCurrentTurnMainCharacter();
 
-        String inicioSelectionTurno = "\n" +
-                                        "-";
+        String inicioSelectionTurno = """
+
+                Por favor, seleccione el tipo de turno:\s
+                1. Item    2. Ataque    3. Pasar""".indent(1);
+
+        mainTextArea.appendText(personajePrincipal);
+        mainTextArea.appendText(inicioSelectionTurno);
+
+    }
+
+
+    private void updatePhaseButton(PhaseType phaseType){
+
     }
 
 }

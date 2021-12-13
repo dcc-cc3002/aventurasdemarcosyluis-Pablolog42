@@ -1,13 +1,10 @@
 package aventurasdemarcoyluis;
 
-import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.controller.exeptions.InvalidAttackException;
-import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.Boo;
-import aventurasdemarcoyluis.model.enemies.InterEnemy;
-import aventurasdemarcoyluis.model.maincharacters.InterMainCharacter;
-import aventurasdemarcoyluis.model.maincharacters.Luis;
-import aventurasdemarcoyluis.model.maincharacters.Marco;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.backend.model.EntityType;
+import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
+import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
 public class Test3 {
     public static void main(String[] args) throws InvalidAttackException {

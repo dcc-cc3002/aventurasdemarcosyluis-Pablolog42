@@ -1,8 +1,8 @@
 package TestController.unitTest;
 
-import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.GameController;
 
-import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.backend.model.items.ItemType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

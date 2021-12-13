@@ -1,7 +1,7 @@
 package aventurasdemarcoyluis;
 
-import aventurasdemarcoyluis.controller.GameController;
-import aventurasdemarcoyluis.model.EntityType;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.model.EntityType;
 
 public class Example2 {
     public static void main(String[] args) {
