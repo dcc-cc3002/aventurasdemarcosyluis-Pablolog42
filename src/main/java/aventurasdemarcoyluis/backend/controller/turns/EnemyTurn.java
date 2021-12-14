@@ -39,6 +39,8 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
 
         // Fight! https://pbs.twimg.com/media/DTMfiQOU0AEWIYA.jpg
 
+        System.out.println(attackingEnemy + " ataca aleatoriamente a " + involvedMainCharacter.getType());
+
         switch (involvedMainCharacter.getType()){
             case MARCO -> {
                 try {
@@ -57,8 +59,6 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
 
 
     // TODO: Esto es lo más feo que he visto en mucho tiempo. Hay que cambiarlo y pedir perdón por nuestros pecados.
-
-
     /**
      * Randomly selects the main character to attack form the player. In case one character is KO,
      * selects the other character.

@@ -44,6 +44,6 @@ public class Luis extends AbstractMainCharacter implements InterLuis {
      */
     @Override
     public void hammerAttack(InterGoombaSpiny enemy) throws InvalidAttackException {
-        this.jumpAttackAction(enemy);
+        this.hammerAttackAction(enemy);
     }
 }

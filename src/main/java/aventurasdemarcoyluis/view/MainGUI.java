@@ -7,6 +7,7 @@ import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelec
 import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
 import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 import aventurasdemarcoyluis.backend.model.EntityType;
+import aventurasdemarcoyluis.backend.model.items.ItemType;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 
 public class MainGUI extends Application {
@@ -27,9 +29,12 @@ public class MainGUI extends Application {
     private final Group root = new Group();
     private TextArea mainTextArea;
 
+
+    public static Label phaseLabel = new Label("Phase not selected");
+
     private Button start;
     private Label pasos;
-    private Label phaseLabel;
+
     private Label ownerLabel;
     private Label opponentLabel;
     private Label winnerLabel;
@@ -93,6 +98,7 @@ public class MainGUI extends Application {
         Button button3 = new Button("Boton 3");
         Button button4 = new Button("Boton 4");
         Button button5 = new Button("Boton 5");
+        Button button6 = new Button("Boton 6");
 
 
 
@@ -105,15 +111,43 @@ public class MainGUI extends Application {
                         case WAITSELECTTURNTYPEPHASE -> {
                             // en este caso, el boton 1 selecciona el turno de item
                             try {
-                                controller.tryToSelectNewTurnKind(TurnType.ITEM);
+                                controller.getCurrentPhase().selectTurnKind(TurnType.ITEM);
                                 mainTextArea.appendText("\n Item Turn Selected!");
-                                controller.getCurrentPhase().toNextPhase(new WaitSelectItemPhase(controller));
+
+                                mainTextArea.appendText("\n Please Select which item you want " + controller.getCurrentTurnMainCharacter().getType() + " to use from the vault:");
+                                mainTextArea.appendText("\n" + controller.getPlayer().getPlayerVault().toString());
+
+                                mainTextArea.appendText("\n 1. Use HoneySyrup      2. Use Red Mushroom");
+
+
+                                System.out.println(controller.getCurrentPhase().getType());
                             } catch (InvalidSelectionException e) {
                                 e.printStackTrace();
                             }
                         }
 
+                        // In this phase, button 1 behaves as a Use HoneySyrup button
                         case WAITSELECTITEMPHASE -> {
+                            try {
+                                controller.getCurrentPhase().selectItem(ItemType.HONEYSYRUP);
+                                mainTextArea.appendText("\n Honey Syrup selected successfully!");
+
+                                // this should be the use item phase.
+                                controller.getCurrentPhase().useSelectedItem();
+                                mainTextArea.appendText("\n " + controller.getCurrentTurnMainCharacter().getType() + "'s new stats are:" );
+                                mainTextArea.appendText("\n"+ controller.getCurrentTurnMainCharacter());
+
+                                mainTextArea.appendText("\n ** TURNO DE " + controller.getCurrentTurnMainCharacter().getType() + " FINALIZADO **" );
+
+                                //this should be the finish turn Phase, and
+                                controller.getCurrentPhase().toNextPhase(controller.getCurrentPhase().calculateNextPhaseAfterTurnFinished());
+
+
+                            } catch (InvalidSelectionException e) {
+                                // imprimo el error y no hago nada.
+                                mainTextArea.appendText("\n" + e.getMessage());
+                                e.printStackTrace();
+                            }
 
                         }
 
@@ -136,6 +170,43 @@ public class MainGUI extends Application {
                 }
         );
         button2.setOnAction(event -> {
+            switch (controller.getCurrentPhase().getType()){
+
+                case WAITSELECTTURNTYPEPHASE -> {
+                    // en este caso, el boton 2 selecciona el turno de ataque
+                    try {
+                        controller.getCurrentPhase().selectTurnKind(TurnType.ATTACK);
+                        mainTextArea.appendText("\n Attack Turn Selected!");
+
+                        // imprimo la lista de enemigos.
+                        mainTextArea.appendText("\n Please Select which enemy you want " + controller.getCurrentTurnMainCharacter().getType() + " to attack:");
+                        mainTextArea.appendText("\n" + controller.getEnemyList().toString());
+
+
+                        mainTextArea.appendText("\n Select the button with the enemy number to attack from the list: ");
+
+
+                    } catch (InvalidSelectionException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                // In this phase, button 2 behaves as a Use RedMooshroom button
+                case WAITSELECTITEMPHASE -> {
+                    try {
+                        controller.getCurrentPhase().selectItem(ItemType.REDMUSHROOM);
+                        mainTextArea.appendText("\n Red Mushroom selected succesfully!");
+
+                    } catch (InvalidSelectionException e) {
+                        // imprimo el error y no hago nada.
+                        mainTextArea.appendText("\n" + e.getMessage());
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
                 }
         );
         button3.setOnAction(event -> {
@@ -148,12 +219,20 @@ public class MainGUI extends Application {
                 }
         );
 
+        button6.setOnAction(event -> {
+                }
+        );
+
+
+
 
 
 
         int dx = 1;
 
         int buttonBarHeight = 14;
+
+        phaseLabel.setText("Fase No seleccionada");
 
         gridPane.add(entradaNombre,2,3,3,1);
         gridPane.add(selectButton,5,3);
@@ -164,6 +243,9 @@ public class MainGUI extends Application {
         gridPane.add(button3, 3+dx, buttonBarHeight, 1, 1);
         gridPane.add(button4, 4+dx, buttonBarHeight, 1, 1);
         gridPane.add(button5, 5+dx, buttonBarHeight, 1, 1);
+        gridPane.add(button6, 6+dx, buttonBarHeight, 1, 1);
+
+        gridPane.add(phaseLabel, 7,3);
 
 
         root.getChildren().add(gridPane);
@@ -182,8 +264,13 @@ public class MainGUI extends Application {
 
         controller.runFirstBattle();
 
+        phaseLabel.setText(controller.getCurrentPhase().getType().toString());
+
+
         mainTextArea.appendText("Bienvenid@, " + controller.getPlayer().getPlayerName() + "!");
         controller.toNextPhase(new WaitSelectTurnTypePhase(controller));
+
+
 
         mainTextArea.appendText("------------------------------------ \n" );
         mainTextArea.appendText("Sus personajes principales son: \n");
@@ -196,6 +283,8 @@ public class MainGUI extends Application {
 
         mainTextArea.appendText("Usted se encuentra con los siguientes enemigos salvajes: \n");
         mainTextArea.appendText(controller.getEnemyList().toString());
+
+
 
         selectTurnTypeSequence();
 
@@ -215,8 +304,8 @@ public class MainGUI extends Application {
     }
 
 
-    private void updatePhaseButton(PhaseType phaseType){
-
+    public static void updatePhaseButton(PhaseType phaseType){
+        phaseLabel.setText("Fase actual: " + phaseType.toString());
     }
 
 }

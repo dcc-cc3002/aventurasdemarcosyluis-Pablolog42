@@ -40,7 +40,6 @@ public interface InterEntity {
     double computeDmg(double k, InterEntity player);
 
 
-    void setControllerToEntityHandler(GameController controller);
 
     /**
      * Gets the attack of an entity

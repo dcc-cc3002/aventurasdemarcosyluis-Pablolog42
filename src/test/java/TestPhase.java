@@ -1,9 +1,9 @@
 import aventurasdemarcoyluis.backend.controller.GameController;
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidSelectionException;
-import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
-import aventurasdemarcoyluis.backend.controller.phases.characterPhases.AttackPhase;
-import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectAttackTypePhase;
-import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.backend.controller.phases.*;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.*;
+import aventurasdemarcoyluis.backend.controller.phases.enemyPhases.EnemyAttackPhase;
+import aventurasdemarcoyluis.backend.controller.phases.enemyPhases.EnemyAttackSetupPhase;
 import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 import aventurasdemarcoyluis.backend.model.AttackType;
 import aventurasdemarcoyluis.backend.model.items.ItemType;
@@ -89,6 +89,28 @@ public class TestPhase {
         // The controller automatically performs the requested attack, and finishes the turn by setting the new phase.
         // to a FinishTurnPhase()
         assertEquals(PhaseType.FINISHTURNPHASE,controller.getCurrentPhase().getType());
+
+        controller.getCurrentPhase().toNextPhase(new EnemyAttackSetupPhase(controller));
+
+
+        controller.getCurrentPhase().toNextPhase(new EnemyAttackPhase(controller));
+
+        controller.getCurrentPhase().toNextPhase(new FinishTurnPhase(controller));
+
+
+    }
+
+    @Test
+    public void phaseNameTest(){
+        assertEquals("AttackPhase",new AttackPhase(null,controller).toString());
+        assertEquals("UseItemPhase",new UseItemPhase(controller,null).toString());
+        assertEquals("WaitSelectAttackTypePhase",new WaitSelectAttackTypePhase(controller).toString());
+        assertEquals("WaitSelectEnemyToBeAttackedPhase",new WaitSelectEnemyToBeAttackedPhase(controller).toString());
+        assertEquals("WaitSelectItemPhase",new WaitSelectItemPhase(controller).toString());
+        assertEquals("WaitSelectTurnTypePhase",new WaitSelectTurnTypePhase(controller).toString());
+        assertEquals("FinishGamePhase",new FinishGamePhase(controller).toString());
+        assertEquals("FinishTurnPhase",new FinishTurnPhase(controller).toString());
+        assertEquals("StartBattlePhase",new StartBattlePhase(controller).toString());
 
     }
 

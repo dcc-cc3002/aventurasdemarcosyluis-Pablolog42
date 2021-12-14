@@ -1,10 +1,7 @@
 package aventurasdemarcoyluis.backend.model;
 
 import aventurasdemarcoyluis.backend.controller.GameController;
-import aventurasdemarcoyluis.backend.controller.handlers.EntityKoHandler;
 import org.jetbrains.annotations.NotNull;
-
-import java.beans.PropertyChangeSupport;
 
 /*
     Abstract representation of an entity in the game.
@@ -21,8 +18,6 @@ public abstract class AbstractEntity implements InterEntity {
     private boolean isKO;
     private final EntityType type;
 
-    private final EntityKoHandler entityKoHandler;
-    private final PropertyChangeSupport entityKoHandlerSupport;
 
     /**
      * Creates a new AbstractEnemy
@@ -44,12 +39,6 @@ public abstract class AbstractEntity implements InterEntity {
         // By default, every entity is not KO
         isKO = false;
 
-        // By default, we add a KO handler with no contoller.
-        entityKoHandler = new EntityKoHandler();
-        entityKoHandlerSupport = new PropertyChangeSupport(this);
-
-        // we subscribe to the entity KO listener in case a controller has been specified.
-        entityKoHandlerSupport.addPropertyChangeListener(entityKoHandler);
     }
 
 
@@ -74,7 +63,6 @@ public abstract class AbstractEntity implements InterEntity {
             // a dead enemy has 0 HP
             this.hp = 0;
             this.isKO = true;
-            entityKoHandlerSupport.firePropertyChange("entityKO", this,this);
             return;
         }
         System.out.println(this.type.toString() + " has received " + damage + " damage points!");
@@ -112,16 +100,7 @@ public abstract class AbstractEntity implements InterEntity {
         return (k * attacker.getAtk() * attacker.getLvl()) / this.getDef();
     }
 
-    /**
-     * Sets the controller to the entities KO handler.
-     * If this method isn't called when creating an entity, the checkForKO observer
-     * won't work.
-     *
-     * @param controller the controller to be added th the KO handler.
-     */
-    public void setControllerToEntityHandler(GameController controller){
-        this.entityKoHandler.setController(controller);
-    }
+
 
 
 

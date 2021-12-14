@@ -50,5 +50,11 @@ public class FinishBattlePhase extends Phase {
     }
 
 
+    @Override
+    public String toString(){
+        return "FinishBattlePhase";
+    }
+
+
 
 }

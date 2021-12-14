@@ -3,6 +3,7 @@ package aventurasdemarcoyluis.view;
 import aventurasdemarcoyluis.backend.controller.GameController;
 import aventurasdemarcoyluis.backend.controller.handlers.Handler;
 import aventurasdemarcoyluis.backend.controller.phases.Phase;
+import aventurasdemarcoyluis.view.MainGUI;
 
 import java.beans.PropertyChangeEvent;
 
@@ -34,5 +35,12 @@ public class PhaseChangedHandler implements Handler {
         Phase newPhase = (Phase) evt.getNewValue();
 
         System.out.println("ALO HUBO UN CAMBIO DE FASE DE PANA DESDE " + oldPhase.getType() + " a " + newPhase.getType() );
+
+//        //TODO NO ME CORREN LOS TESTTTT AAAA
+//        try {
+//            MainGUI.updatePhaseButton(newPhase.getType());
+//        }catch (Exception ignored){
+//
+//        }
     }
 }

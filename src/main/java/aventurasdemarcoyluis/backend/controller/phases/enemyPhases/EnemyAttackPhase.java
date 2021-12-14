@@ -2,8 +2,10 @@ package aventurasdemarcoyluis.backend.controller.phases.enemyPhases;
 
 import aventurasdemarcoyluis.backend.controller.GameController;
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidTransitionException;
+import aventurasdemarcoyluis.backend.controller.phases.FinishTurnPhase;
 import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
+import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 
 public class EnemyAttackPhase extends Phase {
 
@@ -13,28 +15,17 @@ public class EnemyAttackPhase extends Phase {
 
     public EnemyAttackPhase(GameController controller) {
         super(controller);
+        performAttack();
+
     }
 
 
-//
-//    public void toFinishGamePhase(){
-//        controller.tryToChangePhase(new FinishGamePhase());
-//    }
-//
-//    public void toStartMainCharacterTurnPhase(){
-//        controller.tryToChangePhase(new WaitSelectTurnTypePhase());
-//    }
-//
-//    // Or finally, there might be no enemies left, and the player isn't KO.
-//    // In this case, the battle ends
-//    public void toBattleEndingPhase(){
-//        controller.tryToChangePhase(new FinishBattlePhase());
-//    }
+
 
 
     @Override
     public String toString() {
-        return "enemyAttackPhase";
+        return "EnemyAttackPhase";
     }
 
 
@@ -61,20 +52,21 @@ public class EnemyAttackPhase extends Phase {
      */
     @Override
     public boolean validatePhaseChange(Phase phaseToBeChanged) {
-        // Either the player is KO and the game has ended
-        boolean r1 = phaseToBeChanged.getType() == PhaseType.FINISHGAMEPHASE;
-        // There might also be enemies left, and the player isnt KO.
-        // In this case, the battle continues.
-        boolean r2 = phaseToBeChanged.getType() == PhaseType.WAITSELECTTURNTYPEPHASE;
-        // Or finally, there might be no enemies left, and the player isn't KO.
-        // In this case, the battle ends
-        boolean r3 = phaseToBeChanged.getType() == PhaseType.FINISHBATTLEPHASE;
-        return isAttackCompleted && (r1||r2||r3);
+        boolean r4 = phaseToBeChanged.getType() == PhaseType.FINISHTURNPHASE;
+        return isAttackCompleted && (r4);
     }
 
 
     // Enemy implementation of the perform attack.
+    @Override
     public void performAttack(){
+        try {
+            controller.tryToSelectNewTurnKind(TurnType.ENEMY);
+            controller.getCurrentTurn().main();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        isAttackCompleted = true;
 
     }
 
@@ -88,7 +80,5 @@ public class EnemyAttackPhase extends Phase {
     public PhaseType getType() {
         return phaseType;
     }
-
-
 
 }

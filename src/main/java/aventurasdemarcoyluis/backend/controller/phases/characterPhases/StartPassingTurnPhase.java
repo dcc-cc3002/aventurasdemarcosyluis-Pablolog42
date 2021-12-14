@@ -6,6 +6,7 @@ import aventurasdemarcoyluis.backend.controller.phases.FinishTurnPhase;
 import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
 import aventurasdemarcoyluis.backend.controller.turns.PassingTurn;
+import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 
 public class StartPassingTurnPhase extends Phase {
 
@@ -47,10 +48,11 @@ public class StartPassingTurnPhase extends Phase {
         return phaseToBeChanged.getType() == PhaseType.FINISHTURNPHASE;
     }
 
+
     private void executePassingTurn(){
-        PassingTurn turn = (PassingTurn) controller.getCurrentTurn();
         try {
-            turn.main();
+            controller.tryToSelectNewTurnKind(TurnType.PASSING);
+            controller.getCurrentTurn().main();
         }catch (Exception e){
             e.printStackTrace();
         }

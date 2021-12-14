@@ -43,4 +43,8 @@ public class FinishGamePhase extends Phase{
     }
 
 
+    @Override
+    public String toString() {
+        return "FinishGamePhase";
+    }
 }

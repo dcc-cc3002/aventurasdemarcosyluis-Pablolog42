@@ -162,12 +162,10 @@ GameController implements InterController {
         switch (type) {
             case MARCO -> {
                 Marco returnCharacter = new Marco(atk, def, fp, maxFP, hp, maxHP, lvl);
-                returnCharacter.setControllerToEntityHandler(this);
                 return returnCharacter;
             }
             case LUIS -> {
                 Luis returnCharacter = new Luis(atk, def, fp, maxFP, hp, maxHP, lvl);
-                returnCharacter.setControllerToEntityHandler(this);
                 return returnCharacter;
             }
         }
@@ -190,17 +188,14 @@ GameController implements InterController {
         switch (type) {
             case GOOMBA -> {
                 InterEnemy returnEnemy = new Goomba(atk, def, hp, maxHP, lvl);
-                returnEnemy.setControllerToEntityHandler(this);
                 return returnEnemy;
             }
             case BOO -> {
                 InterEnemy returnEnemy = new Boo(atk, def, hp, maxHP, lvl);
-                returnEnemy.setControllerToEntityHandler(this);
                 return returnEnemy;
             }
             case SPINY -> {
                 InterEnemy returnEnemy = new Spiny(atk, def, hp, maxHP, lvl);
-                returnEnemy.setControllerToEntityHandler(this);
                 return returnEnemy;
             }
         }
@@ -312,6 +307,11 @@ GameController implements InterController {
                 PassingTurn passingTurn = new PassingTurn(this);
                 this.setCurrentTurn(passingTurn);
             }
+            case ENEMY -> {
+                EnemyTurn enemyTurn = new EnemyTurn(this);
+                this.setCurrentTurn(enemyTurn);
+            }
+
             default -> this.setCurrentTurn(null);
         }
 

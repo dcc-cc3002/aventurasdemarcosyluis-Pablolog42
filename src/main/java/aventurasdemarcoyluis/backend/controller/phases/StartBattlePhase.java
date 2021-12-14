@@ -69,7 +69,8 @@ public class StartBattlePhase extends Phase{
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return "StartBattlePhase";
+    }
 }

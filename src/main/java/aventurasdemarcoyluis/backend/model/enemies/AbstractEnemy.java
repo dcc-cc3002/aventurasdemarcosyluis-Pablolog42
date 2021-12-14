@@ -25,7 +25,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
      * @param MAXHP Maximum HP of the unit
      * @param LVL   level of the Unit
      * @param TYPE  type of the enemy (see enum "EnemyType")
-     * @param controller
+
      */
     public AbstractEnemy(double ATK, double DEF, double HP, double MAXHP, int LVL, EntityType TYPE) {
         super(ATK, DEF, HP, MAXHP, LVL, TYPE);
@@ -75,5 +75,6 @@ public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy
     public String toString() {
         return this.getType().toString() + " with stats:   " + "| ATK: " + this.getAtk() + " | DEF: " + this.getDef() + " | HP: " + this.getHp() + " | MAXHP: " + this.getMaxHP() + " | LVL: " + this.getLvl() + " |";
     }
+
 
 }

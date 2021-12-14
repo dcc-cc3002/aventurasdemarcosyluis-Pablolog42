@@ -126,8 +126,10 @@ public class EnemyList {
     @Override
     public String toString() {
         String out = "";
+        int i = 1;
         for (InterEnemy enemy : this.list) {
-            out = out.concat(enemy.toString() + "\n");
+            out = out.concat(i+ ". " + enemy.toString() + "\n");
+            i++;
         }
         if (out.equals("")) return "No enemies in enemy list";
         return out;

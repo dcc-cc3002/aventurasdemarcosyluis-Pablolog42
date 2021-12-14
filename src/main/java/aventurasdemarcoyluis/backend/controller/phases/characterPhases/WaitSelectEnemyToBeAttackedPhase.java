@@ -23,6 +23,8 @@ public class WaitSelectEnemyToBeAttackedPhase extends Phase {
         super(controller);
     }
 
+
+
     /**
      * Try to transition to next phase, according to the current
      * phase change prerequisites.
@@ -57,6 +59,10 @@ public class WaitSelectEnemyToBeAttackedPhase extends Phase {
     }
 
 
+    @Override
+    public String toString(){
+        return "WaitSelectEnemyToBeAttackedPhase";
+    }
 
 
     public void tryToSelectEnemyToBeAttacked(int enemyIndex) throws InvalidSelectionException {

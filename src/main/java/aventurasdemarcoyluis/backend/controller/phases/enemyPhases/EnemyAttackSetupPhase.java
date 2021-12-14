@@ -4,6 +4,7 @@ import aventurasdemarcoyluis.backend.controller.GameController;
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
+import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
@@ -19,6 +20,9 @@ public class EnemyAttackSetupPhase extends Phase {
 
     public EnemyAttackSetupPhase(GameController controller) {
         super(controller);
+
+        selectRandomEnemyToMakeAttack();
+        selectRandomMainCharacterToBeAttacked();
     }
 
     /**
@@ -55,6 +59,7 @@ public class EnemyAttackSetupPhase extends Phase {
         }catch (Exception e){
             e.printStackTrace();
         }
+        enemyToMakeAttackSelected = true;
     }
 
     @Override
@@ -78,5 +83,10 @@ public class EnemyAttackSetupPhase extends Phase {
         return phaseType;
     }
 
+
+    @Override
+    public String toString(){
+        return "EnemyAttackSetupPhase";
+    }
 
 }
