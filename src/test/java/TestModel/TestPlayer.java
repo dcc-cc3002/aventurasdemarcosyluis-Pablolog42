@@ -1,15 +1,20 @@
 package TestModel;
 
-import aventurasdemarcoyluis.model.enemies.Boo;
-import aventurasdemarcoyluis.model.enemies.Goomba;
-import aventurasdemarcoyluis.model.enemies.Spiny;
-import aventurasdemarcoyluis.model.maincharacters.Luis;
-import aventurasdemarcoyluis.model.maincharacters.Marco;
+import aventurasdemarcoyluis.backend.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.backend.model.EntityType;
+import aventurasdemarcoyluis.backend.model.Player;
+import aventurasdemarcoyluis.backend.model.enemies.Boo;
+import aventurasdemarcoyluis.backend.model.enemies.Goomba;
+import aventurasdemarcoyluis.backend.model.enemies.Spiny;
+import aventurasdemarcoyluis.backend.model.items.ItemType;
+import aventurasdemarcoyluis.backend.model.maincharacters.Luis;
+import aventurasdemarcoyluis.backend.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestPlayer {
     private Goomba testGoomba;
@@ -17,6 +22,7 @@ public class TestPlayer {
     private Marco testMarco;
     private Luis testLuis;
     private Spiny testSpiny;
+    private GameController controller;
 
     @BeforeEach
     public void setUp() {
@@ -29,11 +35,18 @@ public class TestPlayer {
         testSpiny = new Spiny(10,1,0,100,1);
 
         testLuis = new Luis(1,1,1,1,1000,100000,1);
+
+        controller = new GameController();
+        controller.setPlayer("Gabriel B.");
+        // we set the first battle
+        controller.runFirstBattle();
+        controller.getCurrentPhase().toNextPhase(new WaitSelectTurnTypePhase(controller));
     }
 
+
     @Test
-    public void hammerAttackTest(){
-        testMarco.hammerAttack(testBoo); // Boo should dodge hammer Attack
+    public void hammerAttackTest() throws InvalidAttackException {
+
         assertEquals(100, testBoo.getHp(), 0.001);
 
         testMarco.hammerAttack(testGoomba);
@@ -53,7 +66,7 @@ public class TestPlayer {
         assertEquals(977.5,testLuis.getHp());
 
         // this should fail at compiling, because Luis can't attack Boo.
-        //testLuis.jumpAttack(testBoo);
+//        testLuis.jumpAttack(testBoo);
 
         testLuis.setHp(1000);
         testLuis.enemyAttacking(testBoo);
@@ -67,8 +80,11 @@ public class TestPlayer {
     }
     @Test
     public void marcoTest(){
+
         testMarco.setHp(1000);
-        testMarco.goombaAttacking(testGoomba);
+
+        testGoomba.attack(testMarco);
+
         assertEquals(997.75,testMarco.getHp());
 
         testMarco.setHp(1000);
@@ -78,9 +94,32 @@ public class TestPlayer {
 
         assertEquals(1000,testMarco.getHp());
 
-        testMarco.spinyAttacking(testSpiny);
+        testSpiny.attack(testMarco);
         assertEquals(999.25,testMarco.getHp());
+    }
 
+
+    @Test
+    public void levelUpTest(){
+        // Let's assume the player has already fought a battle
+        controller.getPlayer().increaseBattleNumber();
+
+        assertEquals(1,controller.getPlayer().getPlayerLvl());
+
+        controller.getPlayer().lvlUp();
+
+
+        // One of each item should be added.
+        assertEquals(4,controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
+        assertEquals(4,controller.getPlayer().getPlayerVault().getItemAmount(ItemType.REDMUSHROOM));
+
+        // Aumento de hp y fp acorde a especificaciones
+        assertEquals(23,controller.getPlayerMainCharacter(EntityType.MARCO).getHp());
+        assertEquals(23,controller.getPlayerMainCharacter(EntityType.LUIS).getHp());
+        assertEquals(23,controller.getPlayerMainCharacter(EntityType.MARCO).getFp());
+        assertEquals(23,controller.getPlayerMainCharacter(EntityType.LUIS).getFp());
 
     }
+
+
 }

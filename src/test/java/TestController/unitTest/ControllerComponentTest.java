@@ -1,8 +1,8 @@
 package TestController.unitTest;
 
-import aventurasdemarcoyluis.controller.GameController;
+import aventurasdemarcoyluis.backend.controller.GameController;
 
-import aventurasdemarcoyluis.model.items.ItemType;
+import aventurasdemarcoyluis.backend.model.items.ItemType;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +26,29 @@ public class ControllerComponentTest {
         assertEquals(0,controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
         controller.addItemToPlayer(ItemType.HONEYSYRUP);
         assertEquals(1,controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
+    }
+
+
+    @Test
+    public void playerWinningSequenceTest(){
+        controller.playerWinningSequence();
+        assertTrue(controller.getPlayerWon());
+    }
+
+    @Test
+    public void playerLoosingSequenceTest(){
+        controller.playerLosingSequence();
+        assertFalse(controller.getPlayerWon());
+    }
+
+    @Test
+    public void playerLvlUpTest(){
+        // Lets assume the player has won more than one battle
+        controller.getPlayer().increaseBattleNumber();
+        assertEquals(1,controller.getPlayer().getPlayerLvl());
+
+        controller.playerLvlUp();
+        assertEquals(2,controller.getPlayer().getPlayerLvl());
     }
 
 }

@@ -1,14 +1,17 @@
 package TestModel;
 
-import aventurasdemarcoyluis.model.EntityType;
-import aventurasdemarcoyluis.model.enemies.Boo;
-import aventurasdemarcoyluis.model.enemies.Goomba;
-import aventurasdemarcoyluis.model.enemies.Spiny;
-import aventurasdemarcoyluis.model.maincharacters.Marco;
+import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.backend.model.AttackType;
+import aventurasdemarcoyluis.backend.model.EntityType;
+import aventurasdemarcoyluis.backend.model.enemies.Boo;
+import aventurasdemarcoyluis.backend.model.enemies.Goomba;
+import aventurasdemarcoyluis.backend.model.enemies.Spiny;
+import aventurasdemarcoyluis.backend.model.maincharacters.Luis;
+import aventurasdemarcoyluis.backend.model.maincharacters.Marco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestEnemy {
@@ -16,6 +19,7 @@ public class TestEnemy {
     private Boo testBoo;
     private Marco testMarco;
     private Spiny testSpiny;
+    private Luis testLuis;
 
     @BeforeEach
     public void setUp() {
@@ -26,6 +30,8 @@ public class TestEnemy {
         testMarco = new Marco(10,10,10,1000,10,10,2);
 
         testSpiny = new Spiny(10,1,1,100,1);
+
+        testLuis = new Luis(10,10,10,10,10,10,10);
     }
 
     @Test
@@ -35,15 +41,26 @@ public class TestEnemy {
     }
 
     @Test
-    public void jumpAttackTest(){
+    public void jumpAttackTest() throws InvalidAttackException {
         testMarco.jumpAttack(testBoo); // Should do 2 dmg
         assertEquals(98, testBoo.getHp(), 0.001);
     }
 
+
     @Test
-    public void hammerAttackingTest(){
-        testBoo.playerHammerAttacking(testMarco); // Boo should dodge hammer Attack
+    public void booDodgesHammerAttackException() {
+        assertThrows(InvalidAttackException.class, () -> {
+            testBoo.playerHammerAttacking(testMarco); // Boo should dodge hammer Attack, and throw and exception by design
+        });
+
         assertEquals(100, testBoo.getHp(), 0.001);
+    }
+
+    @Test
+    public void hammerAttackingTest() throws InvalidAttackException {
+
+
+
 
         testGoomba.playerHammerAttacking(testMarco); // This attack should always deal dmg, as the fail logic is programed onto the first double dispatch call.
         boolean expectedFirstAttack = testGoomba.getHp() == 7.5; // hammerAttack can fail
@@ -59,5 +76,18 @@ public class TestEnemy {
         assertEquals(9.5,testMarco.getHp(),0.001); // Marco's HP should decrease by 0.5
     }
 
+    @Test
+    public void booAttackTest() throws InvalidAttackException {
+        testBoo.attack(testLuis);
+
+        // We assert that an invalid attack is thrown when boo tries to attack marco
+        Exception e = assertThrows(InvalidAttackException.class, () -> {
+            testBoo.attack(testMarco);
+        });
+        // check the exception message.
+        assertEquals("Boo can't attack marco!",e.getMessage());
+
+
+    }
 
 }
