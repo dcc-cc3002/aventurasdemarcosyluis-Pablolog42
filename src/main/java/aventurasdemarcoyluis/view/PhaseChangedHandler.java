@@ -30,13 +30,12 @@ public class PhaseChangedHandler implements Handler {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //TODO: Actualizar el label de la gui con un observer.
         Phase oldPhase = (Phase) evt.getOldValue();
         Phase newPhase = (Phase) evt.getNewValue();
 
-        System.out.println("ALO HUBO UN CAMBIO DE FASE DE PANA DESDE " + oldPhase.getType() + " a " + newPhase.getType() );
+        System.out.println("Cambio de fase Detectado, desde " + oldPhase.getType() + " a " + newPhase.getType() );
 
-//        //TODO NO ME CORREN LOS TESTTTT AAAA
+//        //Sin esto los test no corren
 //        try {
 //            MainGUI.updatePhaseButton(newPhase.getType());
 //        }catch (Exception ignored){

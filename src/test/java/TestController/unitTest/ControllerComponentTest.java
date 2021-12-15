@@ -28,4 +28,27 @@ public class ControllerComponentTest {
         assertEquals(1,controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
     }
 
+
+    @Test
+    public void playerWinningSequenceTest(){
+        controller.playerWinningSequence();
+        assertTrue(controller.getPlayerWon());
+    }
+
+    @Test
+    public void playerLoosingSequenceTest(){
+        controller.playerLosingSequence();
+        assertFalse(controller.getPlayerWon());
+    }
+
+    @Test
+    public void playerLvlUpTest(){
+        // Lets assume the player has won more than one battle
+        controller.getPlayer().increaseBattleNumber();
+        assertEquals(1,controller.getPlayer().getPlayerLvl());
+
+        controller.playerLvlUp();
+        assertEquals(2,controller.getPlayer().getPlayerLvl());
+    }
+
 }

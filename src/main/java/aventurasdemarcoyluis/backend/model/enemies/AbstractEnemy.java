@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 /**
     Abstract representation of an Enemy.
     An enemy is a specific kind of Entity.
- **/
+ */
 public abstract class AbstractEnemy extends AbstractEntity implements InterEnemy {
 
 

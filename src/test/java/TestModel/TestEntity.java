@@ -39,6 +39,9 @@ public class TestEntity {
         testGoomba.receiveDamage(10);
         assertEquals(5, testGoomba.getHp());
         assertEquals(EntityType.GOOMBA,testGoomba.getType());
+
+        testGoomba.restoreHP(1000);
+        assertEquals(testGoomba.getMaxHP(),testGoomba.getHp());
     }
 
     @Test

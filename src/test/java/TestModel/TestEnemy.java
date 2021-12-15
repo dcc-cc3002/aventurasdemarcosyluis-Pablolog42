@@ -1,6 +1,7 @@
 package TestModel;
 
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
+import aventurasdemarcoyluis.backend.model.AttackType;
 import aventurasdemarcoyluis.backend.model.EntityType;
 import aventurasdemarcoyluis.backend.model.enemies.Boo;
 import aventurasdemarcoyluis.backend.model.enemies.Goomba;
@@ -78,6 +79,15 @@ public class TestEnemy {
     @Test
     public void booAttackTest() throws InvalidAttackException {
         testBoo.attack(testLuis);
+
+        // We assert that an invalid attack is thrown when boo tries to attack marco
+        Exception e = assertThrows(InvalidAttackException.class, () -> {
+            testBoo.attack(testMarco);
+        });
+        // check the exception message.
+        assertEquals("Boo can't attack marco!",e.getMessage());
+
+
     }
 
 }

@@ -49,22 +49,6 @@ public class PassingTurn extends AbstractTurn implements InterTurn {
         return this.type;
     }
 
-    /**
-     * Gets the current turn's "Involved Character"
-     * <p>
-     * The involved character is the mainCharacter of the player which is being currently
-     * acted upon (either by using an item on them, or letting them attack an enemy).
-     * <p>
-     * Note that in the "Passing" turn, there is no action being performed, and thus,
-     * the Involved Character should return null.
-     *
-     * @return The current Involved Character.
-     */
-    @Override
-    public InterMainCharacter getInvolvedMainCharacter() {
-        return null;
-    }
-
 
 
 

@@ -18,12 +18,10 @@ import java.util.Objects;
 /**
  * Representation of the turn in which the player uses an item.
  */
-public class ItemTurn extends AbstractTurn implements InterItemTurn {
+public class ItemTurn extends AbstractTurn implements InterTurn {
 
     private final GameController controller;
     private final TurnType type = TurnType.ITEM;
-
-    private BufferedReader reader;
 
     private ItemType selectedItem = null;
 
@@ -37,7 +35,6 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
     public ItemTurn(GameController controller) {
         super(controller);
         this.controller = controller;
-        this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     /**
@@ -88,22 +85,6 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
 
     }
 
-    public void chooseItemToUse(ItemType selectedItem) throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
-        // Case Player doesn't have enough item
-        if (this.controller.getPlayer().getPlayerVault().getItemAmount(Objects.requireNonNull(selectedItem)) == 0) {
-            throw new InvalidSelectionException("The player doesn't have any " + selectedItem + " to use!");
-        }
-
-        this.selectedItem = selectedItem;
-        main();
-
-
-    }
-
-    public ItemVault getPlayerVault(){
-        return this.controller.getPlayer().getPlayerVault();
-    }
-
 
     /**
      * Returns the type of turn played.
@@ -115,34 +96,12 @@ public class ItemTurn extends AbstractTurn implements InterItemTurn {
         return this.type;
     }
 
-
     /**
-     * Gets the current turn's "Involved Character"
-     * <p>
-     * The involved character is the mainCharacter of the player which is being currently
-     * acted upon (either by using an item on them, or letting them attack an enemy).
-     * <p>
-     * Note that in the "Passing" turn, there is no action being performed, and thus,
-     * the Involved Character should return null.
-     *
-     * @return The current Involved Character.
+     * Set's a selected item to be used to the turn.
+     * @param selectedItem the item to be set.
      */
-    @Override
-    public InterMainCharacter getInvolvedMainCharacter() {
-        return involvedMainCharacter;
+    public void setSelectedItem(ItemType selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
-    /**
-     * Sets a Buffered Reader stream as an input to a turn.
-     * The BufferedReader can be instanced with a string
-     * or with the use of the System.in input.
-     *
-     * @param reader The reader to set.
-     */
-    @Override
-    public void setReader(BufferedReader reader) {
-        this.reader = reader;
-    }
 }
-
-

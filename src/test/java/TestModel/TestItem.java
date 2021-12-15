@@ -100,4 +100,17 @@ public class TestItem {
         assertEquals(controller.getPlayer().getPlayerVault(), emptyVault);
     }
 
+    @Test
+    public void honeyTest(){
+        HoneySyrup honeySyrup = new HoneySyrup();
+        assertEquals(HONEYSYRUP,honeySyrup.getType());
+    }
+
+    @Test
+    public void itemVaultNotEqualsTest(){
+        ItemVault itemVault = new ItemVault();
+        // Assert that two objects that dont have anything to do with each other don't equal each other.
+        assertNotEquals(itemVault, new GameController());
+    }
+
 }

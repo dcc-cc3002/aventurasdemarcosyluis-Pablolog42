@@ -9,15 +9,23 @@ import aventurasdemarcoyluis.backend.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
+/**
+ * Class denoting an AttackPhase phase.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class AttackPhase extends Phase {
 
     PhaseType phaseType = PhaseType.ATTACKPHASE;
 
-    InterEnemy enemyToABeAttacked;
     InterMainCharacter mainCharacterToAttack;
 
     boolean attackCompleted = false;
 
+    /**
+     * Attack Phase constrictor.
+     * @param mainCharacterToAttack The main character to perform the attack.
+     * @param controller the game controller of the phase and turn.
+     */
     public AttackPhase(InterMainCharacter mainCharacterToAttack, GameController controller) {
         super(controller);
         this.mainCharacterToAttack=mainCharacterToAttack;
@@ -32,6 +40,10 @@ public class AttackPhase extends Phase {
         return new FinishTurnPhase(controller);
     }
 
+    /**
+     * String representation of the phase.
+     * @return the string representing an attack phase.
+     */
     @Override
     public String toString() {
         return "AttackPhase";
@@ -47,9 +59,7 @@ public class AttackPhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){e.printStackTrace();}
     }
 
     /**
@@ -66,15 +76,16 @@ public class AttackPhase extends Phase {
         return attackCompleted && (r1 || r2);
     }
 
-
+    /**
+     *Tries to initialize the attack turn, given the parameters selected on the current attack phase.
+     * Sets the attackCompleted requisite to true.
+     */
     @Override
     public void performAttack(){
         AttackTurn turn = (AttackTurn) controller.getCurrentTurn();
         try {
             turn.main();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){ e.printStackTrace(); }
         attackCompleted = true;
     }
 

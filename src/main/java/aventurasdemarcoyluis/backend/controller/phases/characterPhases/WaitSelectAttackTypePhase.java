@@ -8,6 +8,10 @@ import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.turns.AttackTurn;
 import aventurasdemarcoyluis.backend.model.AttackType;
 
+/**
+ * Class denoting the phase in which a type of attack to be performed by a mainCharacter is selected.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class WaitSelectAttackTypePhase extends Phase {
 
 
@@ -16,7 +20,10 @@ public class WaitSelectAttackTypePhase extends Phase {
     boolean attackSelected = false;
 
 
-
+    /**
+     * WaitSelectAttackTypePhase constructor.
+     * @param controller The controller Handling the game.
+     */
     public WaitSelectAttackTypePhase(GameController controller) {
         super(controller);
     }
@@ -31,9 +38,7 @@ public class WaitSelectAttackTypePhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){e.printStackTrace();}
     }
 
     /**
@@ -47,29 +52,26 @@ public class WaitSelectAttackTypePhase extends Phase {
         return phaseToBeChanged.getType() == PhaseType.WAITSELECTENEMYTOBEATTACKEDPHASE;
     }
 
-
+    /**
+     * Tries to select a given attack Type to be performed in the next phase.
+     * @param attackType The attack type to try to select
+     */
     @Override
     public void selectAttackType(AttackType attackType){
         try{
-            tryToSelectAttack(attackType);
-        }catch (InvalidAttackException e){
-            e.printStackTrace();
-            return;
-        }
+            // throws exceptions if no FP left. or if character KO.
+            controller.getCurrentTurnMainCharacter().validateAttack(attackType);
+
+            AttackTurn turn = (AttackTurn) controller.getCurrentTurn();
+            turn.setAttackType(attackType);
+        }catch (InvalidAttackException e){e.printStackTrace();return;}
         attackSelected = true;
         // As soon as a valid attack is selected, try to go on to the attackPhase.
         toNextPhase(new WaitSelectEnemyToBeAttackedPhase(this.controller));
     }
 
 
-    private void tryToSelectAttack(AttackType attackType) throws InvalidAttackException {
-        // throws exceptions if no FP left. or if character KO.
-        controller.getCurrentTurnMainCharacter().validateAttack(attackType);
 
-        AttackTurn turn = (AttackTurn) controller.getCurrentTurn();
-        turn.setAttackType(attackType);
-
-    }
 
 
     /**
@@ -83,7 +85,10 @@ public class WaitSelectAttackTypePhase extends Phase {
     }
 
 
-
+    /**
+     * A string representation of the current phase
+     * @return  A string representation of the current phase
+     */
     @Override
     public String toString() {
         return "WaitSelectAttackTypePhase";

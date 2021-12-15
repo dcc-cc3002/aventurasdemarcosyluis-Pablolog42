@@ -4,9 +4,11 @@ import aventurasdemarcoyluis.backend.controller.GameController;
 
 import java.beans.PropertyChangeListener;
 
+/**
+ * Interface denoting the handling of observers in the game. Extends the PropertyChangeListener interface.
+ */
 public interface Handler extends PropertyChangeListener {
 
-    //TODO comentar la interfaz entera (junto con la parte de arriba)
 
     /**
      * Sets the handlers' controller.

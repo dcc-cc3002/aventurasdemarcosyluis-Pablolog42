@@ -4,7 +4,9 @@ import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException
 import aventurasdemarcoyluis.backend.model.InterEntity;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
-
+/**
+ * Interface denoting all the general enemies methods.
+ */
 public interface InterEnemy extends InterEntity {
 
     /**

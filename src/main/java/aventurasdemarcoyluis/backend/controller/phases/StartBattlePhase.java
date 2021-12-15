@@ -3,6 +3,10 @@ package aventurasdemarcoyluis.backend.controller.phases;
 import aventurasdemarcoyluis.backend.controller.GameController;
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidTransitionException;
 
+/**
+ * Class depicting the end of a battle.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class StartBattlePhase extends Phase{
 
     PhaseType phaseType = PhaseType.STARTBATTLEPHASE;
@@ -10,6 +14,10 @@ public class StartBattlePhase extends Phase{
     // Phase transition requirements
     private boolean isBattleSetup = false;
 
+    /**
+     * StartBattlePhase constructor
+     * @param controller the game's controller
+     */
     public StartBattlePhase(GameController controller){
         super(controller);
         battleSetUpRoutine();
@@ -26,9 +34,7 @@ public class StartBattlePhase extends Phase{
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){ e.printStackTrace(); }
     }
 
     /**
@@ -57,18 +63,20 @@ public class StartBattlePhase extends Phase{
     }
 
 
-    /*
-    As per the state pattern indications, we override the used methods in this phase.
-     */
 
+    /**
+     * Set's in motion the battle initial  routine.
+     */
     @Override
     public void battleSetUpRoutine(){
         controller.createAndSetNewBattle();
-
         isBattleSetup = true;
     }
 
-
+    /**
+     * String Representation of the phase
+     * @return String Representation of the phase
+     */
     @Override
     public String toString() {
         return "StartBattlePhase";

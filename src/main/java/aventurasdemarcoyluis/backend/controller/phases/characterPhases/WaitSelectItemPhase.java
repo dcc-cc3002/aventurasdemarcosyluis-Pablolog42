@@ -7,6 +7,10 @@ import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
 import aventurasdemarcoyluis.backend.model.items.ItemType;
 
+/**
+ * Class denoting the phase in which a type of item to be used by a MainCharacter is selected.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class WaitSelectItemPhase extends Phase {
 
     PhaseType phaseType = PhaseType.WAITSELECTITEMPHASE;
@@ -15,6 +19,10 @@ public class WaitSelectItemPhase extends Phase {
 
     public boolean itemSelected = false;
 
+    /**
+     * WaitSelectItemPhase Constructor
+     * @param controller the games controller
+     */
     public WaitSelectItemPhase(GameController controller){
         super(controller);
     }
@@ -31,9 +39,7 @@ public class WaitSelectItemPhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){ e.printStackTrace();}
     }
 
     /**
@@ -49,14 +55,15 @@ public class WaitSelectItemPhase extends Phase {
     }
 
 
+    /**
+     * Tries to select a given item to be used, and afterwards transitions to the phase to use the given item.
+     * @param type The type of the item to try to use
+     */
     public void selectItem(ItemType type){
         try{
             this.selectedItem = controller.retrieveItemFromPlayerVault(type).getType();
             itemSelected = true;
-        } catch (InvalidSelectionException e){
-            e.printStackTrace();
-            return;
-        }
+        } catch (InvalidSelectionException e){e.printStackTrace(); return;}
 
         toNextPhase(new UseItemPhase(controller, this.selectedItem));
     }
@@ -73,7 +80,10 @@ public class WaitSelectItemPhase extends Phase {
         return phaseType;
     }
 
-
+    /**
+     * string rep. of the given pahse
+     * @return a string rep. of the given pahse.
+     */
     @Override
     public String toString() {
         return "WaitSelectItemPhase";

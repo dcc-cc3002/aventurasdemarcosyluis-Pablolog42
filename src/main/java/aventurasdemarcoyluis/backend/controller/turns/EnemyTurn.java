@@ -47,9 +47,7 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
                     InterGoombaSpiny enemy = (InterGoombaSpiny) attackingEnemy;
                     enemy.attack(involvedMainCharacter);
                 } // In case the casting fails
-                catch (Exception e){
-                    throw new InvalidAttackException("Boo can't attack Marco");
-                }
+                catch (Exception e){ throw new InvalidAttackException("Boo can't attack Marco"); }
             }
             case LUIS -> {
                 attackingEnemy.attack(this.involvedMainCharacter);
@@ -58,7 +56,6 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
     }
 
 
-    // TODO: Esto es lo más feo que he visto en mucho tiempo. Hay que cambiarlo y pedir perdón por nuestros pecados.
     /**
      * Randomly selects the main character to attack form the player. In case one character is KO,
      * selects the other character.
@@ -91,22 +88,6 @@ public class EnemyTurn extends AbstractTurn implements InterTurn {
     @Override
     public TurnType getType() {
         return this.type;
-    }
-
-    /**
-     * Gets the current turn's "Involved Character"
-     * <p>
-     * The involved character is the mainCharacter of the player which is being currently
-     * acted upon (either by using an item on them, or letting them attack an enemy).
-     * <p>
-     * Note that in the "Passing" turn, there is no action being performed, and thus,
-     * the Involved Character should return null.
-     *
-     * @return The current Involved Character.
-     */
-    @Override
-    public InterMainCharacter getInvolvedMainCharacter() {
-        return involvedMainCharacter;
     }
 
 

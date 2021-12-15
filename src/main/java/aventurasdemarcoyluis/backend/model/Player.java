@@ -30,24 +30,6 @@ public class Player {
     private int playerLvl;
 
     /**
-     * Player Class Constructor, given a specific Marco and Luis MainCharacters.
-     *
-     * @param name  The name of the player to be created.
-     * @param marco The Given initial marco to be assigned to the player.
-     * @param luis  The Given initial luis to be assigned to the player.
-     */
-    public Player(String name, Marco marco, Luis luis, GameController controller) {
-        this.playerLuis = luis;
-        this.playerMarco = marco;
-        this.playerName = name;
-        this.playerLvl = 1;
-        this.controller = controller;
-
-        this.playerVault = new ItemVault();
-        this.battleNumber = 0;
-    }
-
-    /**
      * Player class constructor, without any specific mainCharacters given.
      * By default, initializes the values for Marco, Luis as: ATK 10, DEF 10, FP 10, MAXFP 20, HP 10, MAXHP 20, LVL 1
      *
@@ -142,6 +124,9 @@ public class Player {
         this.addAnItem(ItemType.HONEYSYRUP);
         this.getLuis().lvlUp();
         this.getMarco().lvlUp();
+
+//        this.setPlayerLvl(getPlayerLvl()+1);
+
     }
 
 

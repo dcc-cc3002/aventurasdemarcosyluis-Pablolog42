@@ -4,7 +4,7 @@ import aventurasdemarcoyluis.backend.model.EntityType;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-/*
+/**
     Goomba enemy Class
  */
 public class Goomba extends AbstractEnemy implements InterGoombaSpiny {
@@ -16,7 +16,6 @@ public class Goomba extends AbstractEnemy implements InterGoombaSpiny {
      * @param HP    heal points
      * @param MAXHP Maximum HP points for the unit
      * @param LVL   level of the Unit
-     * @param controller
      */
     public Goomba(double ATK, double DEF, double HP, double MAXHP, int LVL) {
         super(ATK, DEF, HP, MAXHP, LVL, EntityType.GOOMBA);

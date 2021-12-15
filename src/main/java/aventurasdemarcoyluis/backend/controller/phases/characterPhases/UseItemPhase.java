@@ -8,6 +8,10 @@ import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
 import aventurasdemarcoyluis.backend.model.items.ItemType;
 
+/**
+ * Class denoting the phase in which a selected item is used.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class UseItemPhase extends Phase {
 
     PhaseType phaseType = PhaseType.USEITEMPHASE;
@@ -16,7 +20,11 @@ public class UseItemPhase extends Phase {
 
     private boolean hasItemBeenUsed = false;
 
-
+    /**
+     * UseItemPhase constructor
+     * @param controller the controller handling the game
+     * @param selectedItem The item previously selected to be used.
+     */
     public UseItemPhase(GameController controller, ItemType selectedItem){
         super(controller);
         this.itemToBeUsed = selectedItem;
@@ -32,9 +40,7 @@ public class UseItemPhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){ e.printStackTrace(); }
     }
 
 
@@ -50,14 +56,13 @@ public class UseItemPhase extends Phase {
         return r1 && hasItemBeenUsed;
     }
 
-    // will use item and try to transition to finish phase
+    /**
+     * Will try to use the selected item and try to transition to finish phase
+     */
     public void useSelectedItem(){
         try {
             controller.getPlayer().tryToUseItem(this.itemToBeUsed, controller.getCurrentTurnMainCharacter());
-        }catch (InvalidSelectionException e){
-            e.printStackTrace();
-            return;
-        }
+        }catch (InvalidSelectionException e){e.printStackTrace(); return;}
 
         hasItemBeenUsed = true;
         toNextPhase(new FinishTurnPhase(controller));
@@ -65,8 +70,10 @@ public class UseItemPhase extends Phase {
     }
 
 
-
-
+    /**
+     * String representation of the current phase
+     * @return  a String representation of the current phase
+     */
     @Override
     public String toString() {
         return "UseItemPhase";

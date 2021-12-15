@@ -83,13 +83,6 @@ public interface InterController {
     void tryToSelectNewTurnKind(@NotNull TurnType selection) throws InvalidSelectionException;
 
     /**
-     * Executes the main method of the controller's currently selected turn.
-     *
-     * @throws IOException Exception related to an unexpected input received by the ReadableBuffer.
-     */
-    void startCurrentTurn() throws IOException, InvalidSelectionException, InvalidAttackException, InvalidTransitionException;
-
-    /**
      * Finishes the controller's player turn.
      * <p>
      * Also, checks if the player has won or lost (according to the win or lose conditions)

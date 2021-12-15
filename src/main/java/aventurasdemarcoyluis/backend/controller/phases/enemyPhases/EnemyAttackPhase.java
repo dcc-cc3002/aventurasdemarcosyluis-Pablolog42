@@ -7,25 +7,24 @@ import aventurasdemarcoyluis.backend.controller.phases.Phase;
 import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
 import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 
+/**
+ * Class denoting the phase in which an enemy will attack the player's main character.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class EnemyAttackPhase extends Phase {
 
     PhaseType phaseType = PhaseType.ENEMYATTACKPHASE;
 
     boolean isAttackCompleted=false;
 
+    /**
+     * EnemyAttackPhase class constructor
+     * @param controller the controller handling the game
+     */
     public EnemyAttackPhase(GameController controller) {
         super(controller);
         performAttack();
 
-    }
-
-
-
-
-
-    @Override
-    public String toString() {
-        return "EnemyAttackPhase";
     }
 
 
@@ -39,9 +38,7 @@ public class EnemyAttackPhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){ e.printStackTrace(); }
     }
 
     /**
@@ -57,15 +54,16 @@ public class EnemyAttackPhase extends Phase {
     }
 
 
-    // Enemy implementation of the perform attack.
+
+    /**
+     * Enemy implementation of to perform attack method.
+     */
     @Override
     public void performAttack(){
         try {
             controller.tryToSelectNewTurnKind(TurnType.ENEMY);
             controller.getCurrentTurn().main();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        } catch (Exception e){ e.printStackTrace(); }
         isAttackCompleted = true;
 
     }

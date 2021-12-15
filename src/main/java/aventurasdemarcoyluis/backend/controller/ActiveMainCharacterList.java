@@ -6,12 +6,19 @@ import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
 import java.util.ArrayList;
 
+/**
+ * Class denoting a list of main characters that are not KO.
+ */
 public class ActiveMainCharacterList {
 
     private final ArrayList<InterMainCharacter> activeMainCharacterList;
 
     private final GameController controller;
 
+    /**
+     * ActiveMainCharacterList Constructor.
+     * @param controller the controller handling the game.
+     */
     public ActiveMainCharacterList(GameController controller){
         this.activeMainCharacterList = new ArrayList<>();
         this.controller = controller;
@@ -25,10 +32,20 @@ public class ActiveMainCharacterList {
         activeMainCharacterList.add(1,controller.getPlayer().getLuis());
     }
 
+    /**
+     * Removes a specific Main Character from the list.
+     * @param mainCharacterToRemove the character to remove.
+     */
     public void removeMainCharacterFromActiveList(EntityType mainCharacterToRemove){
         this.activeMainCharacterList.removeIf(character -> character.getType() == mainCharacterToRemove);
     }
 
+    /**
+     * Retrieves a specific main character from the active list.
+     * @param mainCharacterToRetrieve the Type of the character to retrieve (marco or luis)
+     * @return The InterMainCharacter retrieved from the list.
+     * @throws InvalidSelectionException In case there are no active characters (i.e. all characters are KO )
+     */
     public InterMainCharacter retrieveMainCharacter(EntityType mainCharacterToRetrieve) throws InvalidSelectionException {
         for (InterMainCharacter character : this.activeMainCharacterList){
             if(character.getType() == mainCharacterToRetrieve){
@@ -51,7 +68,10 @@ public class ActiveMainCharacterList {
         activeMainCharacterList.add(1,newLuis);
     }
 
-
+    /**
+     * Gets the active main character list.
+     * @return the active main character list
+     */
     public ArrayList<InterMainCharacter> getActiveMainCharacterList() {
         return activeMainCharacterList;
     }

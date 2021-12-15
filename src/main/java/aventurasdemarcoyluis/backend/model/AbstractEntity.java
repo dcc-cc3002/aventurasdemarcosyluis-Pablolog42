@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class AbstractEntity implements InterEntity {
 
-    private GameController controller;
     private double atk;
     private double def;
     private double hp;

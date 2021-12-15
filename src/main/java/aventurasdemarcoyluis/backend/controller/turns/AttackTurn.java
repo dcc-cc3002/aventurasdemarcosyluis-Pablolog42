@@ -10,7 +10,9 @@ import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-
+/**
+ * Class depicting an Attack Turn.
+ */
 public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
     private final GameController controller;
@@ -23,7 +25,6 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
     /**
      * AttackTurn Constructor
-     * By default, sets the class reader as a System.in BufferStream.
      *
      * @param controller the game controller controlling the turn.
      */
@@ -67,11 +68,10 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
 
     }
 
-    @Override
-    public EnemyList getEnemyList(){
-        return this.controller.getEnemyList();
-    }
-
+    /**
+     * Set's the current turn's attack Type
+     * @param attackType The type of attack to be set.
+     */
     @Override
     public void setAttackType(AttackType attackType) {
         this.attackType = attackType;
@@ -108,26 +108,9 @@ public class AttackTurn extends AbstractTurn implements InterAttackTurn {
     public InterEnemy retrieveEnemyToAttack(int enemyNumber) throws InvalidSelectionException {
         try{
             return this.controller.getEnemyList().retrieveEnemy(enemyNumber - 1);
-        }catch (IndexOutOfBoundsException e){
-            throw new InvalidSelectionException("No ha seleccionado un número de enemigo a atacar, o ha seleccionado un número inválido (que no se encuentra en la lista de enemigos).");
-        }
+        }catch (IndexOutOfBoundsException e){ throw new InvalidSelectionException("No ha seleccionado un número de enemigo a atacar, o ha seleccionado un número inválido (que no se encuentra en la lista de enemigos)."); }
     }
 
-    /**
-     * Gets the current turn's "Involved Character"
-     * <p>
-     * The involved character is the mainCharacter of the player which is being currently
-     * acted upon (either by using an item on them, or letting them attack an enemy).
-     * <p>
-     * Note that in the "Passing" turn, there is no action being performed, and thus,
-     * the Involved Character should return null.
-     *
-     * @return The current Involved Character.
-     */
-    @Override
-    public InterMainCharacter getInvolvedMainCharacter() {
-        return involvedMainCharacter;
-    }
 
     /**
      * Returns the type of turn played.

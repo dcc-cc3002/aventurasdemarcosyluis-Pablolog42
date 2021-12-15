@@ -5,6 +5,7 @@ import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidSelectionException;
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidTransitionException;
 import aventurasdemarcoyluis.backend.controller.phases.characterPhases.WaitSelectTurnTypePhase;
+import aventurasdemarcoyluis.backend.controller.turns.ItemTurn;
 import aventurasdemarcoyluis.backend.controller.turns.TurnOwner;
 import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 import aventurasdemarcoyluis.backend.model.AttackType;
@@ -114,90 +115,49 @@ public class TurnTest {
 
     }
 
+
+
+    /* Assert that we can achieve the requirements:
+      4. crear el baul de personajes principales
+      5. Create a turn (Item turn)
+      6. Que un jugador pueda usar un elemento del baul
+      7. Obtener los elementos del baul
+    */
+    @Test
+    public void itemTurnTest() throws InvalidSelectionException, InvalidTransitionException, InvalidAttackException {
+
+
+
+        // Battle Begins
+        controller.createAndSetNewBattle();
+
+        // The player's vault should be created, and 3 items of each kind should be added to it.
+        assertEquals(3, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
+        assertEquals(3, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.REDMUSHROOM));
+
+
+        controller.tryToSelectNewTurnKind(TurnType.ITEM);
+        ItemTurn itemTurn = new ItemTurn(controller);
+        itemTurn.setSelectedItem(ItemType.HONEYSYRUP);
+
+
+        itemTurn.main();
+
+        assertEquals(TurnType.ITEM, controller.getCurrentTurn().getType());
+        assertEquals(TurnOwner.LUIS,controller.getNextTurnOwner());
+
+
+
+        /*
+        Se usa un item con marco (1)
+        Se usa el item "Honey Syrup" (1)
+         */
+
+        // Let's check if 1 honey was used
+        assertEquals(2, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
+        controller.finishTurn();
+
+    }
+
+
 }
-//
-//    /* Assert that we can achieve the requirements:
-//      4. crear el baul de personajes principales
-//      5. Create a turn (Item turn)
-//      6. Que un jugador pueda usar un elemento del baul
-//      7. Obtener los elementos del baul
-//    */
-//    @Test
-//    public void itemTurnTest() throws IOException {
-//
-//
-//
-//        // Battle Begins
-//        controller.createAndSetNewBattle();
-//
-//        // The player's vault should be created, and 3 items of each kind should be added to it.
-//        assertEquals(3, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
-//        assertEquals(3, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.REDMUSHROOM));
-//
-//
-//        controller.selectTurnKind("item");
-//
-//        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
-//        assertEquals(TurnType.ITEM, controller.getCurrentTurn().getType());
-//        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
-//
-//
-//        /*
-//        Se usa un item con marco (1)
-//        Se usa el item "Honey Syrup" (1)
-//         */
-//        BufferedReader reader = new BufferedReader(new StringReader("1\n1"));
-//        controller.getCurrentTurn().setReader(reader);
-//
-//
-//        controller.startCurrentTurn();
-//
-//        // Check whether marco is receiving the item.
-//        assertEquals(EntityType.MARCO,controller.getCurrentTurn().getInvolvedMainCharacter().getType());
-//
-//        // Let's check if 1 honey was used
-//        assertEquals(2, controller.getPlayer().getPlayerVault().getItemAmount(ItemType.HONEYSYRUP));
-//        controller.finishTurn();
-//
-//    }
-//
-//
-//
-//    @Test
-//    public void passingTest() throws IOException {
-//
-//        controller.createAndSetNewBattle();
-//
-//        controller.selectTurnKind("passing");
-//
-//        assertEquals(TurnOwner.PLAYER,controller.getCurrentTurnOwner());
-//        assertEquals(TurnType.PASSING, controller.getCurrentTurn().getType());
-//        assertEquals(TurnOwner.ENEMY,controller.getNextTurnOwner());
-//
-//        // Should do nothing.
-//        controller.startCurrentTurn();
-//
-//        InterMainCharacter playerMarco = controller.getPlayer().getMarco();
-//
-//        // Como este es un turno de paso, no hay personaje de turno.
-//        assertNull(controller.getCurrentTurn().getInvolvedMainCharacter());
-//
-//        // Nada debería haber cambiado con los jugadores de base.
-//        assertNotNull(playerMarco);
-//        assertEquals(10, playerMarco.getAtk());
-//        assertEquals(10, playerMarco.getDef());
-//        assertEquals(20, playerMarco.getHp());
-//        assertEquals(20, playerMarco.getMaxHP());
-//        assertEquals(20, playerMarco.getFp());
-//        assertEquals(20, playerMarco.getMaxFP());
-//        assertEquals(1, playerMarco.getLvl());
-//
-//        controller.finishTurn();
-//
-//        // Asegurarnos que nada haya pasado, y que el siguiente turno sea del enemigo.
-//        assertEquals(TurnType.ENEMY,controller.getCurrentTurn().getType());
-//    }
-//
-//
-//
-//}

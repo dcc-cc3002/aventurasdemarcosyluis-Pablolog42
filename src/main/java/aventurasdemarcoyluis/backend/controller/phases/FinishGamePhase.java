@@ -2,13 +2,20 @@ package aventurasdemarcoyluis.backend.controller.phases;
 
 import aventurasdemarcoyluis.backend.controller.GameController;
 
+/**
+ * Class depicting the final phase of the game.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class FinishGamePhase extends Phase{
 
     PhaseType phaseType = PhaseType.FINISHGAMEPHASE;
 
+    /**
+     * finish game constructor
+     * @param controller the game's controller
+     */
     public FinishGamePhase(GameController controller) {
         super(controller);
-        controller.finishGameRoutine();
     }
 
     /**
@@ -43,6 +50,10 @@ public class FinishGamePhase extends Phase{
     }
 
 
+    /**
+     * String Representation of the phase
+     * @return String Representation of the phase
+     */
     @Override
     public String toString() {
         return "FinishGamePhase";

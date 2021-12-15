@@ -39,6 +39,11 @@ public class Boo extends AbstractEnemy implements InterBoo {
         throw new InvalidAttackException(this.getName() + " has dodged " + player.getName() + "'s attack!");
     }
 
+    /**
+     * sends the dd to attack
+     * @param involvedMainCharacter the character to attack
+     * @throws InvalidAttackException in case the attack is invalid
+     */
     @Override
     public void attack(InterMainCharacter involvedMainCharacter) throws InvalidAttackException {
         if(involvedMainCharacter.getType()==EntityType.MARCO){

@@ -113,7 +113,6 @@ public class EnemyList {
         for (InterEnemy enemy : this.list) {
             listKOStatus.add(enemy.isKO());
         }
-
         return !listKOStatus.contains(false);
     }
 
@@ -135,7 +134,19 @@ public class EnemyList {
         return out;
     }
 
+    /**
+     * Gets the enemylist
+     * @return The current Enemy List.
+     */
     public ArrayList<InterEnemy> getList() {
         return list;
+    }
+
+    /**
+     * Adds a specific enemy to the list.
+     * @param enemy the enemy to add.
+     */
+    public void addEnemy(InterEnemy enemy) {
+        this.list.add(enemy);
     }
 }

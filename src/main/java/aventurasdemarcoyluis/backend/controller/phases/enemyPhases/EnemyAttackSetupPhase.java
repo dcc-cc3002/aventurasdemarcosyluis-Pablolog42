@@ -8,6 +8,10 @@ import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
+/**
+ * Class denoting the phase in which an enemy will set up the imminent attack the player's main character.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class EnemyAttackSetupPhase extends Phase {
 
     PhaseType phaseType = PhaseType.ENEMYATTACKSETUPPHASE;
@@ -18,6 +22,10 @@ public class EnemyAttackSetupPhase extends Phase {
     InterMainCharacter mainCharacterToBeAttacked = null;
     InterEnemy enemyToPerformTheAttack = null;
 
+    /**
+     * EnemyAttackSetupPhase constructor.
+     * @param controller the cames controller.
+     */
     public EnemyAttackSetupPhase(GameController controller) {
         super(controller);
 
@@ -35,9 +43,7 @@ public class EnemyAttackSetupPhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){ e.printStackTrace(); }
     }
 
     /**
@@ -52,24 +58,25 @@ public class EnemyAttackSetupPhase extends Phase {
         return enemyToMakeAttackSelected && mainCharacterToBeAttackedSelected && r1;
     }
 
+    /**
+     * Selects a random enemy to make the attack in the next phase
+     */
     @Override
     public void selectRandomEnemyToMakeAttack(){
         try {
             this.enemyToPerformTheAttack = controller.getEnemyList().retrieveRandomEnemy();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){ e.printStackTrace(); }
         enemyToMakeAttackSelected = true;
     }
 
+    /**
+     * Selects a random main character to be attacked in the next phase
+     */
     @Override
     public void selectRandomMainCharacterToBeAttacked(){
         try {
             mainCharacterToBeAttacked =  controller.getRandomMainCharacterFromActiveList();
-        }catch (Exception e){
-            e.printStackTrace();
-            return;
-        }
+        }catch (Exception e){ e.printStackTrace(); return; }
         this.mainCharacterToBeAttackedSelected=true;
     }
 
@@ -81,12 +88,6 @@ public class EnemyAttackSetupPhase extends Phase {
     @Override
     public PhaseType getType() {
         return phaseType;
-    }
-
-
-    @Override
-    public String toString(){
-        return "EnemyAttackSetupPhase";
     }
 
 }

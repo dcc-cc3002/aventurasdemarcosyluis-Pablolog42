@@ -9,8 +9,6 @@ import aventurasdemarcoyluis.backend.model.items.ItemType;
 public class Battle {
 
     protected final Player player;
-    private String battleWinner;
-
     private GameController controller;
 
     /**
@@ -22,7 +20,6 @@ public class Battle {
     public Battle(Player player, GameController controller) {
         this.player = player;
         this.controller = controller;
-        boolean battleFinished = false;
     }
 
     /**
@@ -51,20 +48,6 @@ public class Battle {
                 this.controller.getEnemyList().addRandomEnemies(6);
             }
         }
-    }
-
-    /**
-     * Adds the items specified for the first battle ( * in case getBattleNumber() equals 0)
-     * Specifically, dds 3 Honey and 3 Mushroom.
-     */
-    public void addInitialItems() {
-        // En la primera batalla, se agregan 3 items de c/u al inventario del jugador.
-        this.player.addAnItem(ItemType.HONEYSYRUP, 3);
-        this.player.addAnItem(ItemType.REDMUSHROOM, 3);
-    }
-
-    public void checkForKO(){
-
     }
 
 }

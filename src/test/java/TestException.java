@@ -46,9 +46,6 @@ public class TestException {
 
         // Next, let's try to make a bunch of invalid transitions, and see if it works:
         assertThrows(InvalidTransitionException.class, () -> {
-            controller.tryToChangePhase(new FinishTurnPhase(controller));
-        });
-        assertThrows(InvalidTransitionException.class, () -> {
             controller.tryToChangePhase(new FinishGamePhase(controller));
         });
         assertThrows(InvalidTransitionException.class, () -> {
@@ -58,14 +55,21 @@ public class TestException {
             controller.tryToChangePhase(new FinishBattlePhase(controller));
         });
 
-        // We can actually only transition to the selected phase (passing).
-        controller.getCurrentPhase().toNextPhase(new StartPassingTurnPhase(controller));
 
-        // The passing turn is finished
+
+        // The passing turn is finished automatically
         controller.getCurrentPhase().toNextPhase(new FinishTurnPhase(controller));
 
 
         assertEquals(PhaseType.FINISHTURNPHASE,controller.getCurrentPhase().getType());
+
+
+        controller.getCurrentPhase().toNextPhase(new FinishGamePhase(controller));
+
+        // at the finish game phase, any transition should be illegal.
+        assertThrows(InvalidTransitionException.class, () -> {
+            controller.tryToChangePhase(new FinishBattlePhase(controller));
+        });
 
     }
 
@@ -97,6 +101,7 @@ public class TestException {
         Exception e = assertThrows(InvalidAttackException.class, () -> {
             controller.tryToMakeCharacterAttack(AttackType.HAMMER,controller.getPlayerMainCharacter(EntityType.LUIS), testBoo);
         });
+
         assertEquals("Luis can't attack boo", e.getMessage());
 
 
@@ -111,8 +116,19 @@ public class TestException {
         assertEquals("Marco" + " is K.O. and can't attack",e2.getMessage());
     }
 
+
     @Test
-    public void invalidTurnTest(){
+    public void hammerAttackTest() throws InvalidAttackException {
+        InterEnemy testGoomba = controller.createEnemy(EntityType.GOOMBA,1,1,10000,10000,1);
+
+        // we try to attack with both characers
+        controller.tryToMakeCharacterAttack(AttackType.HAMMER,controller.getPlayerMainCharacter(EntityType.LUIS), testGoomba);
+        controller.tryToMakeCharacterAttack(AttackType.HAMMER,controller.getPlayerMainCharacter(EntityType.MARCO), testGoomba);
+
+        // Either both attacks fail, one fails or none fail. a single attack infringes 15 dmg
+        boolean possibleValidStates = (testGoomba.getHp() == 9985) || (testGoomba.getHp() ==9970) || (testGoomba.getHp() ==10000);
+
+        assertTrue(possibleValidStates);
 
     }
 

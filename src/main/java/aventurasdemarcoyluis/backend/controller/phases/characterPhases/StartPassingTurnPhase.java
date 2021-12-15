@@ -8,19 +8,24 @@ import aventurasdemarcoyluis.backend.controller.phases.PhaseType;
 import aventurasdemarcoyluis.backend.controller.turns.PassingTurn;
 import aventurasdemarcoyluis.backend.controller.turns.TurnType;
 
+/**
+ * Class denoting a passing turn phase.
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class StartPassingTurnPhase extends Phase {
 
     PhaseType phaseType = PhaseType.STARTPASSINGPHASE;
 
+    /**
+     * StartPassingTurn constructor.
+     * @param controller the controller handling the game.
+     */
     public StartPassingTurnPhase(GameController controller) {
         super(controller);
         executePassingTurn();
     }
 
-    @Override
-    public String toString() {
-        return "StartPassingTurnPhase";
-    }
+
 
     /**
      * Try to transition to next phase, according to the current
@@ -32,9 +37,7 @@ public class StartPassingTurnPhase extends Phase {
     public void toNextPhase(Phase phase) {
         try {
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){e.printStackTrace();}
     }
 
     /**
@@ -49,13 +52,15 @@ public class StartPassingTurnPhase extends Phase {
     }
 
 
+    /**
+     *Tries to initialize the passing turn main method.
+     *
+     */
     private void executePassingTurn(){
         try {
             controller.tryToSelectNewTurnKind(TurnType.PASSING);
             controller.getCurrentTurn().main();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){e.printStackTrace();}
 
     }
 

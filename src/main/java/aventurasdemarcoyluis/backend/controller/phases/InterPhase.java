@@ -1,9 +1,10 @@
 package aventurasdemarcoyluis.backend.controller.phases;
 
+/**
+ * Interface depicting the methods used by all Phases.
+ */
 public interface InterPhase {
-    //TODO rellenar esto
 
-    // All phases
 
     /**
      * Try to transition to next phase, according to the current
@@ -25,15 +26,5 @@ public interface InterPhase {
      * @return The current phase's type
      */
     PhaseType getType();
-
-
-
-    // Battle won
-
-
-
-    // cosas del futbol
-
-
 
 }

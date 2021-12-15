@@ -8,6 +8,10 @@ import aventurasdemarcoyluis.backend.model.AttackType;
 import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * interface depicting the methods used in an AttackTurn.
+ * Extends InterTurn Interface
+ */
 public interface InterAttackTurn extends InterTurn{
 
     /**
@@ -20,7 +24,6 @@ public interface InterAttackTurn extends InterTurn{
 
     void attackSelectedEnemy(@NotNull AttackType attackSelection, InterEnemy attackedEnemy) throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException;
 
-    EnemyList getEnemyList();
 
     void setAttackType(AttackType attackType);
 

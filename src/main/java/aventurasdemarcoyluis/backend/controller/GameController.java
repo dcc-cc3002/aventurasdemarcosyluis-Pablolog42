@@ -41,8 +41,6 @@ GameController implements InterController {
     private Battle currentBattle = null;
 
     private final ArrayList<InterMainCharacter> mainCharacterList;
-//    private final ArrayList<InterMainCharacter> activeMainCharacterList;
-
 
     private final ActiveMainCharacterList activeMainCharacterList = new ActiveMainCharacterList(this);;
 
@@ -236,7 +234,6 @@ GameController implements InterController {
             this.playerLvlUp();
         }
 
-//        currentBattle.addInitialItems();
         this.getPlayer().addAnItem(ItemType.HONEYSYRUP,3);
         this.getPlayer().addAnItem(ItemType.REDMUSHROOM,3);
 
@@ -259,11 +256,11 @@ GameController implements InterController {
      */
     @Override
     public void playerLvlUp() {
+        this.mainPlayer.setPlayerLvl(mainPlayer.getPlayerLvl()+1);
         if (this.getPlayer().getPlayerLvl() == 1) {
             //do nothing
             return;
         }
-        this.getPlayer().setPlayerLvl(getPlayer().getPlayerLvl() + 1);
         this.mainPlayer.lvlUp();
     }
 
@@ -299,7 +296,7 @@ GameController implements InterController {
                     throw new InvalidSelectionException("You can't use an item as the current character is KO.");
                 }
 
-                InterItemTurn itemTurn = new ItemTurn(this);
+                InterTurn itemTurn = new ItemTurn(this);
                 this.setCurrentTurn(itemTurn);
 
             }
@@ -317,20 +314,6 @@ GameController implements InterController {
 
     }
 
-    /**
-     * Executes the main method of the controller's currently selected turn.
-     *
-     * @throws IOException Exception related to an unexpected input received by the ReadableBuffer.
-     */
-    @Override
-    public void startCurrentTurn() throws InvalidSelectionException, InvalidAttackException, InvalidTransitionException {
-        try {
-            this.currentTurn.main();
-        }catch (NullPointerException e){
-            throw new InvalidTransitionException("You Haven't selected a turn Type!");
-        }
-
-    }
 
     /**
      * Finishes the controller's player turn.
@@ -358,7 +341,6 @@ GameController implements InterController {
         }
 
 
-        assert (this.getNextTurnOwner() != TurnOwner.ENEMY);
 
         // As the next turn isn't of an Enemy, and the player hasn't selected wich
         // turn kind they want to perform next, we set it to null.
@@ -387,7 +369,10 @@ GameController implements InterController {
     }
 
 
-
+    /**
+     * Gets the InterMainCharacter involved in the current turn.
+     * @return the InterMainCharacter involved in the current turn.
+     */
     public InterMainCharacter getCurrentTurnMainCharacter(){
         TurnOwner turnOwner = getCurrentTurnOwner();
 
@@ -398,13 +383,21 @@ GameController implements InterController {
         return null;
     }
 
+    /**
+     * Gets a random active main character
+     * @return a random active main character
+     */
     public InterMainCharacter getRandomMainCharacterFromActiveList(){
         Random randomizer = new Random();
         return activeMainCharacterList.getActiveMainCharacterList().get(randomizer.nextInt(activeMainCharacterList.getActiveMainCharacterList().size()));
     }
 
 
-
+    /**
+     * Tries to change phase to a given phase.
+     * @param phaseToChangeTo The type of phase to change to
+     * @throws InvalidTransitionException In case the phase change is illegal
+     */
     public void tryToChangePhase(Phase phaseToChangeTo) throws InvalidTransitionException {
         // In case this is the first battle played
         if(this.phase == null && this.mainPlayer.getBattleNumber() == 1){
@@ -451,41 +444,21 @@ GameController implements InterController {
     }
 
 
-
+    /**
+     * Sets the given phase to the controller
+     * @param phase the phase to be set
+     */
     @Override
     public void setPhase(Phase phase) {
         this.phase = phase;
     }
 
-
-    public void updateEntityKoStatus(InterEntity entity){
-
-        switch (entity.getType()){
-            case MARCO,LUIS -> removeKoMainCharactersFromList();
-            case BOO,SPINY,GOOMBA -> removeKoEnemiesFromList();
-        }
-
-        if(enemyList.getList().isEmpty()){
-//            fireProperychange(THEBATTLEHAS BEEN WON BY THE PLAYER)
-        }
-        if(activeMainCharacterList.getActiveMainCharacterList().isEmpty()){
-//            playerHasWonBattle.firePropertyChange("BattleWonByPlayer",false,true);
-        }
-
-    }
-
-    private void removeKoEnemiesFromList() {
-        enemyList.getList().removeIf(InterEnemy::isKO);
-    }
-
-    private void removeKoMainCharactersFromList() {
-        activeMainCharacterList.getActiveMainCharacterList().removeIf(InterMainCharacter::isKO);
-    }
-
-    public void playerWonBattleSequence() {
-    }
-
-
+    /**
+     * Retrieves an item from the vault
+     * @param type the type of itrm to retrieve
+     * @return the item looked for
+     * @throws InvalidSelectionException in case there is no item left.
+     */
     public InterItem retrieveItemFromPlayerVault(ItemType type) throws InvalidSelectionException {
         InterItem itemToReturn = this.getPlayer().getPlayerVault().retrieveItem(type);
 
@@ -495,15 +468,10 @@ GameController implements InterController {
     }
 
 
-
-
-
-
-    public void finishGameRoutine() {
-
-    }
-
-
+    /**
+     * tries to change phase
+     * @param phase the phase to chamge to.
+     */
     public void toNextPhase(Phase phase){
         this.phase.toNextPhase(phase);
     }
@@ -534,15 +502,6 @@ GameController implements InterController {
         return this.enemyList;
     }
 
-
-    /**
-     * Gets the gameFinished status.
-     *
-     * @return the boolean indicating if the whole game has finished.
-     */
-    public boolean isGameFinished() {
-        return gameFinished;
-    }
 
     /**
      * Sets the gameFinished status
@@ -595,10 +554,19 @@ GameController implements InterController {
         return expectedNextOwner;
     }
 
+    /**
+     * gets the turn owner
+     * @return the current turn owner
+     */
     public TurnOwner getNextTurnOwner() {
         return nextTurnOwner;
     }
 
+    /**
+     * Converts a TURNOWNER to an ENTITYTYPE, if valid, else returns null.
+     * @param turnOwner the turnowner to convert.
+     * @return The converted enum type
+     */
     public EntityType convertTurnOwnerToEntityType(TurnOwner turnOwner){
         switch (turnOwner){
             case MARCO -> {return EntityType.MARCO;}
@@ -692,28 +660,45 @@ GameController implements InterController {
         this.mainPlayer = new Player(playerName, this);
     }
 
+    /**
+     * Sets the current turn owner
+     * @param currentTurnOwner the current turn owner
+     */
     public void setCurrentTurnOwner(TurnOwner currentTurnOwner) {
         this.currentTurnOwner = currentTurnOwner;
     }
 
-
+    /**
+     * Sets the current battle
+     * @param currentBattle the battle to be set
+     */
     public void setCurrentBattle(Battle currentBattle) {
         this.currentBattle = currentBattle;
     }
 
+    /**
+     * gets the current phase
+     * @return the current phase
+     */
     public Phase getCurrentPhase() {
         return phase;
     }
 
-
-    public PhaseType getCurrentPhaseType(){
-        return this.phase.getType();
-    }
-
+    /**
+     * Gets the current list of active Main characters
+     * @return  the current list of active Main characters
+     */
     public ActiveMainCharacterList getActiveMainCharacterList() {
         return activeMainCharacterList;
     }
 
+    /**
+     * Tries to perform a main character attack
+     * @param attackSelection The kind of attack to perform
+     * @param attackingMainCharacter the main character attacking
+     * @param attackedEnemy the enemy attacked
+     * @throws InvalidAttackException if the attack is not valid
+     */
     public void tryToMakeCharacterAttack(AttackType attackSelection, InterMainCharacter attackingMainCharacter, InterEnemy attackedEnemy) throws InvalidAttackException {
         if(attackingMainCharacter.getType() == EntityType.LUIS && attackedEnemy.getType() == EntityType.BOO){
             throw new InvalidAttackException("Luis can't attack boo");
@@ -742,4 +727,6 @@ GameController implements InterController {
         }
 
     }
+
+
 }

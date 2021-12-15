@@ -7,11 +7,19 @@ import aventurasdemarcoyluis.backend.controller.phases.enemyPhases.EnemyAttackSe
 import aventurasdemarcoyluis.backend.controller.turns.TurnOwner;
 import aventurasdemarcoyluis.backend.model.EntityType;
 
+/**
+ * Class depicting the final stage of a turn (either an enemy or main character turn)
+ * Part of the Phases' "State" design patter implementation.
+ */
 public class FinishTurnPhase extends Phase{
 
 
     PhaseType phaseType = PhaseType.FINISHTURNPHASE;
 
+    /**
+     * FinishTurnPhase Constructor.
+     * @param controller the cgame's controller.
+     */
     public FinishTurnPhase(GameController controller) {
         super(controller);
     }
@@ -27,9 +35,7 @@ public class FinishTurnPhase extends Phase{
         try {
             controller.finishTurn();
             controller.tryToChangePhase(phase);
-        } catch (InvalidTransitionException e){
-            e.printStackTrace();
-        }
+        } catch (InvalidTransitionException e){ e.printStackTrace(); }
     }
 
     /**
@@ -53,8 +59,12 @@ public class FinishTurnPhase extends Phase{
     }
 
 
-    // TODO: REVISAR SI ESTAN KO, REVISAR QUIEN ESTA KO Y SACARLO DEL TURNO, REVISAR AL PERSONAJE QUE QUEDE
-    // Y CAMBIAR LA FASE ACORDE A LO QUE CORRESPONDA.
+
+    /**
+     * Calcula la fase a la que corresponde cambiar, después de terminado un turno.
+     * Utiliza la logic de KO para escoger si el juego se ha perdido o no.
+     * @return la fase a la que corresponde cambiar luego de terminado el turno.
+     */
     @Override
     public Phase calculateNextPhaseAfterTurnFinished(){
 
@@ -76,28 +86,22 @@ public class FinishTurnPhase extends Phase{
                 return new EnemyAttackSetupPhase(controller);
             }
 
-            if(controller.getCurrentTurnOwner() == TurnOwner.ENEMY ){
-                return new WaitSelectTurnTypePhase(controller);
-            }
+            if(controller.getCurrentTurnOwner() == TurnOwner.ENEMY ){ return new WaitSelectTurnTypePhase(controller); }
         }
 
-        // Si AMrco esta KO pero no Luis
+        // Si luis esta KO
         if(controller.getPlayer().getLuis().isKO()){
-            try {
-                controller.getActiveMainCharacterList().removeMainCharacterFromActiveList(EntityType.LUIS);
-            }catch (Exception ignored){
-                // Se ignora la exception, en caso de que el personaje ya se haya quitado del turno anteriormente.
+            try { controller.getActiveMainCharacterList().removeMainCharacterFromActiveList(EntityType.LUIS); }
+            catch (Exception ignored){// Se ignora la exception, en caso de que el personaje ya se haya quitado del turno anteriormente.
             }
             // como todavia queda patria (un personaje vivo al menos), se sigue el juego
 
             // si el turno era de un personaje, pasarlo al enemigo.
-            if(controller.getCurrentTurnOwner() == TurnOwner.MARCO || controller.getCurrentTurnOwner() == TurnOwner.LUIS ){
-                return new EnemyAttackSetupPhase(controller);
-            }
+            if(controller.getCurrentTurnOwner() == TurnOwner.MARCO || controller.getCurrentTurnOwner() == TurnOwner.LUIS ) return new EnemyAttackSetupPhase(controller);
 
-            if(controller.getCurrentTurnOwner() == TurnOwner.ENEMY ){
-                return new WaitSelectTurnTypePhase(controller);
-            }
+
+            if(controller.getCurrentTurnOwner() == TurnOwner.ENEMY ) return new WaitSelectTurnTypePhase(controller);
+
         }
         // If no one is KO, continue with the current turn structure
 
@@ -121,6 +125,10 @@ public class FinishTurnPhase extends Phase{
         return phaseType;
     }
 
+    /**
+     * String Representation of the phase
+     * @return String Representation of the phase
+     */
     @Override
     public String toString() {
         return "FinishTurnPhase";

@@ -42,9 +42,14 @@ public enum TurnOwner {
 
     };
 
-// TODO: comentar esto
+
     private static final TurnOwner[] values = values();
 
+    /**
+     * Method that returns a turn owner given an integer, in correspondence to the order of the place they appear in the enum
+     * @param ordinal the place of the TurnOwner to return
+     * @return The turn owner associated to the given ordinal number.
+     */
     public static TurnOwner getTurnOwnerFromId(int ordinal) {
         return values[ordinal];
     }
