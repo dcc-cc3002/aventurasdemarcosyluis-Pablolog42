@@ -2,7 +2,9 @@ package aventurasdemarcoyluis.backend.model.maincharacters;
 
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
-
+/**
+ * Interface denoting marco's methods
+ */
 public interface InterMarco{
     /**
      * Jump-Attacks an enemy.

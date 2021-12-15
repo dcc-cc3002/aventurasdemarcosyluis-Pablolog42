@@ -3,6 +3,9 @@ package aventurasdemarcoyluis.backend.model.maincharacters;
 import aventurasdemarcoyluis.backend.controller.exeptions.InvalidAttackException;
 import aventurasdemarcoyluis.backend.model.enemies.InterGoombaSpiny;
 
+/**
+ * Interface denoting luis's methods
+ */
 public interface InterLuis extends InterMainCharacter{
     /**
      * Jump-Attacks an enemy.

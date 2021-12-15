@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1380.0278192899873" y="88.87662220603738">aventurasdemarcoyluis</node>
+    <node x="1846.532502708558" y="76.37662220603738">TestException</node>
+    <node x="2774.4571822332937" y="76.37662220603738">TestPhase</node>
+    <node x="2114.9571822332937" y="88.87662220603738">TestController</node>
+    <node x="2554.4571822332937" y="76.37662220603738">TurnOrderTest</node>
+    <node x="2346.4571822332937" y="88.87662220603738">TestModel</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="0.85" showDependencies="false" x="1882.0" y="13.0" />
+  <SelectedNodes>
+    <node>aventurasdemarcoyluis</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -3,7 +3,7 @@ package aventurasdemarcoyluis.backend.model.items;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-/*
+/**
     HoneySyrup item Class
  */
 public class HoneySyrup extends AbstractItem implements InterItem {

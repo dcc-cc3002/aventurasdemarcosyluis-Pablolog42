@@ -3,7 +3,7 @@ package aventurasdemarcoyluis.backend.model.items;
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 import org.jetbrains.annotations.NotNull;
 
-/*
+/**
     RedMushroom item Class
  */
 public class RedMushroom extends AbstractItem implements InterItem {
