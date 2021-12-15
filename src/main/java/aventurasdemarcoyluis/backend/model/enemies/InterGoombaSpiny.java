@@ -2,7 +2,9 @@ package aventurasdemarcoyluis.backend.model.enemies;
 
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
-
+/**
+ * Interface denoting the beheabour of Goomba and Spiny enemies
+ */
 public interface InterGoombaSpiny extends InterEnemy{
 
     /**

@@ -2,6 +2,9 @@ package aventurasdemarcoyluis.backend.model.items;
 
 import aventurasdemarcoyluis.backend.model.maincharacters.InterMainCharacter;
 
+/**
+ * Interface denoting the methods of all the items.
+ */
 public interface InterItem {
     /**
      * Let a mainCharacter use a particular item.

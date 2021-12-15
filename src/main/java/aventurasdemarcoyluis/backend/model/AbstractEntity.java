@@ -3,7 +3,7 @@ package aventurasdemarcoyluis.backend.model;
 import aventurasdemarcoyluis.backend.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
-/*
+/**
     Abstract representation of an entity in the game.
     An entity can be either a player, or an enemy.
  */

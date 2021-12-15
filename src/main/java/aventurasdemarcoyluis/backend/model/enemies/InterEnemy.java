@@ -20,5 +20,10 @@ public interface InterEnemy extends InterEntity {
      */
     void playerJumpAttacking(InterMainCharacter character) throws InvalidAttackException;
 
+    /**
+     * Performs the DD call to attack a main character
+     * @param involvedMainCharacter the character to attack
+     * @throws InvalidAttackException in case the attack is invalid
+     */
     void attack(InterMainCharacter involvedMainCharacter) throws InvalidAttackException;
 }

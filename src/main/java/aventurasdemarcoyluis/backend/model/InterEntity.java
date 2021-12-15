@@ -1,8 +1,9 @@
 package aventurasdemarcoyluis.backend.model;
 
-import aventurasdemarcoyluis.backend.controller.GameController;
 
-//TODO documentar
+/**
+ * Interface denoting all the Entities methods.
+ */
 public interface InterEntity {
     /**
      * Infringes a certain amount of damage to an entity

@@ -6,7 +6,9 @@ import aventurasdemarcoyluis.backend.model.InterEntity;
 import aventurasdemarcoyluis.backend.model.enemies.InterEnemy;
 import aventurasdemarcoyluis.backend.model.items.InterItem;
 
-
+/**
+ * Interface denoting all the main character's methods
+ */
 public interface InterMainCharacter extends InterEntity {
     /**
      * Receives the DD call of an enemy attacking.
@@ -30,13 +32,23 @@ public interface InterMainCharacter extends InterEntity {
     void useItem(InterItem item);
 
 
-    //** Gets the mainCharacter's fp **//
+    /**
+     * Gets the mainCharacter's fp
+     * @return Gets the mainCharacter's fp
+     */
     int getFp();
 
-    //** Gets the mainCharacter's maxFp **//
+    /**
+     * Gets the mainCharacter's maxFp
+     * @return Gets the mainCharacter's maxFp
+     */
     int getMaxFP();
 
 
-    //TODO: comentar
+    /**
+     * Checks if an attack is valid
+     * @param attackType the kind of attack
+     * @throws InvalidAttackException in case the attack is invalid.
+     */
     void validateAttack(AttackType attackType) throws InvalidAttackException;
 }

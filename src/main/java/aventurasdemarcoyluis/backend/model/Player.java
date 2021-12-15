@@ -10,8 +10,6 @@ import aventurasdemarcoyluis.backend.model.maincharacters.Luis;
 import aventurasdemarcoyluis.backend.model.maincharacters.Marco;
 
 
-
-
 /**
  * Representation of a real-life player.
  * Every Player has a chest with their items.
@@ -34,6 +32,7 @@ public class Player {
      * By default, initializes the values for Marco, Luis as: ATK 10, DEF 10, FP 10, MAXFP 20, HP 10, MAXHP 20, LVL 1
      *
      * @param name The name of the player to be created.
+     * @param controller the controller handling the game.
      */
     public Player(String name, GameController controller) {
         this.controller = controller;
